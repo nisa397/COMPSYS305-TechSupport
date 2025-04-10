@@ -9,12 +9,12 @@ entity timer is
         Data_in  : in  unsigned (9 downto 0);
         Time_out : out STD_LOGIC;
 	--Time_seg : out unsigned(11 downto 0)
-	--ss_o : out STD_LOGIC_VECTOR(6 downto 0);
-	--ss_t : out STD_LOGIC_Vector(6 downto 0);
-	--ss_m : out STD_LOGIC_Vector(6 downto 0)
-	ss_o : out unsigned(3 downto 0);
-	ss_t : out unsigned(3 downto 0);
-	ss_m : out unsigned(3 downto 0)
+	ss_o : out STD_LOGIC_VECTOR(6 downto 0);
+	ss_t : out STD_LOGIC_Vector(6 downto 0);
+	ss_m : out STD_LOGIC_Vector(6 downto 0)
+	--ss_o : out unsigned(3 downto 0);
+	--ss_t : out unsigned(3 downto 0);
+	--ss_m : out unsigned(3 downto 0)
     );
 end timer;
 
@@ -138,9 +138,9 @@ begin
         );
 
 	--Time_seg <= Min & Sec_Tens & Sec_Ones;
-	ss_o <= Sec_Ones;
-	ss_t <= Sec_Tens;
- 	ss_M <= Min;
+	--ss_o <= Sec_Ones;
+	--ss_t <= Sec_Tens;
+ 	--ss_M <= Min;
 	
 
 	
@@ -149,19 +149,19 @@ begin
 	Sec_7Seg: BCD_to_SevenSeg
 		port map (
 			BCD_digit => std_logic_vector(Sec_Ones),
-			SevenSeg_out => Sec_Ones_Seg
+			SevenSeg_out => ss_o
 		);
 	
 	Sec_Tens_7Seg: BCD_to_SevenSeg
     port map (
                 BCD_digit    => std_logic_vector(Sec_Tens),
-                SevenSeg_out => Sec_Tens_Seg
+                SevenSeg_out => ss_t
        );
 
        Min_7Seg: BCD_to_SevenSeg
            port map (
                     BCD_digit    => std_logic_vector(Min),
-                    SevenSeg_out => Min_Seg
+                    SevenSeg_out => ss_M
                   );
 	--ss_o <= Sec_Ones_Seg;
 	--ss_t <= Sec_Tens_Seg;
