@@ -65,7 +65,7 @@ begin
 
         -- Start the timer
         Start_tb <= '1';
-        wait for 100 ns;
+        wait for 10 ns;
         Start_tb <= '0';
 
 	-- Wait until timeout signal is asserted
