@@ -9,9 +9,12 @@ entity timer is
         Data_in  : in  unsigned (9 downto 0);
         Time_out : out STD_LOGIC;
 	--Time_seg : out unsigned(11 downto 0)
-	ss_o : out STD_LOGIC_VECTOR(6 downto 0);
-	ss_t : out STD_LOGIC_Vector(6 downto 0);
-	ss_m : out STD_LOGIC_Vector(6 downto 0)
+	--ss_o : out STD_LOGIC_VECTOR(6 downto 0);
+	--ss_t : out STD_LOGIC_Vector(6 downto 0);
+	--ss_m : out STD_LOGIC_Vector(6 downto 0)
+	ss_o : out unsigned(3 downto 0);
+	ss_t : out unsigned(3 downto 0);
+	ss_m : out unsigned(3 downto 0)
     );
 end timer;
 
@@ -135,6 +138,10 @@ begin
         );
 
 	--Time_seg <= Min & Sec_Tens & Sec_Ones;
+	ss_o <= Sec_Ones;
+	ss_t <= Sec_Tens;
+ 	ss_M <= Min;
+	
 
 	
 
@@ -156,8 +163,8 @@ begin
                     BCD_digit    => std_logic_vector(Min),
                     SevenSeg_out => Min_Seg
                   );
-	ss_o <= Sec_Ones_Seg;
-	ss_t <= Sec_Tens_Seg;
- 	ss_M <= Min_Seg;
+	--ss_o <= Sec_Ones_Seg;
+	--ss_t <= Sec_Tens_Seg;
+ 	--ss_M <= Min_Seg;
 
 end arc;

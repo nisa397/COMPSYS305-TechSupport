@@ -96,7 +96,7 @@ begin
     Carry_min  <= '1' when (Sec_Tens = "0101" and Sec_Ones = "1001" and Running = '1') else '0'; -- 59
     Reset_Tens <= '1' when (Sec_Tens = "0101" and Sec_Ones = "1001" and Running = '1') else '0';
     
-	Clock_1Hz: Clock_1Hz 
+	Clock1Hz: Clock_1Hz 
 		port map (
 			Clk => CLK,
 			Q => clk_1hz
@@ -135,6 +135,10 @@ begin
         );
 
 	--Time_seg <= Min & Sec_Tens & Sec_Ones;
+	ss_o <= Sec_Ones;
+	ss_t <= Sec_Tens;
+ 	ss_M <= Min;
+	
 
 	
 
@@ -156,8 +160,8 @@ begin
                     BCD_digit    => std_logic_vector(Min),
                     SevenSeg_out => Min_Seg
                   );
-	ss_o <= Sec_Ones_Seg;
-	ss_t <= Sec_Tens_Seg;
- 	ss_M <= Min_Seg;
+	--ss_o <= Sec_Ones_Seg;
+	--ss_t <= Sec_Tens_Seg;
+ 	--ss_M <= Min_Seg;
 
 end arc;

@@ -14,9 +14,12 @@ architecture arc of tb_timer is
             Start    : in  STD_LOGIC;
             Data_in  : in  unsigned (9 downto 0);
             Time_out : out STD_LOGIC;
-	    ss_o : out STD_LOGIC_VECTOR(6 downto 0);
-	ss_t : out STD_LOGIC_Vector(6 downto 0);
-	ss_m : out STD_LOGIC_Vector(6 downto 0)
+	   -- ss_o : out STD_LOGIC_VECTOR(6 downto 0);
+	--ss_t : out STD_LOGIC_Vector(6 downto 0);
+	--ss_m : out STD_LOGIC_Vector(6 downto 0)
+	ss_o : out unsigned(3 downto 0);
+	ss_t : out unsigned(3 downto 0);
+	ss_m : out unsigned(3 downto 0)
         );
     end component;
 
@@ -25,9 +28,12 @@ architecture arc of tb_timer is
     signal Start_tb    : STD_LOGIC := '0';
     signal Data_in_tb  : unsigned(9 downto 0) := (others => '0');
     signal Time_out_tb : STD_LOGIC;
-    signal Sec_Ones_Seg : std_logic_vector(6 downto 0); --std logic vector output signal for BCD to seven segment conversion
-    signal Sec_Tens_Seg : std_logic_vector(6 downto 0); --std logic vector output signal for BCD to seven segment conversion
-    signal Min_Seg : std_logic_vector(6 downto 0); --std logic vector output signal for 
+    --signal Sec_Ones_Seg : std_logic_vector(6 downto 0); --std logic vector output signal for BCD to seven segment conversion
+    --signal Sec_Tens_Seg : std_logic_vector(6 downto 0); --std logic vector output signal for BCD to seven segment conversion
+    --signal Min_Seg : std_logic_vector(6 downto 0); --std logic vector output signal for 
+	signal Sec_Ones_Seg : unsigned(3 downto 0); --std logic vector output signal for BCD to seven segment conversion
+    signal Sec_Tens_Seg : unsigned(3 downto 0); --std logic vector output signal for BCD to seven segment conversion
+    signal Min_Seg : unsigned(3 downto 0); --std logic vector output signal for 
 	
 	
 
@@ -65,7 +71,7 @@ begin
 
         -- Start the timer
         Start_tb <= '1';
-        wait for 100 ns;
+        wait for 10 ms;
         Start_tb <= '0';
 
 	-- Wait until timeout signal is asserted
