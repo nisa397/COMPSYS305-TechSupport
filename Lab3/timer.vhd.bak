@@ -11,7 +11,7 @@ entity timer is
 	--Time_seg : out unsigned(11 downto 0)
 	ss_o : out STD_LOGIC_VECTOR(6 downto 0);
 	ss_t : out STD_LOGIC_Vector(6 downto 0);
-	ss_m : out STD_LOGIC_Vector(6 down to 0)
+	ss_m : out STD_LOGIC_Vector(6 downto 0)
     );
 end timer;
 
@@ -31,6 +31,9 @@ architecture arc of timer is
     signal Sec_Ones_Seg : std_logic_vector(6 downto 0); --std logic vector output signal for BCD to seven segment conversion
     signal Sec_Tens_Seg : std_logic_vector(6 downto 0); --std logic vector output signal for BCD to seven segment conversion
     signal Min_Seg : std_logic_vector(6 downto 0); --std logic vector output signal for BCD to seven segment conversion
+    signal clk_1hz: std_logic;
+
+
 
     component BCD_Counter
         Port (
@@ -41,6 +44,12 @@ architecture arc of timer is
             Q_Out     : out unsigned (3 downto 0)
         );
     end component;
+
+     component Clock_1Hz
+		Port(
+		Clk: in std_logic;
+		Q: out std_logic);
+     end component;
 
 
    component BCD_to_SevenSeg
@@ -87,21 +96,28 @@ begin
     Carry_min  <= '1' when (Sec_Tens = "0101" and Sec_Ones = "1001" and Running = '1') else '0'; -- 59
     Reset_Tens <= '1' when (Sec_Tens = "0101" and Sec_Ones = "1001" and Running = '1') else '0';
     
+	Clock_1Hz: Clock_1Hz 
+		port map (
+			Clk => CLK,
+			Q => clk_1hz
+			);
 
     -- Ones Place Counter
     Sec_One_Counter: BCD_Counter
         port map (
-            Clk       => CLK,
+            Clk       => clk_1Hz,
             Reset     => '0',
             Enable    => Running,
             Direction => '1',
             Q_Out     => Sec_Ones
         );
 
+
+	
     -- Tens Place Counter
     Sec_Ten_Counter: BCD_Counter
         port map (
-            Clk       => CLK,
+            Clk       => clk_1Hz,
             Reset     => Reset_Tens,
             Enable    => Carry_tens,
             Direction => '1',
@@ -111,7 +127,7 @@ begin
     -- Minutes Counter
     Minute_Counter: BCD_Counter
         port map (
-            Clk       => CLK,
+            Clk       => clk_1Hz,
             Reset     => '0',
             Enable    => Carry_min,
             Direction => '1',
