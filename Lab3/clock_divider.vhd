@@ -21,7 +21,7 @@ architecture arc of Clock_1Hz is
 		begin 
 			if (rising_edge(Clk)) then
 				Counter <= Counter + 1;
-				if (Counter=2 ) then
+				if (Counter=25000000 ) then
 					Counter <= (others => '0');
 					p_Q <= not p_Q;
 				end if;
