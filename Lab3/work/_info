@@ -27,10 +27,10 @@ Z7 !s110 1744255752
 !i10b 1
 Z8 !s108 1744255752.000000
 Z9 !s90 -reportprogress|300|-work|work|C:/Users/mailm/Desktop/COMPSYS302/COMPSYS305-TechSupport/Lab3/BCD_to_7Seg.vhd|
-!s107 C:/Users/mailm/Desktop/COMPSYS302/COMPSYS305-TechSupport/Lab3/BCD_to_7Seg.vhd|
+Z10 !s107 C:/Users/mailm/Desktop/COMPSYS302/COMPSYS305-TechSupport/Lab3/BCD_to_7Seg.vhd|
 !i113 1
-Z10 o-work work
-Z11 tExplicit 1 CvgOpt 0
+Z11 o-work work
+Z12 tExplicit 1 CvgOpt 0
 Aarc1
 R2
 R3
@@ -46,78 +46,78 @@ R7
 !i10b 1
 R8
 R9
-Z12 !s107 C:/Users/mailm/Desktop/COMPSYS302/COMPSYS305-TechSupport/Lab3/BCD_to_7Seg.vhd|
-!i113 1
 R10
+!i113 1
 R11
+R12
 Eclock_1hz
-R1
-Z13 DPx4 ieee 11 numeric_std 0 22 aU^R8eGcicLcUFIaBQSL>3
+Z13 w1744255957
+Z14 DPx4 ieee 11 numeric_std 0 22 aU^R8eGcicLcUFIaBQSL>3
 R2
 R3
-!i122 1
+!i122 3
 R0
-Z14 8C:/Users/mailm/Desktop/COMPSYS302/COMPSYS305-TechSupport/Lab3/clock_divider.vhd
-Z15 FC:/Users/mailm/Desktop/COMPSYS302/COMPSYS305-TechSupport/Lab3/clock_divider.vhd
+Z15 8C:/Users/mailm/Desktop/COMPSYS302/COMPSYS305-TechSupport/Lab3/clock_divider.vhd
+Z16 FC:/Users/mailm/Desktop/COMPSYS302/COMPSYS305-TechSupport/Lab3/clock_divider.vhd
 l0
 L5 1
-V0XS64SM:cWN7STXoji;c^2
-!s100 JVi]D4@1Pc>QkCM@an4bc1
+V4H[l6S`D<eW6FKZC;3NbY1
+!s100 ]kLPkih>K;Hf=PJo`h4CJ0
 R6
 32
-Z16 !s110 1744255748
+Z17 !s110 1744255964
 !i10b 1
-Z17 !s108 1744255748.000000
-Z18 !s90 -reportprogress|300|-work|work|C:/Users/mailm/Desktop/COMPSYS302/COMPSYS305-TechSupport/Lab3/clock_divider.vhd|
-Z19 !s107 C:/Users/mailm/Desktop/COMPSYS302/COMPSYS305-TechSupport/Lab3/clock_divider.vhd|
+Z18 !s108 1744255964.000000
+Z19 !s90 -reportprogress|300|-work|work|C:/Users/mailm/Desktop/COMPSYS302/COMPSYS305-TechSupport/Lab3/clock_divider.vhd|
+Z20 !s107 C:/Users/mailm/Desktop/COMPSYS302/COMPSYS305-TechSupport/Lab3/clock_divider.vhd|
 !i113 1
-R10
 R11
+R12
 Aarc
-R13
+R14
 R2
 R3
-DEx4 work 9 clock_1hz 0 22 0XS64SM:cWN7STXoji;c^2
-!i122 1
-l16
-L11 23
-V<KnhODL^iO7In;el?gEL]2
-!s100 D;P?_EWAC3d9:gE0NkR=@3
+DEx4 work 9 clock_1hz 0 22 4H[l6S`D<eW6FKZC;3NbY1
+!i122 3
+l17
+L11 22
+VB[AbC1knCHCe=6P?OQj0F1
+!s100 UL3<JVmH]^]j8a8cJO1>O1
 R6
 32
-R16
-!i10b 1
 R17
+!i10b 1
 R18
 R19
+R20
 !i113 1
-R10
 R11
+R12
 Etimer
 R1
-R13
+R14
 R2
 R3
 !i122 0
 R0
-Z20 8C:/Users/mailm/Desktop/COMPSYS302/COMPSYS305-TechSupport/Lab3/timer.vhd
-Z21 FC:/Users/mailm/Desktop/COMPSYS302/COMPSYS305-TechSupport/Lab3/timer.vhd
+Z21 8C:/Users/mailm/Desktop/COMPSYS302/COMPSYS305-TechSupport/Lab3/timer.vhd
+Z22 FC:/Users/mailm/Desktop/COMPSYS302/COMPSYS305-TechSupport/Lab3/timer.vhd
 l0
 L5 1
 Vfh]iN0h94bP88PST3<>[M3
 !s100 ;DH9a_j;T9z8YVPF_SNha2
 R6
 32
-Z22 !s110 1744255743
+Z23 !s110 1744255743
 !i10b 1
-Z23 !s108 1744255743.000000
-Z24 !s90 -reportprogress|300|-work|work|C:/Users/mailm/Desktop/COMPSYS302/COMPSYS305-TechSupport/Lab3/timer.vhd|
-Z25 !s107 C:/Users/mailm/Desktop/COMPSYS302/COMPSYS305-TechSupport/Lab3/timer.vhd|
+Z24 !s108 1744255743.000000
+Z25 !s90 -reportprogress|300|-work|work|C:/Users/mailm/Desktop/COMPSYS302/COMPSYS305-TechSupport/Lab3/timer.vhd|
+Z26 !s107 C:/Users/mailm/Desktop/COMPSYS302/COMPSYS305-TechSupport/Lab3/timer.vhd|
 !i113 1
-R10
 R11
+R12
 Aarc
-R13
+R14
 R2
 R3
 DEx4 work 5 timer 0 22 fh]iN0h94bP88PST3<>[M3
@@ -128,11 +128,11 @@ VSa_DS>Bii8ec>j9X3eK=P2
 !s100 D2KR1II<S=Mg71mHIDJnA1
 R6
 32
-R22
-!i10b 1
 R23
+!i10b 1
 R24
 R25
+R26
 !i113 1
-R10
 R11
+R12
