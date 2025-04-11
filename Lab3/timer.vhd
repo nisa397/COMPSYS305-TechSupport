@@ -4,26 +4,26 @@ use IEEE.NUMERIC_STD.ALL;
 
 entity timer is 
     port( 
-        CLK      : in  STD_LOGIC;
+        CLOCK_50      : in  STD_LOGIC;
         Start    : in  STD_LOGIC;
-        Data_in  : in  unsigned (9 downto 0);
-        Time_out : out STD_LOGIC;
+        SW  : in  unsigned (9 downto 0); -- Data in
+        LEDR0 : out STD_LOGIC;
 	--Time_seg : out unsigned(11 downto 0)
-	ss_o : out STD_LOGIC_VECTOR(6 downto 0);
-	ss_t : out STD_LOGIC_Vector(6 downto 0);
-	ss_m : out STD_LOGIC_Vector(6 downto 0)
-	--ss_o : out unsigned(3 downto 0);
-	--ss_t : out unsigned(3 downto 0);
-	--ss_m : out unsigned(3 downto 0)
+	HEX0 : out STD_LOGIC_VECTOR(6 downto 0); --sso
+	HEX1 : out STD_LOGIC_Vector(6 downto 0); --sst
+	HEX2 : out STD_LOGIC_Vector(6 downto 0) --ssm
+	--HEX0 : out unsigned(3 downto 0);
+	--HEX1 : out unsigned(3 downto 0);
+	--HEX2 : out unsigned(3 downto 0)
     );
 end timer;
 
 architecture arc of timer is 
 
     -- BCD Counter signals
-    signal Sec_Ones       : unsigned (3 downto 0); -- Seconds, ones place
-    signal Sec_Tens       : unsigned (3 downto 0); -- Seconds, tens place
-    signal Min            : unsigned (3 downto 0); -- Minutes
+    signal Sec_Ones       : unsigned (3 downto 0):="0000"; -- Seconds, ones place
+    signal Sec_Tens       : unsigned (3 downto 0):="0000"; -- Seconds, tens place
+    signal Min            : unsigned (3 downto 0):="0000"; -- Minutes
     signal Sec_Ones_Limit: unsigned (3 downto 0); -- Goal value
     signal Sec_Tens_Limit: unsigned (3 downto 0);
     signal Min_Limit      : unsigned (3 downto 0);
@@ -34,7 +34,7 @@ architecture arc of timer is
     signal Sec_Ones_Seg : std_logic_vector(6 downto 0); --std logic vector output signal for BCD to seven segment conversion
     signal Sec_Tens_Seg : std_logic_vector(6 downto 0); --std logic vector output signal for BCD to seven segment conversion
     signal Min_Seg : std_logic_vector(6 downto 0); --std logic vector output signal for BCD to seven segment conversion
-    signal clk_1hz: std_logic;
+    signal Clk_1hz: std_logic;
 
 
 
@@ -65,35 +65,37 @@ architecture arc of timer is
 begin
 
     -- Load limit values and stop timer on goal match
-    process(CLK)
+    process(Clk_1hz)
 	variable sec_ones_temp : unsigned(3 downto 0);
     	variable sec_tens_temp : unsigned(3 downto 0);
     begin
-        if rising_edge(CLK) then
+        if rising_edge(Clk_1hz) then
             if Start = '1' then
-                Running <= '1';
-                sec_ones_temp := Data_In(3 downto 0);
-                sec_tens_temp := Data_In(7 downto 4);
-                Min_Limit      <= ("00" & Data_In(9 downto 8)); -- Make 4 bits
-                Time_out <= '0';
-	    if sec_ones_temp > "1001" then
-                sec_ones_temp := "1001"; -- 9
-            end if;
+                --Running <= '1';
+                sec_ones_temp := SW(3 downto 0);
+                sec_tens_temp := SW(7 downto 4);
+                Min_Limit      <= ("00" & SW(9 downto 8)); -- Make 4 bits
+                --LEDR0 <= '0';
+						if sec_ones_temp > "1001" then
+							sec_ones_temp := "1001"; -- 9
+						end if;
 
-            if sec_tens_temp > "0101" then
-                sec_tens_temp := "0101"; -- 5
-            end if;
+						if sec_tens_temp > "0101" then
+							sec_tens_temp := "0101"; -- 5
+						end if;
 		
-	    Sec_Ones_Limit <= sec_ones_temp;
+					Sec_Ones_Limit <= sec_ones_temp;
             Sec_Tens_Limit <= sec_tens_temp;
 
-            elsif (Min = Min_Limit and Sec_Tens = Sec_Tens_Limit and Sec_Ones = Sec_Ones_Limit) then
-                Running <= '0';
-                Time_out <= '1';
+            --elsif (Min = Min_Limit and Sec_Tens = Sec_Tens_Limit and Sec_Ones = Sec_Ones_Limit) then
+                --Running <= '0';
+                --LEDR0 <= '1';
             end if;
         end if;
     end process;
-
+	 Running <= '0' when (Min = Min_Limit and Sec_Tens = Sec_Tens_Limit and Sec_Ones = Sec_Ones_Limit) else '1';
+	 LEDR0 <= '1' when (Min = Min_Limit and Sec_Tens = Sec_Tens_Limit and Sec_Ones = Sec_Ones_Limit) else '0';
+	 
     -- Carry signals
     Carry_tens <= '1' when (Sec_Ones = "1001" and Running = '1') else '0'; -- 9
     Carry_min  <= '1' when (Sec_Tens = "0101" and Sec_Ones = "1001" and Running = '1') else '0'; -- 59
@@ -101,14 +103,14 @@ begin
     
 	Clock1Hz: Clock_1Hz 
 		port map (
-			Clk => CLK,
-			Q => clk_1hz
+			Clk => CLOCK_50,
+			Q => Clk_1hz
 			);
 
     -- Ones Place Counter
     Sec_One_Counter: BCD_Counter
         port map (
-            Clk       => clk_1Hz,
+            Clk       => Clk_1Hz,
             Reset     => '0',
             Enable    => Running,
             Direction => '1',
@@ -120,7 +122,7 @@ begin
     -- Tens Place Counter
     Sec_Ten_Counter: BCD_Counter
         port map (
-            Clk       => clk_1Hz,
+            Clk		=> Clk_1Hz,
             Reset     => Reset_Tens,
             Enable    => Carry_tens,
             Direction => '1',
@@ -130,7 +132,7 @@ begin
     -- Minutes Counter
     Minute_Counter: BCD_Counter
         port map (
-            Clk       => clk_1Hz,
+            Clk => Clk_1Hz,
             Reset     => '0',
             Enable    => Carry_min,
             Direction => '1',
@@ -138,9 +140,9 @@ begin
         );
 
 	--Time_seg <= Min & Sec_Tens & Sec_Ones;
-	--ss_o <= Sec_Ones;
-	--ss_t <= Sec_Tens;
- 	--ss_M <= Min;
+	--HEX0 <= Sec_Ones;
+	--HEX1 <= Sec_Tens;
+ 	--HEX2 <= Min;
 	
 
 	
@@ -149,22 +151,22 @@ begin
 	Sec_7Seg: BCD_to_SevenSeg
 		port map (
 			BCD_digit => std_logic_vector(Sec_Ones),
-			SevenSeg_out => ss_o
+			SevenSeg_out => HEX0
 		);
 	
 	Sec_Tens_7Seg: BCD_to_SevenSeg
     port map (
                 BCD_digit    => std_logic_vector(Sec_Tens),
-                SevenSeg_out => ss_t
+                SevenSeg_out => HEX1
        );
 
        Min_7Seg: BCD_to_SevenSeg
            port map (
                     BCD_digit    => std_logic_vector(Min),
-                    SevenSeg_out => ss_M
+                    SevenSeg_out => HEX2
                   );
-	--ss_o <= Sec_Ones_Seg;
-	--ss_t <= Sec_Tens_Seg;
- 	--ss_M <= Min_Seg;
+	--HEX0 <= Sec_Ones_Seg;
+	--HEX1 <= Sec_Tens_Seg;
+ 	--HEX2 <= Min_Seg;
 
 end arc;
