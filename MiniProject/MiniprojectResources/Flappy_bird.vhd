@@ -49,6 +49,27 @@ architecture Behavioral of Flappy_bird is
       Q   => clk_25MHz
     );
 
+    -- Instantiate the ball component
+  BallComponent: ball
+  port map(
+    clk            => clk_25MHz,
+    pixel_row      => pixel_row,
+    pixel_column   => pixel_column,
+    red            => red_pixel,
+    green          => green_pixel,
+    blue           => blue_pixel
+  );
+
+  -- Logic to determine if the current pixel is part of the bird
+  ball_on <= '1' when (red_pixel = '1' or green_pixel = '1' or blue_pixel = '1') else '0';
+
+  -- Logic to combine bird and background colors
+  -- If the current pixel is part of the bird, use the bird's color.
+  -- Otherwise, use a constant background color (e.g., green background).
+  red_pixel   <= '1' when ball_on = '1' else '0'; -- Bird: red, Background: no red
+  green_pixel <= '0' when ball_on = '1' else '1'; -- Bird: no green, Background: green
+  blue_pixel  <= '0' when ball_on = '1' else '0'; -- Bird: no blue, Background: no blue
+
   -- Instantiate the VGA sync component
   VGASync: vga_sync
     port map(
@@ -65,16 +86,7 @@ architecture Behavioral of Flappy_bird is
       pixel_column    => pixel_column
     );
 
-  -- Instantiate the ball component
-  BallComponent: ball
-    port map(
-      clk            => clk_25MHz,
-      pixel_row      => pixel_row,
-      pixel_column   => pixel_column,
-      red            => red_pixel,
-      green          => green_pixel,
-      blue           => blue_pixel
-    );
+  
 
 end Behavioral;
 
