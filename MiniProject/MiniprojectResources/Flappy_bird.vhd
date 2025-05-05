@@ -24,7 +24,11 @@ architecture Behavioral of Flappy_bird is
   SIGNAL video_on : std_logic;
 
   -- RGB pixel output from ball component
+  SIGNAL red_ball, green_ball, blue_ball : std_logic;
+
   SIGNAL red_pixel, green_pixel, blue_pixel : std_logic;
+  SIGNAL ball_on : std_logic;
+  SIGNAL ball_x_pos, ball_y_pos : std_logic_vector(9 DOWNTO 0);
 
   component vga_sync is
     PORT(	clock_25Mhz, red, green, blue	: IN	STD_LOGIC;
@@ -55,13 +59,13 @@ architecture Behavioral of Flappy_bird is
     clk            => clk_25MHz,
     pixel_row      => pixel_row,
     pixel_column   => pixel_column,
-    red            => red_pixel,
-    green          => green_pixel,
-    blue           => blue_pixel
+    red            => red_ball,
+    green          => green_ball,
+    blue           => blue_ball
   );
 
   -- Logic to determine if the current pixel is part of the bird
-  ball_on <= '1' when (red_pixel = '1' or green_pixel = '1' or blue_pixel = '1') else '0';
+  ball_on <= '1' when (red_ball = '1' or green_ball = '1' or blue_ball = '1') else '0';
 
   -- Logic to combine bird and background colors
   -- If the current pixel is part of the bird, use the bird's color.
