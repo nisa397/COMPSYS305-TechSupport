@@ -1,4 +1,4 @@
-library ieee;
+library.ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use ieee.std_logic_unsigned.all;
@@ -43,13 +43,6 @@ architecture Behavioral of Flappy_bird is
 		  red, green, blue : OUT std_logic
       );	
   end component;
-  
-  component Clock_25MHZ is 
-		port(
-			Clk: in std_logic;
-			Q: out std_logic);
-	end component;
-
 
   begin
 
