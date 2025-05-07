@@ -52,7 +52,7 @@ begin
             ball_y_motion <= JUMP_STRENGTH;
         else
             -- Apply gravity
-            ball_y_motion <= ball_y_motion + GRAVITY;
+            ball_y_motion <= to_stdlogicvector(to_integer(ball_y_motion) + GRAVITY);
         end if;
 
         -- Update Y position
