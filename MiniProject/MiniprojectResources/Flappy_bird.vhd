@@ -24,8 +24,9 @@ architecture Behavioral of Flappy_bird is
   SIGNAL video_on : std_logic;
   
   -- Text pixel row 
-  signal t_pixel_row, t_pixel_col : std_logic_vector(9 downto 0 ); 
-
+  signal font_row, font_col : std_logic_vector(2 downto 0); 
+  signal character_address : std_logic_vector(5 downto 0); 
+  signal rom_mux_output : std_logic; 
 
   -- RGB pixel output from ball component
   SIGNAL red_ball, green_ball, blue_ball : std_logic;
@@ -98,13 +99,21 @@ architecture Behavioral of Flappy_bird is
   blue_pixel  <= '1' when ball_on = '1' else '0'; -- Bird: no blue, Background: no blue
   
   
+  -- Assigning the input for the font row and columns 
+  -- Assigning the pixel_row and pixel_col certain indexes to the font_row...etc 
+  font_row <= pixel_row(3 downto 1); 
+  font_col <= pixel_column(3 downto 1); 
+  character_address <= pixel_row(9 downto 4); 
+  
   -- Instantiate the text component 
   TextComponent: char_rom 
   port map(
-	clk => clk_25MHz, 
-	pixel_row => pixel
-  
-  )
+	clock => clk_25MHz, 
+	font_row => font_row,
+	font_col => font_col, 
+	character_address => character_address, 
+	rom_mux_output => rom_mux_output
+  );
   
   -- Instantiate the VGA sync component
   VGASync: vga_sync

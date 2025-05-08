@@ -1,5 +1,5 @@
 Analysis & Synthesis report for Flappy_Bird
-Thu May 08 14:31:48 2025
+Thu May 08 15:43:48 2025
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Standard Edition
 
 
@@ -10,16 +10,7 @@ Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Standard Edition
   2. Analysis & Synthesis Summary
   3. Analysis & Synthesis Settings
   4. Parallel Compilation
-  5. Analysis & Synthesis Source Files Read
-  6. Analysis & Synthesis Resource Usage Summary
-  7. Analysis & Synthesis Resource Utilization by Entity
-  8. Registers Removed During Synthesis
-  9. General Register Statistics
- 10. Multiplexer Restructuring Statistics (Restructuring Performed)
- 11. Port Connectivity Checks: "VGA_SYNC:VGASync"
- 12. Post-Synthesis Netlist Statistics for Top Partition
- 13. Elapsed Time Per Partition
- 14. Analysis & Synthesis Messages
+  5. Analysis & Synthesis Messages
 
 
 
@@ -42,27 +33,22 @@ refer to the applicable agreement for further details.
 
 
 
-+-----------------------------------------------------------------------------------+
-; Analysis & Synthesis Summary                                                      ;
-+---------------------------------+-------------------------------------------------+
-; Analysis & Synthesis Status     ; Successful - Thu May 08 14:31:48 2025           ;
-; Quartus Prime Version           ; 18.1.0 Build 625 09/12/2018 SJ Standard Edition ;
-; Revision Name                   ; Flappy_Bird                                     ;
-; Top-level Entity Name           ; Flappy_bird                                     ;
-; Family                          ; Cyclone V                                       ;
-; Logic utilization (in ALMs)     ; N/A                                             ;
-; Total registers                 ; 48                                              ;
-; Total pins                      ; 6                                               ;
-; Total virtual pins              ; 0                                               ;
-; Total block memory bits         ; 0                                               ;
-; Total DSP Blocks                ; 0                                               ;
-; Total HSSI RX PCSs              ; 0                                               ;
-; Total HSSI PMA RX Deserializers ; 0                                               ;
-; Total HSSI TX PCSs              ; 0                                               ;
-; Total HSSI PMA TX Serializers   ; 0                                               ;
-; Total PLLs                      ; 0                                               ;
-; Total DLLs                      ; 0                                               ;
-+---------------------------------+-------------------------------------------------+
++-------------------------------------------------------------------------------+
+; Analysis & Synthesis Summary                                                  ;
++-----------------------------+-------------------------------------------------+
+; Analysis & Synthesis Status ; Failed - Thu May 08 15:43:48 2025               ;
+; Quartus Prime Version       ; 18.1.0 Build 625 09/12/2018 SJ Standard Edition ;
+; Revision Name               ; Flappy_Bird                                     ;
+; Top-level Entity Name       ; Flappy_bird                                     ;
+; Family                      ; Cyclone V                                       ;
+; Logic utilization (in ALMs) ; N/A until Partition Merge                       ;
+; Total registers             ; N/A until Partition Merge                       ;
+; Total pins                  ; N/A until Partition Merge                       ;
+; Total virtual pins          ; N/A until Partition Merge                       ;
+; Total block memory bits     ; N/A until Partition Merge                       ;
+; Total PLLs                  ; N/A until Partition Merge                       ;
+; Total DLLs                  ; N/A until Partition Merge                       ;
++-----------------------------+-------------------------------------------------+
 
 
 +---------------------------------------------------------------------------------------------------------------------------+
@@ -161,148 +147,11 @@ refer to the applicable agreement for further details.
 ; Maximum allowed            ; 16          ;
 ;                            ;             ;
 ; Average used               ; 1.00        ;
-; Maximum used               ; 16          ;
+; Maximum used               ; 1           ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processors 2-16        ;   0.0%      ;
 +----------------------------+-------------+
-
-
-+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Source Files Read                                                                                                                                          ;
-+----------------------------------------------+-----------------+-----------------+------------------------------------------------------------------------------------+---------+
-; File Name with User-Entered Path             ; Used in Netlist ; File Type       ; File Name with Absolute Path                                                       ; Library ;
-+----------------------------------------------+-----------------+-----------------+------------------------------------------------------------------------------------+---------+
-; MiniprojectResources/ball.vhd                ; yes             ; User VHDL File  ; D:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/ball.vhd                ;         ;
-; MiniprojectResources/clock_divider_25MHz.vhd ; yes             ; User VHDL File  ; D:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/clock_divider_25MHz.vhd ;         ;
-; MiniprojectResources/Flappy_bird.vhd         ; yes             ; User VHDL File  ; D:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd         ;         ;
-; MiniprojectResources/vga_sync.vhd            ; yes             ; User VHDL File  ; D:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/vga_sync.vhd            ;         ;
-+----------------------------------------------+-----------------+-----------------+------------------------------------------------------------------------------------+---------+
-
-
-+----------------------------------------------------------------------------+
-; Analysis & Synthesis Resource Usage Summary                                ;
-+---------------------------------------------+------------------------------+
-; Resource                                    ; Usage                        ;
-+---------------------------------------------+------------------------------+
-; Estimate of Logic utilization (ALMs needed) ; 37                           ;
-;                                             ;                              ;
-; Combinational ALUT usage for logic          ; 55                           ;
-;     -- 7 input functions                    ; 1                            ;
-;     -- 6 input functions                    ; 14                           ;
-;     -- 5 input functions                    ; 7                            ;
-;     -- 4 input functions                    ; 1                            ;
-;     -- <=3 input functions                  ; 32                           ;
-;                                             ;                              ;
-; Dedicated logic registers                   ; 48                           ;
-;                                             ;                              ;
-; I/O pins                                    ; 6                            ;
-;                                             ;                              ;
-; Total DSP Blocks                            ; 0                            ;
-;                                             ;                              ;
-; Maximum fan-out node                        ; Clock_25MHz:ClockDivider|p_Q ;
-; Maximum fan-out                             ; 48                           ;
-; Total fan-out                               ; 348                          ;
-; Average fan-out                             ; 3.03                         ;
-+---------------------------------------------+------------------------------+
-
-
-+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                         ;
-+-------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+---------------------------------------+-------------+--------------+
-; Compilation Hierarchy Node    ; Combinational ALUTs ; Dedicated Logic Registers ; Block Memory Bits ; DSP Blocks ; Pins ; Virtual Pins ; Full Hierarchy Name                   ; Entity Name ; Library Name ;
-+-------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+---------------------------------------+-------------+--------------+
-; |Flappy_bird                  ; 55 (0)              ; 48 (0)                    ; 0                 ; 0          ; 6    ; 0            ; |Flappy_bird                          ; Flappy_bird ; work         ;
-;    |Clock_25MHz:ClockDivider| ; 1 (1)               ; 1 (1)                     ; 0                 ; 0          ; 0    ; 0            ; |Flappy_bird|Clock_25MHz:ClockDivider ; Clock_25MHz ; work         ;
-;    |VGA_SYNC:VGASync|         ; 38 (38)             ; 47 (47)                   ; 0                 ; 0          ; 0    ; 0            ; |Flappy_bird|VGA_SYNC:VGASync         ; VGA_SYNC    ; work         ;
-;    |ball:BallComponent|       ; 16 (16)             ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |Flappy_bird|ball:BallComponent       ; ball        ; work         ;
-+-------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+---------------------------------------+-------------+--------------+
-Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
-
-
-+--------------------------------------------------------------------------------+
-; Registers Removed During Synthesis                                             ;
-+---------------------------------------+----------------------------------------+
-; Register name                         ; Reason for Removal                     ;
-+---------------------------------------+----------------------------------------+
-; VGA_SYNC:VGASync|red_out              ; Stuck at GND due to stuck port data_in ;
-; VGA_SYNC:VGASync|pixel_row[9]         ; Stuck at GND due to stuck port data_in ;
-; Total Number of Removed Registers = 2 ;                                        ;
-+---------------------------------------+----------------------------------------+
-
-
-+------------------------------------------------------+
-; General Register Statistics                          ;
-+----------------------------------------------+-------+
-; Statistic                                    ; Value ;
-+----------------------------------------------+-------+
-; Total registers                              ; 48    ;
-; Number of registers using Synchronous Clear  ; 20    ;
-; Number of registers using Synchronous Load   ; 0     ;
-; Number of registers using Asynchronous Clear ; 0     ;
-; Number of registers using Asynchronous Load  ; 0     ;
-; Number of registers using Clock Enable       ; 29    ;
-; Number of registers using Preset             ; 0     ;
-+----------------------------------------------+-------+
-
-
-+--------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                         ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------+
-; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output               ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------+
-; 3:1                ; 10 bits   ; 20 LEs        ; 0 LEs                ; 20 LEs                 ; Yes        ; |Flappy_bird|VGA_SYNC:VGASync|v_count[9] ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------+
-
-
-+----------------------------------------------+
-; Port Connectivity Checks: "VGA_SYNC:VGASync" ;
-+------+-------+----------+--------------------+
-; Port ; Type  ; Severity ; Details            ;
-+------+-------+----------+--------------------+
-; red  ; Input ; Info     ; Stuck at GND       ;
-+------+-------+----------+--------------------+
-
-
-+-----------------------------------------------------+
-; Post-Synthesis Netlist Statistics for Top Partition ;
-+-----------------------+-----------------------------+
-; Type                  ; Count                       ;
-+-----------------------+-----------------------------+
-; arriav_ff             ; 48                          ;
-;     ENA               ; 19                          ;
-;     ENA SCLR          ; 10                          ;
-;     SCLR              ; 10                          ;
-;     plain             ; 9                           ;
-; arriav_lcell_comb     ; 56                          ;
-;     arith             ; 26                          ;
-;         1 data inputs ; 25                          ;
-;         2 data inputs ; 1                           ;
-;     extend            ; 1                           ;
-;         7 data inputs ; 1                           ;
-;     normal            ; 29                          ;
-;         0 data inputs ; 1                           ;
-;         1 data inputs ; 1                           ;
-;         2 data inputs ; 3                           ;
-;         3 data inputs ; 2                           ;
-;         4 data inputs ; 1                           ;
-;         5 data inputs ; 7                           ;
-;         6 data inputs ; 14                          ;
-; boundary_port         ; 6                           ;
-;                       ;                             ;
-; Max LUT depth         ; 3.40                        ;
-; Average LUT depth     ; 2.30                        ;
-+-----------------------+-----------------------------+
-
-
-+-------------------------------+
-; Elapsed Time Per Partition    ;
-+----------------+--------------+
-; Partition Name ; Elapsed Time ;
-+----------------+--------------+
-; Top            ; 00:00:00     ;
-+----------------+--------------+
 
 
 +-------------------------------+
@@ -311,7 +160,7 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 18.1.0 Build 625 09/12/2018 SJ Standard Edition
-    Info: Processing started: Thu May 08 14:31:42 2025
+    Info: Processing started: Thu May 08 15:43:42 2025
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off Flappy_Bird -c Flappy_Bird
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 16 of the 16 processors detected
@@ -337,47 +186,13 @@ Info (12021): Found 2 design units, including 1 entities, in source file minipro
     Info (12022): Found design unit 1: VGA_SYNC-a File: D:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/vga_sync.vhd Line: 13
     Info (12023): Found entity 1: VGA_SYNC File: D:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/vga_sync.vhd Line: 7
 Info (12127): Elaborating entity "Flappy_bird" for the top level hierarchy
-Info (12128): Elaborating entity "Clock_25MHz" for hierarchy "Clock_25MHz:ClockDivider" File: D:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 57
-Info (12128): Elaborating entity "ball" for hierarchy "ball:BallComponent" File: D:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 66
-Info (12128): Elaborating entity "VGA_SYNC" for hierarchy "VGA_SYNC:VGASync" File: D:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 88
-Warning (13024): Output pins are stuck at VCC or GND
-    Warning (13410): Pin "red" is stuck at GND File: D:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 11
-Info (286030): Timing-Driven Synthesis is running
-Warning (20013): Ignored 24 assignments for entity "DE0_CV_Default" -- entity does not exist in design
-    Warning (20014): Assignment for entity set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -entity DE0_CV_Default -section_id Top was ignored
-    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -entity DE0_CV_Default -section_id Top was ignored
-    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -entity DE0_CV_Default -section_id Top was ignored
-    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_PRESERVE_HIGH_SPEED_TILES ON -entity DE0_CV_Default -section_id Top was ignored
-    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IGNORE_SOURCE_FILE_CHANGES OFF -entity DE0_CV_Default -section_id Top was ignored
-    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_ALWAYS_USE_QXP_NETLIST OFF -entity DE0_CV_Default -section_id Top was ignored
-    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_COLOR 16764057 -entity DE0_CV_Default -section_id Top was ignored
-    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IMPORT_ASSIGNMENTS ON -entity DE0_CV_Default -section_id Top was ignored
-    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IMPORT_EXISTING_ASSIGNMENTS REPLACE_CONFLICTING -entity DE0_CV_Default -section_id Top was ignored
-    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IMPORT_EXISTING_LOGICLOCK_REGIONS UPDATE_CONFLICTING -entity DE0_CV_Default -section_id Top was ignored
-    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IMPORT_PIN_ASSIGNMENTS ON -entity DE0_CV_Default -section_id Top was ignored
-    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IMPORT_PROMOTE_ASSIGNMENTS ON -entity DE0_CV_Default -section_id Top was ignored
-    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_TYPE STANDARD_PARTITION -entity DE0_CV_Default -section_id Top was ignored
-    Warning (20014): Assignment for entity set_global_assignment -name ALLOW_MULTIPLE_PERSONAS OFF -entity DE0_CV_Default -section_id Top was ignored
-    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_ASD_REGION_ID 1 -entity DE0_CV_Default -section_id Top was ignored
-    Warning (20014): Assignment for entity set_global_assignment -name CROSS_BOUNDARY_OPTIMIZATIONS OFF -entity DE0_CV_Default -section_id Top was ignored
-    Warning (20014): Assignment for entity set_global_assignment -name PROPAGATE_CONSTANTS_ON_INPUTS ON -entity DE0_CV_Default -section_id Top was ignored
-    Warning (20014): Assignment for entity set_global_assignment -name PROPAGATE_INVERSIONS_ON_INPUTS ON -entity DE0_CV_Default -section_id Top was ignored
-    Warning (20014): Assignment for entity set_global_assignment -name REMOVE_LOGIC_ON_UNCONNECTED_OUTPUTS ON -entity DE0_CV_Default -section_id Top was ignored
-    Warning (20014): Assignment for entity set_global_assignment -name MERGE_EQUIVALENT_INPUTS ON -entity DE0_CV_Default -section_id Top was ignored
-    Warning (20014): Assignment for entity set_global_assignment -name MERGE_EQUIVALENT_BIDIRS ON -entity DE0_CV_Default -section_id Top was ignored
-    Warning (20014): Assignment for entity set_global_assignment -name ABSORB_PATHS_FROM_OUTPUTS_TO_INPUTS ON -entity DE0_CV_Default -section_id Top was ignored
-    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_EXTRACT_HARD_BLOCK_NODES ON -entity DE0_CV_Default -section_id Top was ignored
-    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_ENABLE_STRICT_PRESERVATION OFF -entity DE0_CV_Default -section_id Top was ignored
-Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
-    Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Info (21057): Implemented 84 device resources after synthesis - the final resource count might be different
-    Info (21058): Implemented 1 input pins
-    Info (21059): Implemented 5 output pins
-    Info (21061): Implemented 78 logic cells
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 28 warnings
-    Info: Peak virtual memory: 4932 megabytes
-    Info: Processing ended: Thu May 08 14:31:48 2025
-    Info: Elapsed time: 00:00:06
-    Info: Total CPU time (on all processors): 00:00:11
+Error (10028): Can't resolve multiple constant drivers for net "red_pixel" at Flappy_bird.vhd(109) File: D:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 109
+Error (10029): Constant driver at Flappy_bird.vhd(97) File: D:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 97
+Error (12153): Can't elaborate top-level user hierarchy
+Error: Quartus Prime Analysis & Synthesis was unsuccessful. 3 errors, 1 warning
+    Error: Peak virtual memory: 4850 megabytes
+    Error: Processing ended: Thu May 08 15:43:48 2025
+    Error: Elapsed time: 00:00:06
+    Error: Total CPU time (on all processors): 00:00:11
 
 
