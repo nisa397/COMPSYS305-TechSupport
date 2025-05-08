@@ -14,11 +14,23 @@ entity Flappy_bird is
     );
 end entity Flappy_bird;
 
+
 architecture Behavioral of Flappy_bird is
   
   -- Internal 25 MHz clock signal
   SIGNAL clk_25MHz : std_logic := '0';
-
+  
+  
+  -- Mouse signals
+  signal ps2_reset : std_logic;
+  signal ps2_data : std_logic;
+  signal ps2_click : std_logic;
+  signal ps2_left: std_logic;
+  signal ps2_right: std_logic;
+  signal ps2_cursor_row: std_logic;
+  signal ps2_cursor_col: std_logic;
+  
+  
   -- VGA signals
   SIGNAL pixel_row, pixel_column : std_logic_vector(9 DOWNTO 0);
   SIGNAL video_on : std_logic;
@@ -49,9 +61,58 @@ architecture Behavioral of Flappy_bird is
 			Clk: in std_logic;
 			Q: out std_logic);
 	end component;
+	
+	component MOUSE IS
+		port( clock_25Mhz, reset 		: IN std_logic;
+         mouse_data					: INOUT std_logic;
+         mouse_clk 					: INOUT std_logic;
+         left_button, right_button	: OUT std_logic;
+		 mouse_cursor_row 			: OUT std_logic_vector(9 DOWNTO 0); 
+		 mouse_cursor_column 		: OUT std_logic_vector(9 DOWNTO 0));       	
+	end MOUSE;
 
+	component cursorDrawer is 
+		port (
+        clk            : in  STD_LOGIC;
+        video_row      : in  INTEGER range 0 to 479;
+        video_column   : in  INTEGER range 0 to 639;
+        video_on       : in  STD_LOGIC;
+        cursor_row     : in  INTEGER range 0 to 479;
+        cursor_column  : in  INTEGER range 0 to 639;
+        red_out        : out STD_LOGIC_VECTOR(3 downto 0);
+        green_out      : out STD_LOGIC_VECTOR(3 downto 0);
+        blue_out       : out STD_LOGIC_VECTOR(3 downto 0)
+		);
+	end cursor_drawer;
 
   begin
+
+	mouse: MOUSE 
+	port map(
+	clock_25Mhz => clk_25MHz,
+	reset => mouse_reset,
+	mouse_data => ps2_data,
+	mouse_clk => ps2_click,
+	left_button => ps2_left,
+	right_button => ps2_right,
+	mouse_cursor_row => ps2_cursor_row,
+	mouse_cursor_column => ps2_cursor_col;
+	)
+	
+	testCursor : cursor_drawer
+	port map(
+	clk => clk_25MHz,
+	video_row => pixel_row,
+	video_column => pixel_column,
+	
+	
+	
+	)
+	
+
+
+
+
 
     -- Instantiate the clock divider to generate 25 MHz clock
     ClockDivider: Clock_25MHz
