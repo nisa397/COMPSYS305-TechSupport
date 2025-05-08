@@ -41,7 +41,7 @@ set_global_assignment -name DEVICE 5CEBA4F23C7
 set_global_assignment -name TOP_LEVEL_ENTITY Flappy_bird
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 18.1.0
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "12:48:54  MAY 06, 2025"
-set_global_assignment -name LAST_QUARTUS_VERSION "18.1.0 Standard Edition"
+set_global_assignment -name LAST_QUARTUS_VERSION "18.1.0 Lite Edition"
 set_global_assignment -name VHDL_FILE MiniprojectResources/ball.vhd
 set_global_assignment -name VHDL_FILE MiniprojectResources/bouncy_ball.vhd
 set_global_assignment -name VHDL_FILE MiniprojectResources/char_rom.vhd
@@ -54,7 +54,6 @@ set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
 set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
 set_global_assignment -name ERROR_CHECK_FREQUENCY_DIVISOR 256
 set_location_assignment PIN_M9 -to clk_50MHz
-set_location_assignment PIN_G8 -to v_sync
 set_location_assignment PIN_H8 -to h_sync
 set_location_assignment PIN_A5 -to red
 set_location_assignment PIN_J8 -to green

@@ -32,10 +32,10 @@ ball_on <= '1' when ( ('0' & ball_x_pos <= pixel_column + size) and ('0' & pixel
 
 -- Colours for pixel data on video signal
 -- Keeping background white and square in red
-Red <=  ball_on ;
+Red <=  '1';
 -- Turn off Green and Blue when displaying square
-Green <= '0';
-Blue <=  '0';
+Green <= not ball_on;
+Blue <=  not ball_on;
 
 END behavior;
 

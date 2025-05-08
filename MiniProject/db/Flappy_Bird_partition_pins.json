@@ -12,7 +12,11 @@
 					"strict" : false
 				},
 				{
-					"name" : "red",
+					"name" : "green",
+					"strict" : false
+				},
+				{
+					"name" : "blue",
 					"strict" : false
 				},
 				{
