@@ -54,7 +54,7 @@ BEGIN
 		clock_enable_input_a => "BYPASS",
 		clock_enable_output_a => "BYPASS",
 		init_file => "tcgrom.mif",
-		intended_device_family => "Cyclone III",
+		intended_device_family => "Cyclone V", -- Change back to Cyclone III if issues
 		lpm_hint => "ENABLE_RUNTIME_MOD=NO",
 		lpm_type => "altsyncram",
 		numwords_a => 512,
