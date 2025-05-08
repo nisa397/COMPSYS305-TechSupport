@@ -94,9 +94,9 @@ architecture Behavioral of Flappy_bird is
   -- Logic to combine bird and background colors
   -- If the current pixel is part of the bird, use the bird's color.
   -- Otherwise, use a constant background color (e.g., green background).
-  red_pixel   <= '0' when ball_on = '1' else '0'; -- Bird: red, Background: no red
-  green_pixel <= '0' when ball_on = '1' else '1'; -- Bird: no green, Background: green
-  blue_pixel  <= '1' when ball_on = '1' else '0'; -- Bird: no blue, Background: no blue
+  red_pixel   <= '0' when ball_on = '1' or rom_mux_output = '1' else '0'; -- Bird: red, Background: no red
+  green_pixel <= '0' when ball_on = '1' or rom_mux_output = '1' else '1'; -- Bird: no green, Background: green
+  blue_pixel  <= '1' when ball_on = '1' or rom_mux_output = '1' else '0'; -- Bird: no blue, Background: no blue
   
   
   -- Assigning the input for the font row and columns 
