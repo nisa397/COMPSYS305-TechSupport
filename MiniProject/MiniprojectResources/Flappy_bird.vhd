@@ -27,9 +27,11 @@ architecture Behavioral of Flappy_bird is
   signal ps2_click : std_logic;
   signal ps2_left: std_logic;
   signal ps2_right: std_logic;
-  signal ps2_cursor_row: std_logic;
-  signal ps2_cursor_col: std_logic;
+  signal ps2_cursor_row: std_logic_vector(9 DOWNTO 0);
+  signal ps2_cursor_col: std_logic_vector(9 DOWNTO 0);
   
+  --Cursor signals
+  signal cursor_on: std_logic;
   
   -- VGA signals
   SIGNAL pixel_row, pixel_column : std_logic_vector(9 DOWNTO 0);
@@ -71,17 +73,12 @@ architecture Behavioral of Flappy_bird is
 		 mouse_cursor_column 		: OUT std_logic_vector(9 DOWNTO 0));       	
 	end MOUSE;
 
-	component cursorDrawer is 
+	component cursor_drawer is 
 		port (
         clk            : in  STD_LOGIC;
-        video_row      : in  INTEGER range 0 to 479;
-        video_column   : in  INTEGER range 0 to 639;
-        video_on       : in  STD_LOGIC;
-        cursor_row     : in  INTEGER range 0 to 479;
-        cursor_column  : in  INTEGER range 0 to 639;
-        red_out        : out STD_LOGIC_VECTOR(3 downto 0);
-        green_out      : out STD_LOGIC_VECTOR(3 downto 0);
-        blue_out       : out STD_LOGIC_VECTOR(3 downto 0)
+        video_row, video_column  : in  STD_LOGIC_VECTOR (9 downto 0);
+        cursor_row, cursor_column: in  STD_LOGIC_VECTOR (9 downto 0);
+		cursor_on : out STD_LOGIC;
 		);
 	end cursor_drawer;
 
@@ -90,13 +87,13 @@ architecture Behavioral of Flappy_bird is
 	mouse: MOUSE 
 	port map(
 	clock_25Mhz => clk_25MHz,
-	reset => mouse_reset,
+	reset => ps2_reset,
 	mouse_data => ps2_data,
 	mouse_clk => ps2_click,
 	left_button => ps2_left,
 	right_button => ps2_right,
 	mouse_cursor_row => ps2_cursor_row,
-	mouse_cursor_column => ps2_cursor_col;
+	mouse_cursor_column => ps2_cursor_col
 	)
 	
 	testCursor : cursor_drawer
@@ -104,9 +101,9 @@ architecture Behavioral of Flappy_bird is
 	clk => clk_25MHz,
 	video_row => pixel_row,
 	video_column => pixel_column,
-	
-	
-	
+	cursor_row => ps2_cursor_row,
+	cursor_column => ps2_cursor_col,
+	cursor_on => cursor_on
 	)
 	
 
@@ -133,6 +130,9 @@ architecture Behavioral of Flappy_bird is
     green          => green_ball,
     blue           => blue_ball
   );
+  
+  
+  
 
   -- Logic to determine if the current pixel is part of the bird
   ball_on <= '1' when (red_ball = '1' or green_ball = '1' or blue_ball = '1') else '0';
@@ -140,9 +140,9 @@ architecture Behavioral of Flappy_bird is
   -- Logic to combine bird and background colors
   -- If the current pixel is part of the bird, use the bird's color.
   -- Otherwise, use a constant background color (e.g., green background).
-  red_pixel   <= '0' when ball_on = '1' else '0'; -- Bird: red, Background: no red
-  green_pixel <= '0' when ball_on = '1' else '1'; -- Bird: no green, Background: green
-  blue_pixel  <= '1' when ball_on = '1' else '0'; -- Bird: no blue, Background: no blue
+  red_pixel   <= '0' when (ball_on = '1') or (cursor_on = '1')else '0'; -- Bird: red, Background: no red
+  green_pixel <= '0' when ball_on = '1' or (cursor_on = '1') else '1'; -- Bird: no green, Background: green
+  blue_pixel  <= '1' when ball_on = '1' or (cursor_on = '1')else '0'; -- Bird: no blue, Background: no blue
   
   
   -- Instantiate the VGA sync component
