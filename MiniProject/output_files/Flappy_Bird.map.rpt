@@ -1,5 +1,5 @@
 Analysis & Synthesis report for Flappy_Bird
-Thu May 08 15:57:02 2025
+Fri May 09 15:12:23 2025
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Standard Edition
 
 
@@ -21,9 +21,10 @@ Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Standard Edition
  13. Parameter Settings for User Entity Instance: char_rom:TextComponent|altsyncram:altsyncram_component
  14. altsyncram Parameter Settings by Entity Instance
  15. Port Connectivity Checks: "VGA_SYNC:VGASync"
- 16. Post-Synthesis Netlist Statistics for Top Partition
- 17. Elapsed Time Per Partition
- 18. Analysis & Synthesis Messages
+ 16. Port Connectivity Checks: "char_rom:TextComponent"
+ 17. Post-Synthesis Netlist Statistics for Top Partition
+ 18. Elapsed Time Per Partition
+ 19. Analysis & Synthesis Messages
 
 
 
@@ -49,7 +50,7 @@ refer to the applicable agreement for further details.
 +-----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                      ;
 +---------------------------------+-------------------------------------------------+
-; Analysis & Synthesis Status     ; Successful - Thu May 08 15:57:02 2025           ;
+; Analysis & Synthesis Status     ; Successful - Fri May 09 15:12:23 2025           ;
 ; Quartus Prime Version           ; 18.1.0 Build 625 09/12/2018 SJ Standard Edition ;
 ; Revision Name                   ; Flappy_Bird                                     ;
 ; Top-level Entity Name           ; Flappy_bird                                     ;
@@ -58,7 +59,7 @@ refer to the applicable agreement for further details.
 ; Total registers                 ; 48                                              ;
 ; Total pins                      ; 6                                               ;
 ; Total virtual pins              ; 0                                               ;
-; Total block memory bits         ; 2,048                                           ;
+; Total block memory bits         ; 64                                              ;
 ; Total DSP Blocks                ; 0                                               ;
 ; Total HSSI RX PCSs              ; 0                                               ;
 ; Total HSSI PMA RX Deserializers ; 0                                               ;
@@ -169,8 +170,7 @@ refer to the applicable agreement for further details.
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processor 2            ;   0.0%      ;
-;     Processors 3-16        ;   0.0%      ;
+;     Processors 2-16        ;   0.0%      ;
 +----------------------------+-------------+
 
 
@@ -202,12 +202,12 @@ refer to the applicable agreement for further details.
 +---------------------------------------------+------------------------------+
 ; Resource                                    ; Usage                        ;
 +---------------------------------------------+------------------------------+
-; Estimate of Logic utilization (ALMs needed) ; 39                           ;
+; Estimate of Logic utilization (ALMs needed) ; 44                           ;
 ;                                             ;                              ;
-; Combinational ALUT usage for logic          ; 59                           ;
+; Combinational ALUT usage for logic          ; 65                           ;
 ;     -- 7 input functions                    ; 3                            ;
-;     -- 6 input functions                    ; 11                           ;
-;     -- 5 input functions                    ; 10                           ;
+;     -- 6 input functions                    ; 16                           ;
+;     -- 5 input functions                    ; 11                           ;
 ;     -- 4 input functions                    ; 4                            ;
 ;     -- <=3 input functions                  ; 31                           ;
 ;                                             ;                              ;
@@ -215,14 +215,14 @@ refer to the applicable agreement for further details.
 ;                                             ;                              ;
 ; I/O pins                                    ; 6                            ;
 ; Total MLAB memory bits                      ; 0                            ;
-; Total block memory bits                     ; 2048                         ;
+; Total block memory bits                     ; 64                           ;
 ;                                             ;                              ;
 ; Total DSP Blocks                            ; 0                            ;
 ;                                             ;                              ;
 ; Maximum fan-out node                        ; Clock_25MHz:ClockDivider|p_Q ;
 ; Maximum fan-out                             ; 56                           ;
-; Total fan-out                               ; 442                          ;
-; Average fan-out                             ; 3.48                         ;
+; Total fan-out                               ; 438                          ;
+; Average fan-out                             ; 3.29                         ;
 +---------------------------------------------+------------------------------+
 
 
@@ -231,13 +231,13 @@ refer to the applicable agreement for further details.
 +-------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+----------------------------------------------------------------------------------------------------+-----------------+--------------+
 ; Compilation Hierarchy Node                ; Combinational ALUTs ; Dedicated Logic Registers ; Block Memory Bits ; DSP Blocks ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                                ; Entity Name     ; Library Name ;
 +-------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+----------------------------------------------------------------------------------------------------+-----------------+--------------+
-; |Flappy_bird                              ; 59 (0)              ; 48 (0)                    ; 2048              ; 0          ; 6    ; 0            ; |Flappy_bird                                                                                       ; Flappy_bird     ; work         ;
+; |Flappy_bird                              ; 65 (6)              ; 48 (0)                    ; 64                ; 0          ; 6    ; 0            ; |Flappy_bird                                                                                       ; Flappy_bird     ; work         ;
 ;    |Clock_25MHz:ClockDivider|             ; 1 (1)               ; 1 (1)                     ; 0                 ; 0          ; 0    ; 0            ; |Flappy_bird|Clock_25MHz:ClockDivider                                                              ; Clock_25MHz     ; work         ;
-;    |VGA_SYNC:VGASync|                     ; 40 (40)             ; 47 (47)                   ; 0                 ; 0          ; 0    ; 0            ; |Flappy_bird|VGA_SYNC:VGASync                                                                      ; VGA_SYNC        ; work         ;
-;    |ball:BallComponent|                   ; 16 (16)             ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |Flappy_bird|ball:BallComponent                                                                    ; ball            ; work         ;
-;    |char_rom:TextComponent|               ; 2 (2)               ; 0 (0)                     ; 2048              ; 0          ; 0    ; 0            ; |Flappy_bird|char_rom:TextComponent                                                                ; char_rom        ; work         ;
-;       |altsyncram:altsyncram_component|   ; 0 (0)               ; 0 (0)                     ; 2048              ; 0          ; 0    ; 0            ; |Flappy_bird|char_rom:TextComponent|altsyncram:altsyncram_component                                ; altsyncram      ; work         ;
-;          |altsyncram_d5g1:auto_generated| ; 0 (0)               ; 0 (0)                     ; 2048              ; 0          ; 0    ; 0            ; |Flappy_bird|char_rom:TextComponent|altsyncram:altsyncram_component|altsyncram_d5g1:auto_generated ; altsyncram_d5g1 ; work         ;
+;    |VGA_SYNC:VGASync|                     ; 39 (39)             ; 47 (47)                   ; 0                 ; 0          ; 0    ; 0            ; |Flappy_bird|VGA_SYNC:VGASync                                                                      ; VGA_SYNC        ; work         ;
+;    |ball:BallComponent|                   ; 17 (17)             ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |Flappy_bird|ball:BallComponent                                                                    ; ball            ; work         ;
+;    |char_rom:TextComponent|               ; 2 (2)               ; 0 (0)                     ; 64                ; 0          ; 0    ; 0            ; |Flappy_bird|char_rom:TextComponent                                                                ; char_rom        ; work         ;
+;       |altsyncram:altsyncram_component|   ; 0 (0)               ; 0 (0)                     ; 64                ; 0          ; 0    ; 0            ; |Flappy_bird|char_rom:TextComponent|altsyncram:altsyncram_component                                ; altsyncram      ; work         ;
+;          |altsyncram_d5g1:auto_generated| ; 0 (0)               ; 0 (0)                     ; 64                ; 0          ; 0    ; 0            ; |Flappy_bird|char_rom:TextComponent|altsyncram:altsyncram_component|altsyncram_d5g1:auto_generated ; altsyncram_d5g1 ; work         ;
 +-------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+----------------------------------------------------------------------------------------------------+-----------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
 
@@ -385,6 +385,18 @@ Note: In order to hide this table in the UI and the text report file, please set
 +------+-------+----------+--------------------+
 
 
++-----------------------------------------------------------+
+; Port Connectivity Checks: "char_rom:TextComponent"        ;
++-------------------------+-------+----------+--------------+
+; Port                    ; Type  ; Severity ; Details      ;
++-------------------------+-------+----------+--------------+
+; character_address[1..0] ; Input ; Info     ; Stuck at VCC ;
+; character_address[3..2] ; Input ; Info     ; Stuck at GND ;
+; character_address[5]    ; Input ; Info     ; Stuck at GND ;
+; character_address[4]    ; Input ; Info     ; Stuck at VCC ;
++-------------------------+-------+----------+--------------+
+
+
 +-----------------------------------------------------+
 ; Post-Synthesis Netlist Statistics for Top Partition ;
 +-----------------------+-----------------------------+
@@ -395,25 +407,24 @@ Note: In order to hide this table in the UI and the text report file, please set
 ;     ENA SCLR          ; 10                          ;
 ;     SCLR              ; 10                          ;
 ;     plain             ; 9                           ;
-; arriav_lcell_comb     ; 60                          ;
+; arriav_lcell_comb     ; 66                          ;
 ;     arith             ; 26                          ;
 ;         1 data inputs ; 25                          ;
 ;         2 data inputs ; 1                           ;
 ;     extend            ; 3                           ;
 ;         7 data inputs ; 3                           ;
-;     normal            ; 31                          ;
+;     normal            ; 37                          ;
 ;         0 data inputs ; 1                           ;
 ;         1 data inputs ; 1                           ;
-;         2 data inputs ; 1                           ;
-;         3 data inputs ; 3                           ;
+;         3 data inputs ; 4                           ;
 ;         4 data inputs ; 4                           ;
-;         5 data inputs ; 10                          ;
-;         6 data inputs ; 11                          ;
+;         5 data inputs ; 11                          ;
+;         6 data inputs ; 16                          ;
 ; boundary_port         ; 6                           ;
 ; stratixv_ram_block    ; 8                           ;
 ;                       ;                             ;
-; Max LUT depth         ; 3.50                        ;
-; Average LUT depth     ; 2.31                        ;
+; Max LUT depth         ; 4.00                        ;
+; Average LUT depth     ; 2.51                        ;
 +-----------------------+-----------------------------+
 
 
@@ -432,7 +443,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 18.1.0 Build 625 09/12/2018 SJ Standard Edition
-    Info: Processing started: Thu May 08 15:56:44 2025
+    Info: Processing started: Fri May 09 15:12:16 2025
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off Flappy_Bird -c Flappy_Bird
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 16 of the 16 processors detected
@@ -449,8 +460,8 @@ Info (12021): Found 2 design units, including 1 entities, in source file minipro
     Info (12022): Found design unit 1: Clock_25MHz-arc File: D:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/clock_divider_25MHz.vhd Line: 11
     Info (12023): Found entity 1: Clock_25MHz File: D:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/clock_divider_25MHz.vhd Line: 5
 Info (12021): Found 2 design units, including 1 entities, in source file miniprojectresources/flappy_bird.vhd
-    Info (12022): Found design unit 1: Flappy_bird-Behavioral File: D:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 17
-    Info (12023): Found entity 1: Flappy_bird File: D:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 6
+    Info (12022): Found design unit 1: Flappy_bird-Behavioral File: D:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 18
+    Info (12023): Found entity 1: Flappy_bird File: D:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 7
 Info (12021): Found 2 design units, including 1 entities, in source file miniprojectresources/mouse.vhd
     Info (12022): Found design unit 1: MOUSE-behavior File: D:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/mouse.vhd Line: 18
     Info (12023): Found entity 1: MOUSE File: D:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/mouse.vhd Line: 9
@@ -458,9 +469,9 @@ Info (12021): Found 2 design units, including 1 entities, in source file minipro
     Info (12022): Found design unit 1: VGA_SYNC-a File: D:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/vga_sync.vhd Line: 13
     Info (12023): Found entity 1: VGA_SYNC File: D:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/vga_sync.vhd Line: 7
 Info (12127): Elaborating entity "Flappy_bird" for the top level hierarchy
-Info (12128): Elaborating entity "Clock_25MHz" for hierarchy "Clock_25MHz:ClockDivider" File: D:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 72
-Info (12128): Elaborating entity "ball" for hierarchy "ball:BallComponent" File: D:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 81
-Info (12128): Elaborating entity "char_rom" for hierarchy "char_rom:TextComponent" File: D:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 109
+Info (12128): Elaborating entity "Clock_25MHz" for hierarchy "Clock_25MHz:ClockDivider" File: D:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 73
+Info (12128): Elaborating entity "ball" for hierarchy "ball:BallComponent" File: D:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 82
+Info (12128): Elaborating entity "char_rom" for hierarchy "char_rom:TextComponent" File: D:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 110
 Info (12128): Elaborating entity "altsyncram" for hierarchy "char_rom:TextComponent|altsyncram:altsyncram_component" File: D:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/char_rom.vhd Line: 51
 Info (12130): Elaborated megafunction instantiation "char_rom:TextComponent|altsyncram:altsyncram_component" File: D:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/char_rom.vhd Line: 51
 Info (12133): Instantiated megafunction "char_rom:TextComponent|altsyncram:altsyncram_component" with the following parameter: File: D:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/char_rom.vhd Line: 51
@@ -481,11 +492,11 @@ Info (12133): Instantiated megafunction "char_rom:TextComponent|altsyncram:altsy
 Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_d5g1.tdf
     Info (12023): Found entity 1: altsyncram_d5g1 File: D:/COMPSYS305-TechSupport/MiniProject/db/altsyncram_d5g1.tdf Line: 27
 Info (12128): Elaborating entity "altsyncram_d5g1" for hierarchy "char_rom:TextComponent|altsyncram:altsyncram_component|altsyncram_d5g1:auto_generated" File: c:/intelfpga/18.1/quartus/libraries/megafunctions/altsyncram.tdf Line: 791
-Info (12128): Elaborating entity "VGA_SYNC" for hierarchy "VGA_SYNC:VGASync" File: D:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 119
+Info (12128): Elaborating entity "VGA_SYNC" for hierarchy "VGA_SYNC:VGASync" File: D:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 120
 Warning (13024): Output pins are stuck at VCC or GND
-    Warning (13410): Pin "red" is stuck at GND File: D:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 11
+    Warning (13410): Pin "red" is stuck at GND File: D:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 12
 Info (286030): Timing-Driven Synthesis is running
-Info (17036): Removed 1 MSB VCC or GND address nodes from RAM block "char_rom:TextComponent|altsyncram:altsyncram_component|altsyncram_d5g1:auto_generated|ALTSYNCRAM" File: D:/COMPSYS305-TechSupport/MiniProject/db/altsyncram_d5g1.tdf Line: 31
+Info (17036): Removed 6 MSB VCC or GND address nodes from RAM block "char_rom:TextComponent|altsyncram:altsyncram_component|altsyncram_d5g1:auto_generated|ALTSYNCRAM" File: D:/COMPSYS305-TechSupport/MiniProject/db/altsyncram_d5g1.tdf Line: 31
 Warning (20013): Ignored 24 assignments for entity "DE0_CV_Default" -- entity does not exist in design
     Warning (20014): Assignment for entity set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -entity DE0_CV_Default -section_id Top was ignored
     Warning (20014): Assignment for entity set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -entity DE0_CV_Default -section_id Top was ignored
@@ -513,15 +524,15 @@ Warning (20013): Ignored 24 assignments for entity "DE0_CV_Default" -- entity do
     Warning (20014): Assignment for entity set_global_assignment -name PARTITION_ENABLE_STRICT_PRESERVATION OFF -entity DE0_CV_Default -section_id Top was ignored
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Info (21057): Implemented 96 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 102 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 1 input pins
     Info (21059): Implemented 5 output pins
-    Info (21061): Implemented 82 logic cells
+    Info (21061): Implemented 88 logic cells
     Info (21064): Implemented 8 RAM segments
 Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 28 warnings
-    Info: Peak virtual memory: 4937 megabytes
-    Info: Processing ended: Thu May 08 15:57:02 2025
-    Info: Elapsed time: 00:00:18
+    Info: Peak virtual memory: 4917 megabytes
+    Info: Processing ended: Fri May 09 15:12:23 2025
+    Info: Elapsed time: 00:00:07
     Info: Total CPU time (on all processors): 00:00:12
 
 
