@@ -103,7 +103,7 @@ architecture Behavioral of Flappy_bird is
   -- Assigning the input for the font row and columns 
   -- Assigning the pixel_row and pixel_col certain indexes to the font_row...etc 
   font_row <= pixel_row(3 downto 1) when (pixel_row(9 downto 0) <= conv_std_logic_vector(15,10)) else "000"; -- Top Left corner, pass pixel row when pixelrow < 15th row 
-  font_col <= pixel_column(3 downto 1) when (pixel_row(9 downto 0) <= conv_std_logic_vector(15,10)) else "000"; -- pass pixel column when pixelcol < 15th row 
+  font_col <= pixel_column(3 downto 1) when (pixel_column(9 downto 0) <= conv_std_logic_vector(15,10)) else "000"; -- pass pixel column when pixelcol < 15th row 
   character_address <= "010011"; -- S 
   
   -- Instantiate the text component 
