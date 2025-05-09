@@ -36,8 +36,7 @@ process(clk)
                     s_cursor_on <= '0';
                 end if;
             
-                -- Outside display area
-                s_cursor_on <= '0';
+             
         end if;
     end process;
 	

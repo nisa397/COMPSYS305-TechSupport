@@ -84,6 +84,20 @@ architecture Behavioral of Flappy_bird is
 
   begin
 
+	
+
+
+
+
+
+    -- Instantiate the clock divider to generate 25 MHz clock
+    ClockDivider: Clock_25MHz
+    port map(
+      Clk => clk_50MHz,
+      Q   => clk_25MHz
+    );
+	 
+	
 	ps2: MOUSE 
 	port map(
 	clock_25Mhz => clk_25MHz,
@@ -106,19 +120,6 @@ architecture Behavioral of Flappy_bird is
 	cursor_on => cursor_on
 	);
 	
-
-
-
-
-
-    -- Instantiate the clock divider to generate 25 MHz clock
-    ClockDivider: Clock_25MHz
-    port map(
-      Clk => clk_50MHz,
-      Q   => clk_25MHz
-    );
-	 
-	 
 
     -- Instantiate the ball component
   BallComponent: ball
