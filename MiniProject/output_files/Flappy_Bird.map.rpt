@@ -1,6 +1,6 @@
 Analysis & Synthesis report for Flappy_Bird
-Thu May 08 14:31:48 2025
-Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Standard Edition
+Fri May  9 14:43:18 2025
+Quartus Prime Version 24.1std.0 Build 1077 03/04/2025 SC Lite Edition
 
 
 ---------------------
@@ -13,40 +13,44 @@ Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Standard Edition
   5. Analysis & Synthesis Source Files Read
   6. Analysis & Synthesis Resource Usage Summary
   7. Analysis & Synthesis Resource Utilization by Entity
-  8. Registers Removed During Synthesis
-  9. General Register Statistics
- 10. Multiplexer Restructuring Statistics (Restructuring Performed)
- 11. Port Connectivity Checks: "VGA_SYNC:VGASync"
- 12. Post-Synthesis Netlist Statistics for Top Partition
- 13. Elapsed Time Per Partition
- 14. Analysis & Synthesis Messages
+  8. State Machine - |Flappy_bird|MOUSE:ps2|mouse_state
+  9. Registers Removed During Synthesis
+ 10. Removed Registers Triggering Further Register Optimizations
+ 11. General Register Statistics
+ 12. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 13. Port Connectivity Checks: "VGA_SYNC:VGASync"
+ 14. Port Connectivity Checks: "MOUSE:ps2"
+ 15. Post-Synthesis Netlist Statistics for Top Partition
+ 16. Elapsed Time Per Partition
+ 17. Analysis & Synthesis Messages
 
 
 
 ----------------
 ; Legal Notice ;
 ----------------
-Copyright (C) 2018  Intel Corporation. All rights reserved.
-Your use of Intel Corporation's design tools, logic functions 
-and other software and tools, and its AMPP partner logic 
+Copyright (C) 2025  Altera Corporation. All rights reserved.
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and any partner logic 
 functions, and any output files from any of the foregoing 
 (including device programming or simulation files), and any 
 associated documentation or information are expressly subject 
-to the terms and conditions of the Intel Program License 
-Subscription Agreement, the Intel Quartus Prime License Agreement,
-the Intel FPGA IP License Agreement, or other applicable license
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, the Altera Quartus Prime License Agreement,
+the Altera IP License Agreement, or other applicable license
 agreement, including, without limitation, that your use is for
 the sole purpose of programming logic devices manufactured by
-Intel and sold by Intel or its authorized distributors.  Please
-refer to the applicable agreement for further details.
+Altera and sold by Altera or its authorized distributors.  Please
+refer to the Altera Software License Subscription Agreements 
+on the Quartus Prime software download page.
 
 
 
 +-----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                      ;
 +---------------------------------+-------------------------------------------------+
-; Analysis & Synthesis Status     ; Successful - Thu May 08 14:31:48 2025           ;
-; Quartus Prime Version           ; 18.1.0 Build 625 09/12/2018 SJ Standard Edition ;
+; Analysis & Synthesis Status     ; Successful - Fri May  9 14:43:18 2025           ;
+; Quartus Prime Version           ; 24.1std.0 Build 1077 03/04/2025 SC Lite Edition ;
 ; Revision Name                   ; Flappy_Bird                                     ;
 ; Top-level Entity Name           ; Flappy_bird                                     ;
 ; Family                          ; Cyclone V                                       ;
@@ -157,28 +161,30 @@ refer to the applicable agreement for further details.
 +----------------------------+-------------+
 ; Processors                 ; Number      ;
 +----------------------------+-------------+
-; Number detected on machine ; 24          ;
-; Maximum allowed            ; 16          ;
+; Number detected on machine ; 12          ;
+; Maximum allowed            ; 12          ;
 ;                            ;             ;
 ; Average used               ; 1.00        ;
-; Maximum used               ; 16          ;
+; Maximum used               ; 12          ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processors 2-16        ;   0.0%      ;
+;     Processors 2-12        ;   0.0%      ;
 +----------------------------+-------------+
 
 
-+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Source Files Read                                                                                                                                          ;
-+----------------------------------------------+-----------------+-----------------+------------------------------------------------------------------------------------+---------+
-; File Name with User-Entered Path             ; Used in Netlist ; File Type       ; File Name with Absolute Path                                                       ; Library ;
-+----------------------------------------------+-----------------+-----------------+------------------------------------------------------------------------------------+---------+
-; MiniprojectResources/ball.vhd                ; yes             ; User VHDL File  ; D:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/ball.vhd                ;         ;
-; MiniprojectResources/clock_divider_25MHz.vhd ; yes             ; User VHDL File  ; D:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/clock_divider_25MHz.vhd ;         ;
-; MiniprojectResources/Flappy_bird.vhd         ; yes             ; User VHDL File  ; D:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd         ;         ;
-; MiniprojectResources/vga_sync.vhd            ; yes             ; User VHDL File  ; D:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/vga_sync.vhd            ;         ;
-+----------------------------------------------+-----------------+-----------------+------------------------------------------------------------------------------------+---------+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                                                                         ;
++----------------------------------------------+-----------------+-----------------+-------------------------------------------------------------------------------------------------------------------+---------+
+; File Name with User-Entered Path             ; Used in Netlist ; File Type       ; File Name with Absolute Path                                                                                      ; Library ;
++----------------------------------------------+-----------------+-----------------+-------------------------------------------------------------------------------------------------------------------+---------+
+; MiniprojectResources/cursor.vhd              ; yes             ; User VHDL File  ; C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/cursor.vhd              ;         ;
+; MiniprojectResources/ball.vhd                ; yes             ; User VHDL File  ; C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/ball.vhd                ;         ;
+; MiniprojectResources/clock_divider_25MHz.vhd ; yes             ; User VHDL File  ; C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/clock_divider_25MHz.vhd ;         ;
+; MiniprojectResources/Flappy_bird.vhd         ; yes             ; User VHDL File  ; C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd         ;         ;
+; MiniprojectResources/mouse.vhd               ; yes             ; User VHDL File  ; C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/mouse.vhd               ;         ;
+; MiniprojectResources/vga_sync.vhd            ; yes             ; User VHDL File  ; C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/vga_sync.vhd            ;         ;
++----------------------------------------------+-----------------+-----------------+-------------------------------------------------------------------------------------------------------------------+---------+
 
 
 +----------------------------------------------------------------------------+
@@ -221,15 +227,79 @@ refer to the applicable agreement for further details.
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
 
 
-+--------------------------------------------------------------------------------+
-; Registers Removed During Synthesis                                             ;
-+---------------------------------------+----------------------------------------+
-; Register name                         ; Reason for Removal                     ;
-+---------------------------------------+----------------------------------------+
-; VGA_SYNC:VGASync|red_out              ; Stuck at GND due to stuck port data_in ;
-; VGA_SYNC:VGASync|pixel_row[9]         ; Stuck at GND due to stuck port data_in ;
-; Total Number of Removed Registers = 2 ;                                        ;
-+---------------------------------------+----------------------------------------+
+Encoding Type:  One-Hot
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; State Machine - |Flappy_bird|MOUSE:ps2|mouse_state                                                                                                                                                      ;
++-------------------------------+---------------------------+--------------------------+-------------------------------+---------------------------+--------------------------+---------------------------+
+; Name                          ; mouse_state.INPUT_PACKETS ; mouse_state.WAIT_CMD_ACK ; mouse_state.WAIT_OUTPUT_READY ; mouse_state.LOAD_COMMAND2 ; mouse_state.LOAD_COMMAND ; mouse_state.INHIBIT_TRANS ;
++-------------------------------+---------------------------+--------------------------+-------------------------------+---------------------------+--------------------------+---------------------------+
+; mouse_state.INHIBIT_TRANS     ; 0                         ; 0                        ; 0                             ; 0                         ; 0                        ; 0                         ;
+; mouse_state.LOAD_COMMAND      ; 0                         ; 0                        ; 0                             ; 0                         ; 1                        ; 1                         ;
+; mouse_state.LOAD_COMMAND2     ; 0                         ; 0                        ; 0                             ; 1                         ; 0                        ; 1                         ;
+; mouse_state.WAIT_OUTPUT_READY ; 0                         ; 0                        ; 1                             ; 0                         ; 0                        ; 1                         ;
+; mouse_state.WAIT_CMD_ACK      ; 0                         ; 1                        ; 0                             ; 0                         ; 0                        ; 1                         ;
+; mouse_state.INPUT_PACKETS     ; 1                         ; 0                        ; 0                             ; 0                         ; 0                        ; 1                         ;
++-------------------------------+---------------------------+--------------------------+-------------------------------+---------------------------+--------------------------+---------------------------+
+
+
++---------------------------------------------------------------------------------------+
+; Registers Removed During Synthesis                                                    ;
++-----------------------------------------+---------------------------------------------+
+; Register name                           ; Reason for Removal                          ;
++-----------------------------------------+---------------------------------------------+
+; cursor_drawer:testCursor|s_cursor_on    ; Stuck at GND due to stuck port data_in      ;
+; VGA_SYNC:VGASync|red_out                ; Stuck at GND due to stuck port data_in      ;
+; MOUSE:ps2|CHAROUT[4..7]                 ; Stuck at VCC due to stuck port data_in      ;
+; MOUSE:ps2|CHAROUT[3]                    ; Stuck at GND due to stuck port data_in      ;
+; MOUSE:ps2|CHAROUT[2]                    ; Stuck at VCC due to stuck port data_in      ;
+; MOUSE:ps2|CHAROUT[0,1]                  ; Stuck at GND due to stuck port data_in      ;
+; MOUSE:ps2|SHIFTOUT[10]                  ; Stuck at VCC due to stuck port data_in      ;
+; VGA_SYNC:VGASync|pixel_row[9]           ; Stuck at GND due to stuck port data_in      ;
+; MOUSE:ps2|iready_set                    ; Stuck at GND due to stuck port clock_enable ;
+; MOUSE:ps2|INCNT[0..3]                   ; Lost fanout                                 ;
+; MOUSE:ps2|READ_CHAR                     ; Lost fanout                                 ;
+; MOUSE:ps2|MOUSE_DATA_BUF                ; Lost fanout                                 ;
+; MOUSE:ps2|SHIFTOUT[1..9]                ; Lost fanout                                 ;
+; MOUSE:ps2|inhibit_wait_count[10,11]     ; Lost fanout                                 ;
+; MOUSE:ps2|output_ready                  ; Lost fanout                                 ;
+; MOUSE:ps2|inhibit_wait_count[0..9]      ; Lost fanout                                 ;
+; MOUSE:ps2|OUTCNT[1..3]                  ; Lost fanout                                 ;
+; MOUSE:ps2|MOUSE_CLK_FILTER              ; Lost fanout                                 ;
+; MOUSE:ps2|send_data                     ; Lost fanout                                 ;
+; MOUSE:ps2|send_char                     ; Lost fanout                                 ;
+; MOUSE:ps2|OUTCNT[0]                     ; Lost fanout                                 ;
+; MOUSE:ps2|filter[0..7]                  ; Lost fanout                                 ;
+; MOUSE:ps2|mouse_state.INHIBIT_TRANS     ; Lost fanout                                 ;
+; MOUSE:ps2|mouse_state.LOAD_COMMAND      ; Lost fanout                                 ;
+; MOUSE:ps2|mouse_state.LOAD_COMMAND2     ; Lost fanout                                 ;
+; MOUSE:ps2|mouse_state.WAIT_OUTPUT_READY ; Lost fanout                                 ;
+; MOUSE:ps2|mouse_state.WAIT_CMD_ACK      ; Lost fanout                                 ;
+; MOUSE:ps2|mouse_state.INPUT_PACKETS     ; Lost fanout                                 ;
+; Total Number of Removed Registers = 62  ;                                             ;
++-----------------------------------------+---------------------------------------------+
+
+
++---------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Removed Registers Triggering Further Register Optimizations                                                                                             ;
++----------------------------------+--------------------------------+-------------------------------------------------------------------------------------+
+; Register name                    ; Reason for Removal             ; Registers Removed due to This Register                                              ;
++----------------------------------+--------------------------------+-------------------------------------------------------------------------------------+
+; MOUSE:ps2|SHIFTOUT[10]           ; Stuck at VCC                   ; MOUSE:ps2|output_ready, MOUSE:ps2|OUTCNT[3], MOUSE:ps2|OUTCNT[2],                   ;
+;                                  ; due to stuck port data_in      ; MOUSE:ps2|MOUSE_CLK_FILTER, MOUSE:ps2|send_data, MOUSE:ps2|send_char,               ;
+;                                  ;                                ; MOUSE:ps2|OUTCNT[0], MOUSE:ps2|filter[0], MOUSE:ps2|filter[1], MOUSE:ps2|filter[2], ;
+;                                  ;                                ; MOUSE:ps2|filter[3], MOUSE:ps2|filter[4], MOUSE:ps2|filter[5],                      ;
+;                                  ;                                ; MOUSE:ps2|mouse_state.LOAD_COMMAND, MOUSE:ps2|mouse_state.LOAD_COMMAND2,            ;
+;                                  ;                                ; MOUSE:ps2|mouse_state.WAIT_OUTPUT_READY, MOUSE:ps2|mouse_state.INPUT_PACKETS        ;
+; MOUSE:ps2|iready_set             ; Stuck at GND                   ; MOUSE:ps2|INCNT[3], MOUSE:ps2|INCNT[2], MOUSE:ps2|INCNT[1], MOUSE:ps2|INCNT[0],     ;
+;                                  ; due to stuck port clock_enable ; MOUSE:ps2|READ_CHAR, MOUSE:ps2|MOUSE_DATA_BUF, MOUSE:ps2|SHIFTOUT[1],               ;
+;                                  ;                                ; MOUSE:ps2|SHIFTOUT[2], MOUSE:ps2|SHIFTOUT[3], MOUSE:ps2|SHIFTOUT[4],                ;
+;                                  ;                                ; MOUSE:ps2|SHIFTOUT[5], MOUSE:ps2|SHIFTOUT[6], MOUSE:ps2|SHIFTOUT[7],                ;
+;                                  ;                                ; MOUSE:ps2|SHIFTOUT[8], MOUSE:ps2|SHIFTOUT[9], MOUSE:ps2|OUTCNT[1]                   ;
+; MOUSE:ps2|inhibit_wait_count[11] ; Lost Fanouts                   ; MOUSE:ps2|inhibit_wait_count[0], MOUSE:ps2|inhibit_wait_count[1],                   ;
+;                                  ;                                ; MOUSE:ps2|inhibit_wait_count[2], MOUSE:ps2|inhibit_wait_count[3],                   ;
+;                                  ;                                ; MOUSE:ps2|inhibit_wait_count[4], MOUSE:ps2|inhibit_wait_count[5],                   ;
+;                                  ;                                ; MOUSE:ps2|mouse_state.INHIBIT_TRANS                                                 ;
++----------------------------------+--------------------------------+-------------------------------------------------------------------------------------+
 
 
 +------------------------------------------------------+
@@ -263,6 +333,18 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +------+-------+----------+--------------------+
 ; red  ; Input ; Info     ; Stuck at GND       ;
 +------+-------+----------+--------------------+
+
+
++------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "MOUSE:ps2"                                                                                  ;
++--------------+--------+----------+-------------------------------------------------------------------------------------+
+; Port         ; Type   ; Severity ; Details                                                                             ;
++--------------+--------+----------+-------------------------------------------------------------------------------------+
+; mouse_data   ; Bidir  ; Warning  ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; mouse_clk    ; Bidir  ; Warning  ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; left_button  ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; right_button ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++--------------+--------+----------+-------------------------------------------------------------------------------------+
 
 
 +-----------------------------------------------------+
@@ -310,39 +392,57 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +-------------------------------+
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
-    Info: Version 18.1.0 Build 625 09/12/2018 SJ Standard Edition
-    Info: Processing started: Thu May 08 14:31:42 2025
+    Info: Version 24.1std.0 Build 1077 03/04/2025 SC Lite Edition
+    Info: Processing started: Fri May  9 14:43:07 2025
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off Flappy_Bird -c Flappy_Bird
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
-Info (20030): Parallel compilation is enabled and will use 16 of the 16 processors detected
+Info (20030): Parallel compilation is enabled and will use 12 of the 12 processors detected
+Info (12021): Found 2 design units, including 1 entities, in source file miniprojectresources/cursor.vhd
+    Info (12022): Found design unit 1: cursor_drawer-Behavioral File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/cursor.vhd Line: 15
+    Info (12023): Found entity 1: cursor_drawer File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/cursor.vhd Line: 6
 Info (12021): Found 2 design units, including 1 entities, in source file miniprojectresources/ball.vhd
-    Info (12022): Found design unit 1: ball-behavior File: D:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/ball.vhd Line: 14
-    Info (12023): Found entity 1: ball File: D:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/ball.vhd Line: 7
+    Info (12022): Found design unit 1: ball-behavior File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/ball.vhd Line: 14
+    Info (12023): Found entity 1: ball File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/ball.vhd Line: 7
 Info (12021): Found 2 design units, including 1 entities, in source file miniprojectresources/bouncy_ball.vhd
-    Info (12022): Found design unit 1: bouncy_ball-behavior File: D:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/bouncy_ball.vhd Line: 14
-    Info (12023): Found entity 1: bouncy_ball File: D:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/bouncy_ball.vhd Line: 7
+    Info (12022): Found design unit 1: bouncy_ball-behavior File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/bouncy_ball.vhd Line: 14
+    Info (12023): Found entity 1: bouncy_ball File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/bouncy_ball.vhd Line: 7
 Info (12021): Found 2 design units, including 1 entities, in source file miniprojectresources/char_rom.vhd
-    Info (12022): Found design unit 1: char_rom-SYN File: D:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/char_rom.vhd Line: 20
-    Info (12023): Found entity 1: char_rom File: D:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/char_rom.vhd Line: 9
+    Info (12022): Found design unit 1: char_rom-SYN File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/char_rom.vhd Line: 20
+    Info (12023): Found entity 1: char_rom File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/char_rom.vhd Line: 9
 Info (12021): Found 2 design units, including 1 entities, in source file miniprojectresources/clock_divider_25mhz.vhd
-    Info (12022): Found design unit 1: Clock_25MHz-arc File: D:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/clock_divider_25MHz.vhd Line: 11
-    Info (12023): Found entity 1: Clock_25MHz File: D:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/clock_divider_25MHz.vhd Line: 5
+    Info (12022): Found design unit 1: Clock_25MHz-arc File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/clock_divider_25MHz.vhd Line: 11
+    Info (12023): Found entity 1: Clock_25MHz File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/clock_divider_25MHz.vhd Line: 5
 Info (12021): Found 2 design units, including 1 entities, in source file miniprojectresources/flappy_bird.vhd
-    Info (12022): Found design unit 1: Flappy_bird-Behavioral File: D:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 17
-    Info (12023): Found entity 1: Flappy_bird File: D:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 6
+    Info (12022): Found design unit 1: Flappy_bird-Behavioral File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 18
+    Info (12023): Found entity 1: Flappy_bird File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 6
 Info (12021): Found 2 design units, including 1 entities, in source file miniprojectresources/mouse.vhd
-    Info (12022): Found design unit 1: MOUSE-behavior File: D:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/mouse.vhd Line: 18
-    Info (12023): Found entity 1: MOUSE File: D:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/mouse.vhd Line: 9
+    Info (12022): Found design unit 1: MOUSE-behavior File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/mouse.vhd Line: 18
+    Info (12023): Found entity 1: MOUSE File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/mouse.vhd Line: 9
 Info (12021): Found 2 design units, including 1 entities, in source file miniprojectresources/vga_sync.vhd
-    Info (12022): Found design unit 1: VGA_SYNC-a File: D:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/vga_sync.vhd Line: 13
-    Info (12023): Found entity 1: VGA_SYNC File: D:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/vga_sync.vhd Line: 7
+    Info (12022): Found design unit 1: VGA_SYNC-a File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/vga_sync.vhd Line: 13
+    Info (12023): Found entity 1: VGA_SYNC File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/vga_sync.vhd Line: 7
 Info (12127): Elaborating entity "Flappy_bird" for the top level hierarchy
-Info (12128): Elaborating entity "Clock_25MHz" for hierarchy "Clock_25MHz:ClockDivider" File: D:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 57
-Info (12128): Elaborating entity "ball" for hierarchy "ball:BallComponent" File: D:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 66
-Info (12128): Elaborating entity "VGA_SYNC" for hierarchy "VGA_SYNC:VGASync" File: D:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 88
+Warning (10541): VHDL Signal Declaration warning at Flappy_bird.vhd(25): used implicit default value for signal "ps2_reset" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 25
+Warning (10036): Verilog HDL or VHDL warning at Flappy_bird.vhd(28): object "ps2_left" assigned a value but never read File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 28
+Warning (10036): Verilog HDL or VHDL warning at Flappy_bird.vhd(29): object "ps2_right" assigned a value but never read File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 29
+Info (12128): Elaborating entity "MOUSE" for hierarchy "MOUSE:ps2" File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 87
+Warning (10036): Verilog HDL or VHDL warning at mouse.vhd(25): object "CHARIN" assigned a value but never read File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/mouse.vhd Line: 25
+Warning (10492): VHDL Process Statement warning at mouse.vhd(151): signal "CHAROUT" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/mouse.vhd Line: 151
+Warning (10492): VHDL Process Statement warning at mouse.vhd(155): signal "CHAROUT" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/mouse.vhd Line: 155
+Warning (10492): VHDL Process Statement warning at mouse.vhd(156): signal "CHAROUT" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/mouse.vhd Line: 156
+Warning (10492): VHDL Process Statement warning at mouse.vhd(157): signal "CHAROUT" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/mouse.vhd Line: 157
+Info (12128): Elaborating entity "cursor_drawer" for hierarchy "cursor_drawer:testCursor" File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 99
+Info (12128): Elaborating entity "Clock_25MHz" for hierarchy "Clock_25MHz:ClockDivider" File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 115
+Info (12128): Elaborating entity "ball" for hierarchy "ball:BallComponent" File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 124
+Info (12128): Elaborating entity "VGA_SYNC" for hierarchy "VGA_SYNC:VGASync" File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 149
+Warning (13046): Tri-state node(s) do not directly drive top-level pin(s)
+    Warning (13049): Converted tri-state buffer "MOUSE:ps2|mouse_clk~synth" feeding internal logic into a wire File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/mouse.vhd Line: 12
+    Warning (13049): Converted tri-state buffer "MOUSE:ps2|mouse_data~synth" feeding internal logic into a wire File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/mouse.vhd Line: 11
+Warning (12241): 1 hierarchies have connectivity warnings - see the Connectivity Checks report folder
 Warning (13024): Output pins are stuck at VCC or GND
-    Warning (13410): Pin "red" is stuck at GND File: D:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 11
+    Warning (13410): Pin "red" is stuck at GND File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 11
 Info (286030): Timing-Driven Synthesis is running
+Info (17049): 49 registers lost all their fanouts during netlist optimizations.
 Warning (20013): Ignored 24 assignments for entity "DE0_CV_Default" -- entity does not exist in design
     Warning (20014): Assignment for entity set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -entity DE0_CV_Default -section_id Top was ignored
     Warning (20014): Assignment for entity set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -entity DE0_CV_Default -section_id Top was ignored
@@ -374,10 +474,10 @@ Info (21057): Implemented 84 device resources after synthesis - the final resour
     Info (21058): Implemented 1 input pins
     Info (21059): Implemented 5 output pins
     Info (21061): Implemented 78 logic cells
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 28 warnings
-    Info: Peak virtual memory: 4932 megabytes
-    Info: Processing ended: Thu May 08 14:31:48 2025
-    Info: Elapsed time: 00:00:06
-    Info: Total CPU time (on all processors): 00:00:11
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 40 warnings
+    Info: Peak virtual memory: 4973 megabytes
+    Info: Processing ended: Fri May  9 14:43:18 2025
+    Info: Elapsed time: 00:00:11
+    Info: Total CPU time (on all processors): 00:00:26
 
 

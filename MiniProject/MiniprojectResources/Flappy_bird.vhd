@@ -71,20 +71,20 @@ architecture Behavioral of Flappy_bird is
          left_button, right_button	: OUT std_logic;
 		 mouse_cursor_row 			: OUT std_logic_vector(9 DOWNTO 0); 
 		 mouse_cursor_column 		: OUT std_logic_vector(9 DOWNTO 0));       	
-	end MOUSE;
+	end component;
 
 	component cursor_drawer is 
 		port (
         clk            : in  STD_LOGIC;
         video_row, video_column  : in  STD_LOGIC_VECTOR (9 downto 0);
         cursor_row, cursor_column: in  STD_LOGIC_VECTOR (9 downto 0);
-		cursor_on : out STD_LOGIC;
+		cursor_on : out STD_LOGIC
 		);
-	end cursor_drawer;
+	end component;
 
   begin
 
-	mouse: MOUSE 
+	ps2: MOUSE 
 	port map(
 	clock_25Mhz => clk_25MHz,
 	reset => ps2_reset,
@@ -94,7 +94,7 @@ architecture Behavioral of Flappy_bird is
 	right_button => ps2_right,
 	mouse_cursor_row => ps2_cursor_row,
 	mouse_cursor_column => ps2_cursor_col
-	)
+	);
 	
 	testCursor : cursor_drawer
 	port map(
@@ -104,7 +104,7 @@ architecture Behavioral of Flappy_bird is
 	cursor_row => ps2_cursor_row,
 	cursor_column => ps2_cursor_col,
 	cursor_on => cursor_on
-	)
+	);
 	
 
 

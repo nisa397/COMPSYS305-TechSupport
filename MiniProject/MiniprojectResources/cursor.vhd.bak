@@ -1,14 +1,13 @@
-LIBRARY IEEE;
-USE IEEE.STD_LOGIC_1164.all;
-USE  IEEE.STD_LOGIC_ARITH.all;
-USE  IEEE.STD_LOGIC_UNSIGNED.all;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
 
 entity cursor_drawer is
     Port (
         clk            : in  STD_LOGIC;
         video_row, video_column  : in  STD_LOGIC_VECTOR (9 downto 0);
         cursor_row, cursor_column: in  STD_LOGIC_VECTOR (9 downto 0);
-		cursor_on : out STD_LOGIC
+		cursor_on : out STD_LOGIC;
     );
 end cursor_drawer;
 
@@ -23,6 +22,7 @@ cursor_size <= CONV_STD_LOGIC_VECTOR(5,10);
 
 
 process(clk)
+	signal v_cursor_on: STD_LOGIC;
     begin
         if rising_edge(clk) then
                 -- Check if current pixel is within the cursor square
@@ -30,14 +30,15 @@ process(clk)
                    (video_column >= cursor_column and video_column < cursor_column + cursor_size) then
                     -- Draw white cursor
                     
-					s_cursor_on <= '1';
+					s_cursor_on := 1;
                 else
                     -- Background (black)
-                    s_cursor_on <= '0';
+                    s_cursor_on := 0;
                 end if;
             
                 -- Outside display area
-                s_cursor_on <= '0';
+                s_cursor_on := 0;
+            end if;
         end if;
     end process;
 	
