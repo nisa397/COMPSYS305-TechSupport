@@ -2,100 +2,148 @@
 Timing Analyzer Summary
 ------------------------------------------------------------
 
+Type  : Slow 1100mV 85C Model Setup 'VGA_SYNC:VGASync|vert_sync_out'
+Slack : -4.583
+TNS   : -107.708
+
 Type  : Slow 1100mV 85C Model Setup 'Clock_25MHz:ClockDivider|p_Q'
-Slack : -3.236
-TNS   : -149.059
+Slack : -3.928
+TNS   : -165.413
 
 Type  : Slow 1100mV 85C Model Setup 'clk_50MHz'
-Slack : -2.896
-TNS   : -2.896
+Slack : -2.835
+TNS   : -2.835
 
 Type  : Slow 1100mV 85C Model Hold 'Clock_25MHz:ClockDivider|p_Q'
-Slack : 0.472
+Slack : 0.661
 TNS   : 0.000
 
 Type  : Slow 1100mV 85C Model Hold 'clk_50MHz'
-Slack : 0.955
+Slack : 0.888
+TNS   : 0.000
+
+Type  : Slow 1100mV 85C Model Hold 'VGA_SYNC:VGASync|vert_sync_out'
+Slack : 1.290
 TNS   : 0.000
 
 Type  : Slow 1100mV 85C Model Minimum Pulse Width 'Clock_25MHz:ClockDivider|p_Q'
 Slack : -0.538
-TNS   : -45.394
+TNS   : -45.136
+
+Type  : Slow 1100mV 85C Model Minimum Pulse Width 'VGA_SYNC:VGASync|vert_sync_out'
+Slack : -0.538
+TNS   : -21.606
 
 Type  : Slow 1100mV 85C Model Minimum Pulse Width 'clk_50MHz'
 Slack : -0.538
-TNS   : -1.058
+TNS   : -1.015
+
+Type  : Slow 1100mV 0C Model Setup 'VGA_SYNC:VGASync|vert_sync_out'
+Slack : -4.674
+TNS   : -110.674
 
 Type  : Slow 1100mV 0C Model Setup 'Clock_25MHz:ClockDivider|p_Q'
-Slack : -3.443
-TNS   : -144.041
+Slack : -3.952
+TNS   : -159.520
 
 Type  : Slow 1100mV 0C Model Setup 'clk_50MHz'
-Slack : -2.813
-TNS   : -2.813
+Slack : -2.802
+TNS   : -2.802
 
 Type  : Slow 1100mV 0C Model Hold 'Clock_25MHz:ClockDivider|p_Q'
-Slack : 0.506
+Slack : 0.651
 TNS   : 0.000
 
 Type  : Slow 1100mV 0C Model Hold 'clk_50MHz'
-Slack : 0.967
+Slack : 0.854
 TNS   : 0.000
 
-Type  : Slow 1100mV 0C Model Minimum Pulse Width 'clk_50MHz'
-Slack : -0.569
-TNS   : -1.107
+Type  : Slow 1100mV 0C Model Hold 'VGA_SYNC:VGASync|vert_sync_out'
+Slack : 1.276
+TNS   : 0.000
 
 Type  : Slow 1100mV 0C Model Minimum Pulse Width 'Clock_25MHz:ClockDivider|p_Q'
 Slack : -0.538
-TNS   : -45.044
+TNS   : -44.514
+
+Type  : Slow 1100mV 0C Model Minimum Pulse Width 'VGA_SYNC:VGASync|vert_sync_out'
+Slack : -0.538
+TNS   : -21.403
+
+Type  : Slow 1100mV 0C Model Minimum Pulse Width 'clk_50MHz'
+Slack : -0.538
+TNS   : -1.076
 
 Type  : Fast 1100mV 85C Model Setup 'clk_50MHz'
-Slack : -2.005
-TNS   : -2.005
+Slack : -2.125
+TNS   : -2.125
+
+Type  : Fast 1100mV 85C Model Setup 'VGA_SYNC:VGASync|vert_sync_out'
+Slack : -1.810
+TNS   : -42.784
 
 Type  : Fast 1100mV 85C Model Setup 'Clock_25MHz:ClockDivider|p_Q'
-Slack : -1.331
-TNS   : -53.543
+Slack : -1.730
+TNS   : -67.326
 
 Type  : Fast 1100mV 85C Model Hold 'Clock_25MHz:ClockDivider|p_Q'
-Slack : 0.179
+Slack : 0.130
+TNS   : 0.000
+
+Type  : Fast 1100mV 85C Model Hold 'VGA_SYNC:VGASync|vert_sync_out'
+Slack : 0.558
 TNS   : 0.000
 
 Type  : Fast 1100mV 85C Model Hold 'clk_50MHz'
-Slack : 0.919
+Slack : 1.021
 TNS   : 0.000
 
 Type  : Fast 1100mV 85C Model Minimum Pulse Width 'clk_50MHz'
-Slack : -0.476
-TNS   : -0.604
+Slack : -0.470
+TNS   : -0.591
 
 Type  : Fast 1100mV 85C Model Minimum Pulse Width 'Clock_25MHz:ClockDivider|p_Q'
-Slack : 0.115
+Slack : 0.019
+TNS   : 0.000
+
+Type  : Fast 1100mV 85C Model Minimum Pulse Width 'VGA_SYNC:VGASync|vert_sync_out'
+Slack : 0.039
 TNS   : 0.000
 
 Type  : Fast 1100mV 0C Model Setup 'clk_50MHz'
-Slack : -1.719
-TNS   : -1.719
+Slack : -1.840
+TNS   : -1.840
+
+Type  : Fast 1100mV 0C Model Setup 'VGA_SYNC:VGASync|vert_sync_out'
+Slack : -1.647
+TNS   : -38.703
 
 Type  : Fast 1100mV 0C Model Setup 'Clock_25MHz:ClockDivider|p_Q'
-Slack : -1.165
-TNS   : -46.145
+Slack : -1.503
+TNS   : -57.645
 
 Type  : Fast 1100mV 0C Model Hold 'Clock_25MHz:ClockDivider|p_Q'
-Slack : 0.167
+Slack : 0.086
+TNS   : 0.000
+
+Type  : Fast 1100mV 0C Model Hold 'VGA_SYNC:VGASync|vert_sync_out'
+Slack : 0.516
 TNS   : 0.000
 
 Type  : Fast 1100mV 0C Model Hold 'clk_50MHz'
-Slack : 0.751
+Slack : 0.826
 TNS   : 0.000
 
 Type  : Fast 1100mV 0C Model Minimum Pulse Width 'clk_50MHz'
-Slack : -0.472
-TNS   : -0.602
+Slack : -0.478
+TNS   : -0.615
 
 Type  : Fast 1100mV 0C Model Minimum Pulse Width 'Clock_25MHz:ClockDivider|p_Q'
-Slack : 0.129
+Slack : 0.053
+TNS   : 0.000
+
+Type  : Fast 1100mV 0C Model Minimum Pulse Width 'VGA_SYNC:VGASync|vert_sync_out'
+Slack : 0.066
 TNS   : 0.000
 
 ------------------------------------------------------------

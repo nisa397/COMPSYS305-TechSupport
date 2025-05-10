@@ -1,76 +1,82 @@
-LIBRARY IEEE;
-USE IEEE.STD_LOGIC_1164.all;
-USE IEEE.STD_LOGIC_ARITH.all;
-USE IEEE.STD_LOGIC_SIGNED.all;
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
-ENTITY bouncy_bird IS
-    PORT (
-        pb1, pb2, clk, vert_sync : IN std_logic;
-        pixel_row, pixel_column  : IN std_logic_vector(9 DOWNTO 0);
-        red, green, blue         : OUT std_logic
-    );		
-END bouncy_bird;
+entity bouncy_bird is
+    port (
+        pb1, pb2, clk, vert_sync : in  std_logic;
+        pixel_row, pixel_column  : in  std_logic_vector(9 downto 0);
+        red, green, blue         : out std_logic
+    );
+end bouncy_bird;
 
-ARCHITECTURE behavior OF bouncy_bird IS
+architecture behavior of bouncy_bird is
 
-SIGNAL ball_on            : std_logic;
-SIGNAL size               : std_logic_vector(9 DOWNTO 0) := CONV_STD_LOGIC_VECTOR(8, 10);  
-SIGNAL ball_y_pos         : std_logic_vector(9 DOWNTO 0) := CONV_STD_LOGIC_VECTOR(240, 10);  -- Start in middle
-SIGNAL ball_x_pos         : std_logic_vector(10 DOWNTO 0) := CONV_STD_LOGIC_VECTOR(160, 11); -- X stays fixed
-SIGNAL ball_y_motion      : std_logic_vector(9 DOWNTO 0) := (others => '0'); -- Initial vertical speed
+    -- Constants
+    constant GRAVITY       : integer := 1;
+    constant JUMP_STRENGTH : integer := -10;
+    constant MAX_Y         : integer := 470;
+    constant MIN_Y         : integer := 0;
 
--- Constants
-constant GRAVITY       : integer := 1;
-constant JUMP_STRENGTH : integer := -10;
-constant MAX_Y         : integer := 470;
-constant MIN_Y         : integer := 0;
+    -- Internal signals
+    signal size         : unsigned(9 downto 0) := to_unsigned(8, 10);
+    signal ball_y_pos   : unsigned(9 downto 0) := to_unsigned(240, 10);
+    signal ball_x_pos   : unsigned(10 downto 0) := to_unsigned(160, 11);
+    signal ball_y_motion: signed(9 downto 0) := (others => '0');
 
-BEGIN           
+    signal ball_on      : std_logic;
 
--- Determine if current pixel overlaps bird area
-ball_on <= '1' when (
-    ('0' & ball_x_pos <= '0' & pixel_column + size) and
-    ('0' & pixel_column <= '0' & ball_x_pos + size) and
-    ('0' & ball_y_pos <= pixel_row + size) and
-    ('0' & pixel_row <= ball_y_pos + size)
-) else '0';
+    -- Converted inputs for arithmetic
+    signal px, py       : unsigned(9 downto 0);
 
--- VGA color output (red bird, black background)
-red   <= ball_on;
-green <= '0';
-blue  <= '0';
-
--- Movement process: one update per frame
-Move_Ball: process (vert_sync)
-  variable temp_y_motion : integer;
-  variable next_y_pos    : integer;
 begin
-    if rising_edge(vert_sync) then
 
-        -- Apply jump if button pressed
-        if pb1 = '0' then
-            ball_y_motion <= JUMP_STRENGTH;
-        else
-            -- Apply gravity
-            ball_y_motion <= to_stdlogicvector(to_integer(ball_y_motion) + GRAVITY);
+    -- Convert pixel inputs
+    px <= unsigned(pixel_column);
+    py <= unsigned(pixel_row);
+
+    -- Ball drawing condition
+    ball_on <= '1' when (
+        ball_x_pos <= px + size and
+        px <= ball_x_pos + size and
+        ball_y_pos <= py + size and
+        py <= ball_y_pos + size
+    ) else '0';
+
+    -- Output color (red bird, black background)
+    red   <= ball_on;
+    green <= '0';
+    blue  <= '0';
+
+    -- Movement process: update on vertical sync (frame tick)
+    Move_Ball: process(vert_sync)
+        variable next_y_pos : integer;
+    begin
+        if rising_edge(vert_sync) then
+
+            -- Apply jump on button press
+            if pb1 = '0' then
+                ball_y_motion <= to_signed(JUMP_STRENGTH, ball_y_motion'length);
+            else
+                -- Apply gravity
+                ball_y_motion <= to_signed(to_integer(ball_y_motion) + GRAVITY, ball_y_motion'length);
+            end if;
+
+            -- Compute next Y position
+            next_y_pos := to_integer(ball_y_pos) + to_integer(ball_y_motion);
+
+            -- Clamp position
+            if next_y_pos > MAX_Y then
+                ball_y_pos    <= to_unsigned(MAX_Y, ball_y_pos'length);
+                ball_y_motion <= (others => '0');
+            elsif next_y_pos < MIN_Y then
+                ball_y_pos    <= to_unsigned(MIN_Y, ball_y_pos'length);
+                ball_y_motion <= (others => '0');
+            else
+                ball_y_pos <= to_unsigned(next_y_pos, ball_y_pos'length);
+            end if;
+
         end if;
+    end process;
 
-        -- Update Y position
-        temp_y_motion := to_integer(ball_y_motion) + GRAVITY;
-        next_y_pos := to_integer(ball_y_pos) + temp_y_motion;
-
-        -- Clamp position
-        if next_y_pos > MAX_Y then
-          ball_y_pos <= to_stdlogicvector(MAX_Y);
-          ball_y_motion <= (others => '0');
-        elsif next_y_pos < MIN_Y then
-            ball_y_pos <= to_stdlogicvector(MIN_Y);
-            ball_y_motion <= (others => '0');
-        else
-            ball_y_pos <= next_y_pos;
-        end if;
-
-    end if;
-end process Move_Ball;
-
-END behavior;
+end behavior;

@@ -22,6 +22,10 @@
 				{
 					"name" : "clk_50MHz",
 					"strict" : false
+				},
+				{
+					"name" : "button_1",
+					"strict" : false
 				}
 			]
 		}
