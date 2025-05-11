@@ -1,10 +1,18 @@
 |Flappy_bird
+PS2_CLK <> MOUSE:ps2.mouse_clk
+PS2_DAT <> MOUSE:ps2.mouse_data
 clk_50MHz => Clock_25MHZ:ClockDivider.Clk
 h_sync << vga_sync:VGASync.horiz_sync_out
 v_sync << vga_sync:VGASync.vert_sync_out
 red << vga_sync:VGASync.red_out
 green << vga_sync:VGASync.green_out
 blue << vga_sync:VGASync.blue_out
+LEDR0 << MOUSE:ps2.left_button
+
+
+|Flappy_bird|Clock_25MHz:ClockDivider
+Clk => p_Q.CLK
+Q <= p_Q.DB_MAX_OUTPUT_PORT_TYPE
 
 
 |Flappy_bird|MOUSE:ps2
@@ -162,56 +170,6 @@ mouse_cursor_column[6] <= cursor_column[6].DB_MAX_OUTPUT_PORT_TYPE
 mouse_cursor_column[7] <= cursor_column[7].DB_MAX_OUTPUT_PORT_TYPE
 mouse_cursor_column[8] <= cursor_column[8].DB_MAX_OUTPUT_PORT_TYPE
 mouse_cursor_column[9] <= cursor_column[9].DB_MAX_OUTPUT_PORT_TYPE
-
-
-|Flappy_bird|cursor_drawer:testCursor
-clk => s_cursor_on.CLK
-video_row[0] => ~NO_FANOUT~
-video_row[1] => ~NO_FANOUT~
-video_row[2] => ~NO_FANOUT~
-video_row[3] => ~NO_FANOUT~
-video_row[4] => ~NO_FANOUT~
-video_row[5] => ~NO_FANOUT~
-video_row[6] => ~NO_FANOUT~
-video_row[7] => ~NO_FANOUT~
-video_row[8] => ~NO_FANOUT~
-video_row[9] => ~NO_FANOUT~
-video_column[0] => ~NO_FANOUT~
-video_column[1] => ~NO_FANOUT~
-video_column[2] => ~NO_FANOUT~
-video_column[3] => ~NO_FANOUT~
-video_column[4] => ~NO_FANOUT~
-video_column[5] => ~NO_FANOUT~
-video_column[6] => ~NO_FANOUT~
-video_column[7] => ~NO_FANOUT~
-video_column[8] => ~NO_FANOUT~
-video_column[9] => ~NO_FANOUT~
-cursor_row[0] => ~NO_FANOUT~
-cursor_row[1] => ~NO_FANOUT~
-cursor_row[2] => ~NO_FANOUT~
-cursor_row[3] => ~NO_FANOUT~
-cursor_row[4] => ~NO_FANOUT~
-cursor_row[5] => ~NO_FANOUT~
-cursor_row[6] => ~NO_FANOUT~
-cursor_row[7] => ~NO_FANOUT~
-cursor_row[8] => ~NO_FANOUT~
-cursor_row[9] => ~NO_FANOUT~
-cursor_column[0] => ~NO_FANOUT~
-cursor_column[1] => ~NO_FANOUT~
-cursor_column[2] => ~NO_FANOUT~
-cursor_column[3] => ~NO_FANOUT~
-cursor_column[4] => ~NO_FANOUT~
-cursor_column[5] => ~NO_FANOUT~
-cursor_column[6] => ~NO_FANOUT~
-cursor_column[7] => ~NO_FANOUT~
-cursor_column[8] => ~NO_FANOUT~
-cursor_column[9] => ~NO_FANOUT~
-cursor_on <= s_cursor_on.DB_MAX_OUTPUT_PORT_TYPE
-
-
-|Flappy_bird|Clock_25MHz:ClockDivider
-Clk => p_Q.CLK
-Q <= p_Q.DB_MAX_OUTPUT_PORT_TYPE
 
 
 |Flappy_bird|ball:BallComponent
