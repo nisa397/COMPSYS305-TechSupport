@@ -15,13 +15,13 @@ entity Flappy_bird is
       red         : OUT std_logic;  -- VGA red output
       green       : OUT std_logic;  -- VGA green output
       blue        : OUT std_logic;   -- VGA blue output
-		LEDR0			: OUT std_logic
-	  --HEX0 : out STD_LOGIC_VECTOR(6 downto 0); --sso
-	  --HEX1 : out STD_LOGIC_Vector(6 downto 0); --sst
-	  --HEX2 : out STD_LOGIC_Vector(6 downto 0);
-	  --HEX3 : out STD_LOGIC_VECTOR(6 downto 0); --sso
-	  --HEX4 : out STD_LOGIC_Vector(6 downto 0); --sst
-	  --HEX5 : out STD_LOGIC_Vector(6 downto 0) 
+		LEDR0			: OUT std_logic;
+	  HEX0 : out STD_LOGIC_VECTOR(6 downto 0); --sso
+	  HEX1 : out STD_LOGIC_Vector(6 downto 0); --sst
+	  HEX2 : out STD_LOGIC_Vector(6 downto 0);
+	  HEX3 : out STD_LOGIC_VECTOR(6 downto 0); --sso
+	  HEX4 : out STD_LOGIC_Vector(6 downto 0); --sst
+	  HEX5 : out STD_LOGIC_Vector(6 downto 0) 
     );
 end entity Flappy_bird;
 
@@ -128,42 +128,42 @@ architecture Behavioral of Flappy_bird is
 	
 	
 	--Col
-	--sso0: BCD_to_SevenSeg
-	--port map(
-	--BCD_digit => ps2_cursor_col(3 downto 0),
-	--SevenSeg_out => HEX0
-	--);
+	sso0: BCD_to_SevenSeg
+	port map(
+	BCD_digit => ps2_cursor_col(3 downto 0),
+	SevenSeg_out => HEX0
+	);
 	
-	--sst0: BCD_to_SevenSeg
-	--port map(
-	--BCD_digit => ps2_cursor_col(7 downto 4),
-	--SevenSeg_out => HEX1
-	--);
+	sst0: BCD_to_SevenSeg
+	port map(
+	BCD_digit => ps2_cursor_col(7 downto 4),
+	SevenSeg_out => HEX1
+	);
 	
-	--ssh0: BCD_to_SevenSeg
-	--port map (
-    --BCD_digit => "00" & ps2_cursor_col(9 downto 8),
-    --SevenSeg_out => HEX2
-	--);
+	ssh0: BCD_to_SevenSeg
+	port map (
+    BCD_digit => "00" & ps2_cursor_col(9 downto 8),
+    SevenSeg_out => HEX2
+	);
 	
 	--Row
-	--sso1: BCD_to_SevenSeg
-	--port map(
-	--BCD_digit => ps2_cursor_row(3 downto 0),
-	--SevenSeg_out => HEX3
-	--);
+	sso1: BCD_to_SevenSeg
+	port map(
+	BCD_digit => ps2_cursor_row(3 downto 0),
+	SevenSeg_out => HEX3
+	);
 	
-	--sst1: BCD_to_SevenSeg
-	--port map(
-	--BCD_digit => ps2_cursor_row(7 downto 4),
-	--SevenSeg_out => HEX4
-	--);
+	sst1: BCD_to_SevenSeg
+	port map(
+	BCD_digit => ps2_cursor_row(7 downto 4),
+	SevenSeg_out => HEX4
+	);
 	
-	--ssh1: BCD_to_SevenSeg
-	--port map (
-    --BCD_digit => "00" & ps2_cursor_row(9 downto 8),
-    --SevenSeg_out => HEX5
-	--);
+	ssh1: BCD_to_SevenSeg
+	port map (
+    BCD_digit => "00" & ps2_cursor_row(9 downto 8),
+    SevenSeg_out => HEX5
+	);
 	
 	
 	
