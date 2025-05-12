@@ -70,7 +70,7 @@ architecture Behavioral of Flappy_bird is
 
   component bouncy_bird IS
     port (
-        pb1, pb2, clk, vert_sync : IN std_logic;
+        ps2_left, pb2, clk, vert_sync : IN std_logic;
         pixel_row, pixel_column  : IN std_logic_vector(9 DOWNTO 0);
         red, green, blue         : OUT std_logic
     );	
@@ -175,7 +175,7 @@ architecture Behavioral of Flappy_bird is
     -- Instantiate the ball component
   BallComponent: bouncy_bird
   port map(
-	 pb1 				 => button_1,
+	 ps2_left 				 => ps2_left,
 	 pb2 				 => button_2,
 	 vert_sync 		 => v_sync_signal,
     clk            => clk_25MHz,

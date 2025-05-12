@@ -4,7 +4,7 @@ use ieee.numeric_std.all;
 
 entity bouncy_bird is
     port (
-        pb1, pb2, clk, vert_sync : in  std_logic;
+        ps2_left, pb2, clk, vert_sync : in  std_logic;
         pixel_row, pixel_column  : in  std_logic_vector(9 downto 0);
         red, green, blue         : out std_logic
     );
@@ -55,7 +55,7 @@ begin
         if rising_edge(vert_sync) then
 
             -- Apply jump on button press
-            if pb1 = '0' then
+            if ps2_left = '1' then
                 ball_y_motion <= to_signed(JUMP_STRENGTH, ball_y_motion'length);
             else
                 -- Apply gravity
