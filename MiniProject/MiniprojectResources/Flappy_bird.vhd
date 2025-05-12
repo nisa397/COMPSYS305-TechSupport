@@ -95,6 +95,15 @@ architecture Behavioral of Flappy_bird is
 		port (BCD_digit : in std_logic_vector(3 downto 0);
            SevenSeg_out : out std_logic_vector(6 downto 0));
 	end component;
+	
+	component cursor_drawer is
+    port (
+        clk            : in  STD_LOGIC;
+        video_row, video_column  : in  STD_LOGIC_VECTOR (9 downto 0);
+        cursor_row, cursor_column: in  STD_LOGIC_VECTOR (9 downto 0);
+		cursor_on : out STD_LOGIC
+    );
+	end component; 
 
 	
   begin
@@ -125,6 +134,15 @@ architecture Behavioral of Flappy_bird is
 	mouse_cursor_column => ps2_cursor_col
 	);
 	
+	cursor: cursor_drawer
+	port map(
+	clk => clk_25MHz,
+	video_row => pixel_row,
+	video_column => pixel_column,
+	cursor_row => ps2_cursor_row,
+	cursor_column => ps2_cursor_col,
+	cursor_on => cursor_on
+	);
 	
 	
 	--Col
@@ -197,7 +215,7 @@ architecture Behavioral of Flappy_bird is
   -- Otherwise, use a constant background color (e.g., green background).
   red_pixel   <= '0' when ball_on = '1' else '0'; -- Bird: red, Background: no red
   green_pixel <= '0' when ball_on = '1' else '1'; -- Bird: no green, Background: green
-  blue_pixel  <= '1' when ball_on = '1' else '0'; -- Bird: no blue, Background: no blue
+  blue_pixel  <= '1' when (ball_on = '1') or (cursor_on = '1') else '0'; -- Bird: no blue, Background: no blue
   
   
   LEDR0 <= ps2_left;
