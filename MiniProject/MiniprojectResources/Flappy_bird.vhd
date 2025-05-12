@@ -7,6 +7,8 @@ entity Flappy_bird is
     port(
 		PS2_CLK		: INOUT std_logic;
 		PS2_DAT		: INOUT std_logic;
+		button_1 : In std_logic; --push button
+		button_2: In std_logic; --second push button
       clk_50MHz   : IN  std_logic;  -- DE0-CV clock
       h_sync      : OUT std_logic;  -- VGA horizontal sync
       v_sync      : OUT std_logic;  -- VGA vertical sync
@@ -54,6 +56,10 @@ architecture Behavioral of Flappy_bird is
   SIGNAL red_pixel, green_pixel, blue_pixel : std_logic;
   SIGNAL ball_on : std_logic;
   SIGNAL ball_x_pos, ball_y_pos : std_logic_vector(9 DOWNTO 0);
+  
+  signal v_sync_signal : std_logic;
+
+    
 
   component vga_sync is
     PORT(	clock_25Mhz, red, green, blue	: IN	STD_LOGIC;
@@ -62,11 +68,12 @@ architecture Behavioral of Flappy_bird is
       );
   end component;
 
-  component ball is
-   port ( clk : IN std_logic;
-		  pixel_row, pixel_column	: IN std_logic_vector(9 DOWNTO 0);
-		  red, green, blue : OUT std_logic
-      );	
+  component bouncy_bird IS
+    port (
+        pb1, pb2, clk, vert_sync : IN std_logic;
+        pixel_row, pixel_column  : IN std_logic_vector(9 DOWNTO 0);
+        red, green, blue         : OUT std_logic
+    );	
   end component;
   
   component Clock_25MHZ is 
@@ -166,8 +173,11 @@ architecture Behavioral of Flappy_bird is
 	
 
     -- Instantiate the ball component
-  BallComponent: ball
+  BallComponent: bouncy_bird
   port map(
+	 pb1 				 => button_1,
+	 pb2 				 => button_2,
+	 vert_sync 		 => v_sync_signal,
     clk            => clk_25MHz,
     pixel_row      => pixel_row,
     pixel_column   => pixel_column,
@@ -203,10 +213,13 @@ architecture Behavioral of Flappy_bird is
       green_out       => green,
       blue_out        => blue,
       horiz_sync_out  => h_sync,
-      vert_sync_out   => v_sync,
+      vert_sync_out   => v_sync_signal,
       pixel_row       => pixel_row,
       pixel_column    => pixel_column
     );
+	 
+	 v_sync <= v_sync_signal;
+
 
   
 

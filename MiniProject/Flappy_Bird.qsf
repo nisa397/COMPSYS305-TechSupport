@@ -41,7 +41,7 @@ set_global_assignment -name DEVICE 5CEBA4F23C7
 set_global_assignment -name TOP_LEVEL_ENTITY Flappy_bird
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 18.1.0
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "12:48:54  MAY 06, 2025"
-set_global_assignment -name LAST_QUARTUS_VERSION "24.1std.0 Lite Edition"
+set_global_assignment -name LAST_QUARTUS_VERSION "18.1.0 Lite Edition"
 set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
 set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
 set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
@@ -59,10 +59,9 @@ set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -entity DE0_CV_Default
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -entity DE0_CV_Default -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -entity DE0_CV_Default -section_id Top
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -entity DE0_CV_Default -section_id Top
-set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
-set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
 set_global_assignment -name VHDL_FILE MiniprojectResources/BCDtoHEX.vhd
 set_global_assignment -name VHDL_FILE MiniprojectResources/cursor.vhd
+set_global_assignment -name VHDL_FILE MiniprojectResources/bouncy_bird.vhd
 set_global_assignment -name VHDL_FILE MiniprojectResources/ball.vhd
 set_global_assignment -name VHDL_FILE MiniprojectResources/bouncy_ball.vhd
 set_global_assignment -name VHDL_FILE MiniprojectResources/char_rom.vhd
@@ -113,7 +112,10 @@ set_location_assignment PIN_T14 -to HEX5[2]
 set_location_assignment PIN_M8 -to HEX5[1]
 set_location_assignment PIN_N9 -to HEX5[0]
 set_location_assignment PIN_AA2 -to LEDR0
-set_location_assignment PIN_U7 -to testButton
 set_location_assignment PIN_D3 -to PS2_CLK
 set_location_assignment PIN_G2 -to PS2_DAT
+set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
+set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
+set_location_assignment PIN_U7 -to button_1
+set_location_assignment PIN_W9 -to button_2
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
