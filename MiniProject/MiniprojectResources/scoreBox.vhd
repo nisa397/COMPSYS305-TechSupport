@@ -8,7 +8,8 @@ entity scoreBox is
 		clock : in std_logic; 
 		pixel_row, pixel_column : in std_logic_vector(9 downto 0); 
 		font_row, font_column : out std_logic_vector(3 downto 1); 
-		character_addr : out std_logic_vector(5 downto 0)
+		character_addr : out std_logic_vector(5 downto 0);
+      within_bounds : out std_logic
 	); 
 end entity;
 
@@ -19,9 +20,11 @@ architecture behaviour of scoreBox is
 
 begin 
     -- Calculate font_row and font_column relative to the origin
-    font_row <= pixel_row(3 downto 1) - origin_row(3 downto 1) when (pixel_row >= origin_row and pixel_row < origin_row + 8) else "000";
-    font_column <= pixel_column(3 downto 1) - origin_col(3 downto 1) when (pixel_column >= origin_col and pixel_column < origin_col + 8) else "000";
-
+    font_row <= pixel_row(3 downto 1) - origin_row(3 downto 1) when (pixel_row >= origin_row and pixel_row < origin_row + 16) else "000";
+    font_column <= pixel_column(3 downto 1) - origin_col(3 downto 1) when (pixel_column >= origin_col and pixel_column < origin_col + 16) else "000";
+    
+    within_bounds <= '1' when (pixel_row >= origin_row and pixel_row < origin_row + 16 and
+                               pixel_column >= origin_col and pixel_column < origin_col + 16) else '0';
     -- Set the character address to display "A" (address 010 in octal, 000010 in binary)
-    character_addr <= "000010"; -- Address for character "A"
+    character_addr <= "000001"; -- Address for character "A"
 end architecture; 

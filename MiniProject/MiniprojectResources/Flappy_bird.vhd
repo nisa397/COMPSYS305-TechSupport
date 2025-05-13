@@ -28,6 +28,8 @@ architecture Behavioral of Flappy_bird is
   signal font_row_in, font_col_in : std_logic_vector(2 downto 0); 
   signal character_address_in : std_logic_vector(5 downto 0); 
   signal rom_mux_output : std_logic; 
+  signal within_bounds : std_logic; 
+  signal text_on : std_logic; 
 
   -- RGB pixel output from ball component
   SIGNAL red_ball, green_ball, blue_ball : std_logic;
@@ -73,7 +75,8 @@ architecture Behavioral of Flappy_bird is
 			clock : in std_logic; 
 			pixel_row, pixel_column : in std_logic_vector(9 downto 0); 
 			font_row, font_column : out std_logic_vector(3 downto 1); 
-			character_addr : out std_logic_vector(5 downto 0)
+			character_addr : out std_logic_vector(5 downto 0); 
+			within_bounds : out std_logic
 		); 
 	end component; 
 
@@ -102,12 +105,15 @@ architecture Behavioral of Flappy_bird is
   -- Logic to determine if the current pixel is part of the bird
   ball_on <= '1' when (red_ball = '1' or green_ball = '1' or blue_ball = '1') else '0';
   
+  -- Logic to determine if the text will be on
+  text_on <= '1' when (within_bounds = '1' and rom_mux_output = '1') else '0';
+  
   -- Logic to combine bird and background colors
   -- If the current pixel is part of the bird, use the bird's color.
   -- Otherwise, use a constant background color (e.g., green background).
-  red_pixel   <= '0' when ball_on = '1' or rom_mux_output = '1' else '0'; -- Bird: red, Background: no red
-  green_pixel <= '0' when ball_on = '1' or rom_mux_output = '1' else '1'; -- Bird: no green, Background: green
-  blue_pixel  <= '1' when ball_on = '1' or rom_mux_output = '1' else '0'; -- Bird: no blue, Background: no blue
+  red_pixel   <= '0' when ball_on = '1' or text_on = '1' else '0'; -- Bird: red, Background: no red
+  green_pixel <= '0' when ball_on = '1' or text_on = '1' else '1'; -- Bird: no green, Background: green
+  blue_pixel  <= '1' when ball_on = '1' or text_on = '1' else '0'; -- Bird: no blue, Background: no blue
   
   -- Instantiate the text component 
   TextComponent: char_rom 
@@ -127,7 +133,8 @@ architecture Behavioral of Flappy_bird is
 	pixel_column => pixel_column,
 	font_row => font_row_in, -- Input 
 	font_column => font_col_in,
-	character_addr => character_address_in 
+	character_addr => character_address_in,
+	within_bounds => within_bounds
   ); 
   
   
