@@ -13,12 +13,15 @@ entity scoreBox is
 end entity;
 
 architecture behaviour of scoreBox is 
+    -- Define the origin for the character display
+    constant origin_row : std_logic_vector(9 downto 0) := "0000000010"; -- Row 2
+    constant origin_col : std_logic_vector(9 downto 0) := "0000000010"; -- Column 2
 
 begin 
-		
-	-- S top left corner	
-  font_row <= pixel_row(3 downto 1) when (pixel_row(9 downto 0) <= conv_std_logic_vector(15,10)) else "000"; -- Top Left corner, pass pixel row when pixelrow < 15th row 
-  font_column <= pixel_column(3 downto 1) when (pixel_column(9 downto 0) <= conv_std_logic_vector(15,10)) else "000"; -- pass pixel column when pixelcol < 15th row 
-  character_addr <= "010011"; -- S 
+    -- Calculate font_row and font_column relative to the origin
+    font_row <= pixel_row(3 downto 1) - origin_row(3 downto 1) when (pixel_row >= origin_row and pixel_row < origin_row + 8) else "000";
+    font_column <= pixel_column(3 downto 1) - origin_col(3 downto 1) when (pixel_column >= origin_col and pixel_column < origin_col + 8) else "000";
 
+    -- Set the character address to display "A" (address 010 in octal, 000010 in binary)
+    character_addr <= "000010"; -- Address for character "A"
 end architecture; 
