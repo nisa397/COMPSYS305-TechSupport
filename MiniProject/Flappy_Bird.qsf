@@ -115,26 +115,16 @@ set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
 set_location_assignment PIN_U7 -to button_1
 set_location_assignment PIN_W9 -to button_2
-set_location_assignment PIN_A8 -to blue[1]
 set_location_assignment PIN_B7 -to blue[2]
-set_location_assignment PIN_B6 -to blue[3]
 set_location_assignment PIN_J7 -to green[1]
-set_location_assignment PIN_J8 -to green[0]
 set_location_assignment PIN_K7 -to green[2]
-set_location_assignment PIN_L7 -to green[3]
-set_location_assignment PIN_A7 -to blue[0]
 set_location_assignment PIN_C9 -to red[1]
 set_location_assignment PIN_B10 -to red[2]
 set_location_assignment PIN_A9 -to red[3]
-set_location_assignment PIN_A5 -to red[0]
-set_location_assignment PIN_U13 -to dip_sw1[3]
-set_location_assignment PIN_V13 -to dip_sw1[2]
-set_location_assignment PIN_T13 -to dip_sw1[1]
-set_location_assignment PIN_T12 -to dip_sw1[0]
-set_location_assignment PIN_AA15 -to dip_sw2[3]
-set_location_assignment PIN_AB15 -to dip_sw2[2]
-set_location_assignment PIN_AA14 -to dip_sw2[1]
-set_location_assignment PIN_AA13 -to dip_sw2[0]
-set_location_assignment PIN_AB13 -to dip_sw3[1]
-set_location_assignment PIN_AB12 -to dip_sw3[0]
+set_location_assignment PIN_A7 -to blue
+set_location_assignment PIN_J8 -to green
+set_location_assignment PIN_A5 -to red
+set_location_assignment PIN_U13 -to dip_sw1
+set_location_assignment PIN_V13 -to dip_sw2
+set_location_assignment PIN_T13 -to dip_sw3
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

@@ -5,9 +5,9 @@ use ieee.std_logic_unsigned.all;
 
 entity Flappy_bird is
     port(
-		dip_sw1 : IN std_logic_vector (3 downto 0);
-		dip_sw2: 	IN std_logic_vector (3 downto 0);
-		dip_sw3 : IN std_logic_vector (1 downto 0);
+		dip_sw1 : IN std_logic;
+		dip_sw2: 	IN std_logic;
+		dip_sw3 : IN std_logic;
 		PS2_CLK		: INOUT std_logic;
 		PS2_DAT		: INOUT std_logic;
 		button_1 : In std_logic; --push button
@@ -15,9 +15,9 @@ entity Flappy_bird is
       clk_50MHz   : IN  std_logic;  -- DE0-CV clock
       h_sync      : OUT std_logic;  -- VGA horizontal sync
       v_sync      : OUT std_logic;  -- VGA vertical sync
-      red         : OUT std_logic_vector( 3 downto 0);  -- VGA red output
-      green       : OUT std_logic_vector( 3 downto 0);  -- VGA green output
-      blue        : OUT std_logic_vector( 3 downto 0);   -- VGA blue output
+      red         : OUT std_logic;  -- VGA red output
+      green       : OUT std_logic;  -- VGA green output
+      blue        : OUT std_logic;   -- VGA blue output
 		LEDR0			: OUT std_logic;
 	  HEX0 : out STD_LOGIC_VECTOR(6 downto 0); --sso
 	  HEX1 : out STD_LOGIC_Vector(6 downto 0); --sst
@@ -56,7 +56,7 @@ architecture Behavioral of Flappy_bird is
   -- RGB pixel output from ball component
   SIGNAL red_ball, green_ball, blue_ball : std_logic;
 
-  SIGNAL red_pixel, green_pixel, blue_pixel : std_logic_vector(3 downto 0);
+  SIGNAL red_pixel, green_pixel, blue_pixel : std_logic;
   SIGNAL ball_on : std_logic;
   SIGNAL ball_x_pos, ball_y_pos : std_logic_vector(9 DOWNTO 0);
   
@@ -66,8 +66,8 @@ architecture Behavioral of Flappy_bird is
 
   component vga_sync is
     PORT(	clock_25Mhz : IN std_logic;
-			red, green, blue		: IN	std_logic_vector( 3 downto 0);
-			red_out, green_out, blue_out : OUT std_logic_vector( 3 downto 0);
+			red, green, blue		: IN	std_logic;
+			red_out, green_out, blue_out : OUT std_logic;
 			horiz_sync_out, vert_sync_out	: OUT	STD_LOGIC;
 			pixel_row, pixel_column: OUT STD_LOGIC_VECTOR(9 DOWNTO 0));
   end component;
@@ -111,12 +111,6 @@ architecture Behavioral of Flappy_bird is
 
 	
   begin
-
-	
-
-
-
-
 
     -- Instantiate the clock divider to generate 25 MHz clock
     ClockDivider: Clock_25MHz
@@ -217,9 +211,9 @@ architecture Behavioral of Flappy_bird is
   -- Logic to combine bird and background colors
   -- If the current pixel is part of the bird, use the bird's color.
   -- Otherwise, use a constant background color (e.g., green background).
-  red_pixel   <= "0000" when ball_on = '1' else dip_sw1; -- Bird: red, Background: no red
-  green_pixel <= "0000" when ball_on = '1' else dip_sw2; -- Bird: no green, Background: green
-  blue_pixel  <= "1000" when (ball_on = '1') or (cursor_on = '1') else (dip_sw3 & "00"); -- Bird: no blue, Background: no blue
+  red_pixel   <= '1' when ball_on = '1' else dip_sw1; -- Bird: red, Background: no red
+  green_pixel <= '1' when ball_on = '1' else dip_sw2; -- Bird: no green, Background: green
+  blue_pixel  <= '1' when (ball_on = '1') or (cursor_on = '1') else dip_sw3; -- Bird: no blue, Background: no blue
   
   
   LEDR0 <= ps2_left;

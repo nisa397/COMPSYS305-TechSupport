@@ -1,5 +1,5 @@
 Analysis & Synthesis report for Flappy_Bird
-Tue May 13 14:46:57 2025
+Wed May 14 14:32:41 2025
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -18,13 +18,12 @@ Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
  10. General Register Statistics
  11. Inverted Register Statistics
  12. Multiplexer Restructuring Statistics (Restructuring Performed)
- 13. Port Connectivity Checks: "VGA_SYNC:VGASync"
- 14. Port Connectivity Checks: "BCD_to_SevenSeg:ssh1"
- 15. Port Connectivity Checks: "BCD_to_SevenSeg:ssh0"
- 16. Port Connectivity Checks: "MOUSE:ps2"
- 17. Post-Synthesis Netlist Statistics for Top Partition
- 18. Elapsed Time Per Partition
- 19. Analysis & Synthesis Messages
+ 13. Port Connectivity Checks: "BCD_to_SevenSeg:ssh1"
+ 14. Port Connectivity Checks: "BCD_to_SevenSeg:ssh0"
+ 15. Port Connectivity Checks: "MOUSE:ps2"
+ 16. Post-Synthesis Netlist Statistics for Top Partition
+ 17. Elapsed Time Per Partition
+ 18. Analysis & Synthesis Messages
 
 
 
@@ -50,14 +49,14 @@ refer to the applicable agreement for further details.
 +-------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                  ;
 +---------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status     ; Successful - Tue May 13 14:46:57 2025       ;
+; Analysis & Synthesis Status     ; Successful - Wed May 14 14:32:40 2025       ;
 ; Quartus Prime Version           ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                   ; Flappy_Bird                                 ;
 ; Top-level Entity Name           ; Flappy_bird                                 ;
 ; Family                          ; Cyclone V                                   ;
 ; Logic utilization (in ALMs)     ; N/A                                         ;
 ; Total registers                 ; 187                                         ;
-; Total pins                      ; 72                                          ;
+; Total pins                      ; 56                                          ;
 ; Total virtual pins              ; 0                                           ;
 ; Total block memory bits         ; 0                                           ;
 ; Total DSP Blocks                ; 0                                           ;
@@ -205,14 +204,14 @@ refer to the applicable agreement for further details.
 ;                                             ;                            ;
 ; Dedicated logic registers                   ; 187                        ;
 ;                                             ;                            ;
-; I/O pins                                    ; 72                         ;
+; I/O pins                                    ; 56                         ;
 ;                                             ;                            ;
 ; Total DSP Blocks                            ; 0                          ;
 ;                                             ;                            ;
 ; Maximum fan-out node                        ; MOUSE:ps2|MOUSE_CLK_FILTER ;
 ; Maximum fan-out                             ; 91                         ;
-; Total fan-out                               ; 1820                       ;
-; Average fan-out                             ; 2.85                       ;
+; Total fan-out                               ; 1804                       ;
+; Average fan-out                             ; 2.97                       ;
 +---------------------------------------------+----------------------------+
 
 
@@ -221,7 +220,7 @@ refer to the applicable agreement for further details.
 +--------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+----------------------------------------+-----------------+--------------+
 ; Compilation Hierarchy Node     ; Combinational ALUTs ; Dedicated Logic Registers ; Block Memory Bits ; DSP Blocks ; Pins ; Virtual Pins ; Full Hierarchy Name                    ; Entity Name     ; Library Name ;
 +--------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+----------------------------------------+-----------------+--------------+
-; |Flappy_bird                   ; 306 (1)             ; 187 (0)                   ; 0                 ; 0          ; 72   ; 0            ; |Flappy_bird                           ; Flappy_bird     ; work         ;
+; |Flappy_bird                   ; 306 (1)             ; 187 (0)                   ; 0                 ; 0          ; 56   ; 0            ; |Flappy_bird                           ; Flappy_bird     ; work         ;
 ;    |BCD_to_SevenSeg:ssh0|      ; 2 (2)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |Flappy_bird|BCD_to_SevenSeg:ssh0      ; BCD_to_SevenSeg ; work         ;
 ;    |BCD_to_SevenSeg:sso0|      ; 7 (7)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |Flappy_bird|BCD_to_SevenSeg:sso0      ; BCD_to_SevenSeg ; work         ;
 ;    |BCD_to_SevenSeg:sso1|      ; 7 (7)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |Flappy_bird|BCD_to_SevenSeg:sso1      ; BCD_to_SevenSeg ; work         ;
@@ -256,9 +255,6 @@ Encoding Type:  One-Hot
 +-----------------------------------------+----------------------------------------+
 ; Register name                           ; Reason for Removal                     ;
 +-----------------------------------------+----------------------------------------+
-; VGA_SYNC:VGASync|red_out[0..2]          ; Stuck at GND due to stuck port data_in ;
-; VGA_SYNC:VGASync|green_out[0..2]        ; Stuck at GND due to stuck port data_in ;
-; VGA_SYNC:VGASync|blue_out[0..2]         ; Stuck at GND due to stuck port data_in ;
 ; MOUSE:ps2|CHAROUT[4..7]                 ; Stuck at VCC due to stuck port data_in ;
 ; MOUSE:ps2|CHAROUT[3]                    ; Stuck at GND due to stuck port data_in ;
 ; MOUSE:ps2|CHAROUT[2]                    ; Stuck at VCC due to stuck port data_in ;
@@ -267,7 +263,7 @@ Encoding Type:  One-Hot
 ; MOUSE:ps2|cursor_row[9]                 ; Stuck at GND due to stuck port data_in ;
 ; bouncy_bird:BallComponent|ball_y_pos[9] ; Stuck at GND due to stuck port data_in ;
 ; VGA_SYNC:VGASync|pixel_row[9]           ; Stuck at GND due to stuck port data_in ;
-; Total Number of Removed Registers = 21  ;                                        ;
+; Total Number of Removed Registers = 12  ;                                        ;
 +-----------------------------------------+----------------------------------------+
 
 
@@ -325,15 +321,6 @@ Encoding Type:  One-Hot
 ; 5:1                ; 4 bits    ; 12 LEs        ; 12 LEs               ; 0 LEs                  ; No         ; |Flappy_bird|BCD_to_SevenSeg:sso1|SevenSeg_out[0]       ;
 ; 5:1                ; 4 bits    ; 12 LEs        ; 12 LEs               ; 0 LEs                  ; No         ; |Flappy_bird|BCD_to_SevenSeg:sst1|SevenSeg_out[0]       ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+---------------------------------------------------------+
-
-
-+----------------------------------------------+
-; Port Connectivity Checks: "VGA_SYNC:VGASync" ;
-+------------+-------+----------+--------------+
-; Port       ; Type  ; Severity ; Details      ;
-+------------+-------+----------+--------------+
-; blue[1..0] ; Input ; Info     ; Stuck at GND ;
-+------------+-------+----------+--------------+
 
 
 +---------------------------------------------------+
@@ -396,7 +383,7 @@ Encoding Type:  One-Hot
 ;     shared            ; 10                          ;
 ;         1 data inputs ; 1                           ;
 ;         2 data inputs ; 9                           ;
-; boundary_port         ; 72                          ;
+; boundary_port         ; 56                          ;
 ;                       ;                             ;
 ; Max LUT depth         ; 4.80                        ;
 ; Average LUT depth     ; 2.43                        ;
@@ -418,7 +405,7 @@ Encoding Type:  One-Hot
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
-    Info: Processing started: Tue May 13 14:46:46 2025
+    Info: Processing started: Wed May 14 14:32:29 2025
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off Flappy_Bird -c Flappy_Bird
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 6 of the 6 processors detected
@@ -455,31 +442,28 @@ Info (12021): Found 2 design units, including 1 entities, in source file minipro
 Info (12127): Elaborating entity "Flappy_bird" for the top level hierarchy
 Warning (10540): VHDL Signal Declaration warning at Flappy_bird.vhd(39): used explicit default value for signal "ps2_reset" because signal was never assigned a value File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 39
 Warning (10036): Verilog HDL or VHDL warning at Flappy_bird.vhd(41): object "ps2_right" assigned a value but never read File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 41
-Info (12128): Elaborating entity "Clock_25MHz" for hierarchy "Clock_25MHz:ClockDivider" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 122
-Info (12128): Elaborating entity "MOUSE" for hierarchy "MOUSE:ps2" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 129
+Info (12128): Elaborating entity "Clock_25MHz" for hierarchy "Clock_25MHz:ClockDivider" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 116
+Info (12128): Elaborating entity "MOUSE" for hierarchy "MOUSE:ps2" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 123
 Warning (10036): Verilog HDL or VHDL warning at mouse.vhd(25): object "CHARIN" assigned a value but never read File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/mouse.vhd Line: 25
 Warning (10492): VHDL Process Statement warning at mouse.vhd(151): signal "CHAROUT" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/mouse.vhd Line: 151
 Warning (10492): VHDL Process Statement warning at mouse.vhd(155): signal "CHAROUT" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/mouse.vhd Line: 155
 Warning (10492): VHDL Process Statement warning at mouse.vhd(156): signal "CHAROUT" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/mouse.vhd Line: 156
 Warning (10492): VHDL Process Statement warning at mouse.vhd(157): signal "CHAROUT" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/mouse.vhd Line: 157
-Info (12128): Elaborating entity "cursor_drawer" for hierarchy "cursor_drawer:cursor" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 141
-Info (12128): Elaborating entity "BCD_to_SevenSeg" for hierarchy "BCD_to_SevenSeg:sso0" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 153
-Info (12128): Elaborating entity "bouncy_bird" for hierarchy "bouncy_bird:BallComponent" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 198
+Info (12128): Elaborating entity "cursor_drawer" for hierarchy "cursor_drawer:cursor" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 135
+Info (12128): Elaborating entity "BCD_to_SevenSeg" for hierarchy "BCD_to_SevenSeg:sso0" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 147
+Info (12128): Elaborating entity "bouncy_bird" for hierarchy "bouncy_bird:BallComponent" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 192
 Warning (10540): VHDL Signal Declaration warning at bouncy_bird.vhd(22): used explicit default value for signal "size" because signal was never assigned a value File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/bouncy_bird.vhd Line: 22
 Warning (10540): VHDL Signal Declaration warning at bouncy_bird.vhd(24): used explicit default value for signal "ball_x_pos" because signal was never assigned a value File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/bouncy_bird.vhd Line: 24
-Info (12128): Elaborating entity "VGA_SYNC" for hierarchy "VGA_SYNC:VGASync" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 228
+Info (12128): Elaborating entity "VGA_SYNC" for hierarchy "VGA_SYNC:VGASync" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 222
+Warning (12069): Ignored assignment(s) for "blue[2]" because "blue" is not a bus or array File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 20
+Warning (12069): Ignored assignment(s) for "green[1]" because "green" is not a bus or array File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 19
+Warning (12069): Ignored assignment(s) for "green[2]" because "green" is not a bus or array File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 19
+Warning (12069): Ignored assignment(s) for "red[1]" because "red" is not a bus or array File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 18
+Warning (12069): Ignored assignment(s) for "red[2]" because "red" is not a bus or array File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 18
+Warning (12069): Ignored assignment(s) for "red[3]" because "red" is not a bus or array File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 18
 Info (13000): Registers with preset signals will power-up high File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/mouse.vhd Line: 146
 Info (13003): DEV_CLRn pin will set, and not reset, register with preset signal due to NOT Gate Push-Back
 Warning (13024): Output pins are stuck at VCC or GND
-    Warning (13410): Pin "red[0]" is stuck at GND File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 18
-    Warning (13410): Pin "red[1]" is stuck at GND File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 18
-    Warning (13410): Pin "red[2]" is stuck at GND File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 18
-    Warning (13410): Pin "green[0]" is stuck at GND File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 19
-    Warning (13410): Pin "green[1]" is stuck at GND File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 19
-    Warning (13410): Pin "green[2]" is stuck at GND File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 19
-    Warning (13410): Pin "blue[0]" is stuck at GND File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 20
-    Warning (13410): Pin "blue[1]" is stuck at GND File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 20
-    Warning (13410): Pin "blue[2]" is stuck at GND File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 20
     Warning (13410): Pin "HEX2[1]" is stuck at GND File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 24
     Warning (13410): Pin "HEX5[1]" is stuck at GND File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 27
     Warning (13410): Pin "HEX5[2]" is stuck at GND File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 27
@@ -512,25 +496,18 @@ Warning (20013): Ignored 24 assignments for entity "DE0_CV_Default" -- entity do
     Warning (20014): Assignment for entity set_global_assignment -name PARTITION_ENABLE_STRICT_PRESERVATION OFF -entity DE0_CV_Default -section_id Top was ignored
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Warning (21074): Design contains 9 input pin(s) that do not drive logic
-    Warning (15610): No output dependent on input pin "dip_sw1[0]" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 8
-    Warning (15610): No output dependent on input pin "dip_sw1[1]" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 8
-    Warning (15610): No output dependent on input pin "dip_sw1[2]" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 8
-    Warning (15610): No output dependent on input pin "dip_sw2[0]" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 9
-    Warning (15610): No output dependent on input pin "dip_sw2[1]" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 9
-    Warning (15610): No output dependent on input pin "dip_sw2[2]" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 9
-    Warning (15610): No output dependent on input pin "dip_sw3[0]" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 10
+Warning (21074): Design contains 2 input pin(s) that do not drive logic
     Warning (15610): No output dependent on input pin "button_1" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 13
     Warning (15610): No output dependent on input pin "button_2" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 14
-Info (21057): Implemented 445 device resources after synthesis - the final resource count might be different
-    Info (21058): Implemented 13 input pins
-    Info (21059): Implemented 57 output pins
+Info (21057): Implemented 429 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 6 input pins
+    Info (21059): Implemented 48 output pins
     Info (21060): Implemented 2 bidirectional pins
     Info (21061): Implemented 373 logic cells
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 59 warnings
-    Info: Peak virtual memory: 4865 megabytes
-    Info: Processing ended: Tue May 13 14:46:57 2025
-    Info: Elapsed time: 00:00:11
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 49 warnings
+    Info: Peak virtual memory: 4869 megabytes
+    Info: Processing ended: Wed May 14 14:32:41 2025
+    Info: Elapsed time: 00:00:12
     Info: Total CPU time (on all processors): 00:00:22
 
 

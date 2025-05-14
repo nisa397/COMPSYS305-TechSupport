@@ -12,15 +12,15 @@
 					"strict" : false
 				},
 				{
-					"name" : "red[3]",
+					"name" : "red",
 					"strict" : false
 				},
 				{
-					"name" : "green[3]",
+					"name" : "green",
 					"strict" : false
 				},
 				{
-					"name" : "blue[3]",
+					"name" : "blue",
 					"strict" : false
 				},
 				{
@@ -188,15 +188,15 @@
 					"strict" : false
 				},
 				{
-					"name" : "dip_sw1[3]",
+					"name" : "dip_sw1",
 					"strict" : false
 				},
 				{
-					"name" : "dip_sw2[3]",
+					"name" : "dip_sw2",
 					"strict" : false
 				},
 				{
-					"name" : "dip_sw3[1]",
+					"name" : "dip_sw3",
 					"strict" : false
 				},
 				{
