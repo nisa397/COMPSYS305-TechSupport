@@ -55,7 +55,7 @@ begin
         if rising_edge(vert_sync) then
 
             -- Apply jump on button press
-            if ps2_left = '1' then
+            if (ps2_left = '1') or (pb2 = '0') then
                 ball_y_motion <= to_signed(JUMP_STRENGTH, ball_y_motion'length);
             else
                 -- Apply gravity

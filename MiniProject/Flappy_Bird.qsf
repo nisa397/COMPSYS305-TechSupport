@@ -56,16 +56,6 @@ set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -entity DE0_CV_Default
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -entity DE0_CV_Default -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -entity DE0_CV_Default -section_id Top
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -entity DE0_CV_Default -section_id Top
-set_global_assignment -name VHDL_FILE MiniprojectResources/BCDtoHEX.vhd
-set_global_assignment -name VHDL_FILE MiniprojectResources/cursor.vhd
-set_global_assignment -name VHDL_FILE MiniprojectResources/bouncy_bird.vhd
-set_global_assignment -name VHDL_FILE MiniprojectResources/ball.vhd
-set_global_assignment -name VHDL_FILE MiniprojectResources/bouncy_ball.vhd
-set_global_assignment -name VHDL_FILE MiniprojectResources/char_rom.vhd
-set_global_assignment -name VHDL_FILE MiniprojectResources/clock_divider_25MHz.vhd
-set_global_assignment -name VHDL_FILE MiniprojectResources/Flappy_bird.vhd
-set_global_assignment -name VHDL_FILE MiniprojectResources/mouse.vhd
-set_global_assignment -name VHDL_FILE MiniprojectResources/vga_sync.vhd
 set_location_assignment PIN_AA22 -to HEX0[6]
 set_location_assignment PIN_Y21 -to HEX0[5]
 set_location_assignment PIN_Y22 -to HEX0[4]
@@ -127,4 +117,16 @@ set_location_assignment PIN_A5 -to red
 set_location_assignment PIN_U13 -to dip_sw1
 set_location_assignment PIN_V13 -to dip_sw2
 set_location_assignment PIN_T13 -to dip_sw3
+
+set_global_assignment -name VHDL_FILE MiniprojectResources/scoreBox.vhd
+set_global_assignment -name VHDL_FILE MiniprojectResources/BCDtoHEX.vhd
+set_global_assignment -name VHDL_FILE MiniprojectResources/cursor.vhd
+set_global_assignment -name VHDL_FILE MiniprojectResources/bouncy_bird.vhd
+set_global_assignment -name VHDL_FILE MiniprojectResources/ball.vhd
+set_global_assignment -name VHDL_FILE MiniprojectResources/bouncy_ball.vhd
+set_global_assignment -name VHDL_FILE MiniprojectResources/char_rom.vhd
+set_global_assignment -name VHDL_FILE MiniprojectResources/clock_divider_25MHz.vhd
+set_global_assignment -name VHDL_FILE MiniprojectResources/Flappy_bird.vhd
+set_global_assignment -name VHDL_FILE MiniprojectResources/mouse.vhd
+set_global_assignment -name VHDL_FILE MiniprojectResources/vga_sync.vhd
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
