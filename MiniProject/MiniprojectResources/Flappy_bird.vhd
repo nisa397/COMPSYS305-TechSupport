@@ -44,9 +44,6 @@ architecture Behavioral of Flappy_bird is
   signal ps2_cursor_col: std_logic_vector(9 DOWNTO 0);
   
   
-
-  
-  
   --Cursor signals
   signal cursor_on: std_logic;
   
@@ -70,6 +67,13 @@ architecture Behavioral of Flappy_bird is
   
   signal v_sync_signal : std_logic;
 
+
+  -- Datatypes for game states
+  type game_state_type is (menu, training, play, pause, game_over);
+  signal current_state : game_state_type := menu;
+  signal next_state : game_state_type;
+  signal collision : std_logic := '0';
+
     
 
   component vga_sync is
@@ -84,7 +88,7 @@ architecture Behavioral of Flappy_bird is
     port (
         ps2_left, pb2, clk, vert_sync : IN std_logic;
         pixel_row, pixel_column  : IN std_logic_vector(9 DOWNTO 0);
-        red, green, blue         : OUT std_logic
+        red, green, blue, ends        : OUT std_logic
     );	
   end component;
   
@@ -139,6 +143,63 @@ architecture Behavioral of Flappy_bird is
 			within_bounds : out std_logic
 		); 
 	end component; 
+
+    state_check: process(clk_25MHz) then
+      begin
+        if rising_edge(clk_25Mhz) then
+          current_state <= next_state;
+        end if;
+      end process;
+
+    -- State machine to handle game states
+    state_machine: process(current_state, button_1, button_2,collision) then
+      begin
+        case current_state is
+          when menu =>
+            if button_1 = '1' then
+              next_state <= training;
+            else
+              next_state <= menu;
+            end if;
+
+          when training =>
+            if button_1 = '1' then
+              next_state <= play;
+            else
+              next_state <= training;
+            end if;
+
+          when play =>
+            if button_2 = '1' then
+              next_state <= pause;
+            elsif collision = '1' then
+              next_state <= game_over;
+            else
+              next_state <= play;
+            end if;
+
+          when pause =>
+            if button_2 = '1' then
+              next_state <= play;
+            else
+              next_state <= pause;
+            end if;
+
+          when game_over =>
+            if button_1 = '1' then
+              next_state <= menu;
+            else
+              next_state <= game_over;
+            end if;
+
+          when others =>
+            next_state <= menu; -- Default state
+        end case;
+      end process;
+
+
+
+
 
   begin
 
@@ -211,13 +272,6 @@ architecture Behavioral of Flappy_bird is
     SevenSeg_out => HEX5
 	);
 	
-	
-	
-	
-	
-	
-	
-
     -- Instantiate the ball component
   BallComponent: bouncy_bird
   port map(
@@ -230,13 +284,12 @@ architecture Behavioral of Flappy_bird is
     red            => red_ball,
     green          => green_ball,
     blue           => blue_ball
+    ends       => collision
   );
-  
-  
   
 
   -- Logic to determine if the current pixel is part of the bird
-  ball_on <= '1' when (red_ball = '1' or green_ball = '1' or blue_ball = '1') else '0';
+  ball_on <= '1' when ((current_state = PLAYING or current_state = TRAINING) and(red_ball = '1' or green_ball = '1' or blue_ball = '1')) else '0';
   
   -- Logic to determine if the text will be on
   text_on <= '1' when (within_bounds = '1' and rom_mux_output = '1') else '0';
@@ -244,15 +297,11 @@ architecture Behavioral of Flappy_bird is
   -- Logic to combine bird and background colors
   -- If the current pixel is part of the bird, use the bird's color.
   -- Otherwise, use a constant background color (e.g., green background).
-  red_pixel   <= '0' when (ball_on = '1') or (text_on = '1') else dip_sw1; -- Bird: red, Background: no red
-  green_pixel <= '0' when (ball_on = '1') or (text_on = '1') else dip_sw2; -- Bird: no green, Background: green
-  blue_pixel  <= '1' when (ball_on = '1') or (text_on = '1') or (cursor_on = '1') else dip_sw3; -- Bird: no blue, Background: no blue
+  red_pixel   <= '0' when (ball_on = '1') or (text_on = '1') or (current_state = GAME_OVER) else dip_sw1;
+  green_pixel <= '0' when (ball_on = '1') or (text_on = '1') or (current_state = GAME_OVER) else dip_sw2;
+  blue_pixel  <= '1' when (ball_on = '1') or (text_on = '1') or (cursor_on = '1') else
+                 '0' when (current_state = GAME_OVER) else dip_sw3;
 
-
-
---   red_pixel   <= '0' when ball_on = '1' or text_on = '1' else '0'; -- Bird: red, Background: no red
---   green_pixel <= '0' when ball_on = '1' or text_on = '1' else '1'; -- Bird: no green, Background: green
---   blue_pixel  <= '1' when ball_on = '1' or text_on = '1' else '0'; -- Bird: no blue, Background: no blue
   
   -- Instantiate the text component 
   TextComponent: char_rom 

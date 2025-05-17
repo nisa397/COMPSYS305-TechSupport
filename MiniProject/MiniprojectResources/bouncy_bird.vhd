@@ -6,7 +6,7 @@ entity bouncy_bird is
     port (
         ps2_left, pb2, clk, vert_sync : in  std_logic;
         pixel_row, pixel_column  : in  std_logic_vector(9 downto 0);
-        red, green, blue         : out std_logic
+        red, green, blue, ends        : out std_logic 
     );
 end bouncy_bird;
 
@@ -69,9 +69,11 @@ begin
             if next_y_pos > MAX_Y then
                 ball_y_pos    <= to_unsigned(MAX_Y, ball_y_pos'length);
                 ball_y_motion <= (others => '0');
+                ends <= '1'; -- Game over condition
             elsif next_y_pos < MIN_Y then
                 ball_y_pos    <= to_unsigned(MIN_Y, ball_y_pos'length);
                 ball_y_motion <= (others => '0');
+                ends <= '1'; -- Game over condition
             else
                 ball_y_pos <= to_unsigned(next_y_pos, ball_y_pos'length);
             end if;
