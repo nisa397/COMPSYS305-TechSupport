@@ -13,53 +13,59 @@ entity scoreBox is
 	); 
 end entity;
 
-architecture behaviour of scoreBox is 
-    -- Define the origin for the character display
-    constant origin_row : std_logic_vector(9 downto 0) := conv_std_logic_vector(10,10); 
-    constant origin_col : std_logic_vector(9 downto 0) := conv_std_logic_vector(10,10);
-	 
-	constant origin_row16 : std_logic_vector(9 downto 0) := conv_std_logic_vector(20, 10); 
-	constant origin_col16 : std_logic_vector(9 downto 0) := conv_std_logic_vector(10, 10); 
+architecture behaviour of scoreBox is
+    constant TEXT_LENGTH : integer := 6;
+    type char_addr_array is array(0 to TEXT_LENGTH-1) of std_logic_vector(5 downto 0);
+    constant FLYGUY_address : char_addr_array := (
+        "000110", -- F
+        "001100", -- L
+        "110001", -- Y
+        "001111", -- G
+        "110101", -- U
+        "110001"  -- Y
+    );
+    constant origin_row32 : std_logic_vector(9 downto 0) := conv_std_logic_vector(110, 10);
+    constant origin_col32 : std_logic_vector(9 downto 0) := conv_std_logic_vector(100, 10);
 
-    signal active_letter : std_logic_vector(1 downto 0); 
-	
-	 signal local_row  : std_logic_vector(9 downto 0);
-    signal local_col  : std_logic_vector(9 downto 0);
+    signal font_row_s, font_col_s : std_logic_vector(2 downto 0) := (others => '0');
+    signal char_addr_s : std_logic_vector(5 downto 0) := (others => '0');
+    signal within_bounds_s : std_logic := '0';
 
-begin 
-	
-	-- Bounding box for the start of the text 
-    active_letter <= "01" when (pixel_row >= origin_row and pixel_row < origin_row + 8 and
-                               pixel_column >= origin_col and pixel_column < origin_col + 8) else 
-                     "10" when (pixel_row >= origin_row16 and pixel_row < origin_row16 + 16 and
-                                pixel_column >= origin_col16 and pixel_column < origin_col16 + 16) else
-                     "00";  
-                     
-    -- Calculate font_row and font_column relative to the origin
-	 -- Calculations are to ensure that the row and column is split into 8x8 for font_row and font_column
-	 -- To work 
-		
-	-- Ensure that the pixels are in the right place 	
-    local_row <= pixel_row - origin_row when active_letter = "01" else
-                 pixel_row - origin_row16 when active_letter = "10" else
-                 (others => '0');
+begin
 
-    local_col <= pixel_column - origin_col when active_letter = "01" else
-                 pixel_column - origin_col16 when active_letter = "10" else
-                 (others => '0');
+    process(pixel_row, pixel_column)
+        variable found : boolean := false;
+        variable col_offset : std_logic_vector(9 downto 0);
+    begin
+        font_row_s <= (others => '0');
+        font_col_s <= (others => '0');
+        char_addr_s <= (others => '0');
+        within_bounds_s <= '0';
 
-    -- Use slices for resizing, as 3 downto 1 = 16x16
-    font_row <= local_row(2 downto 0) when active_letter = "01" else  -- 8x8
-                local_row(3 downto 1) when active_letter = "10" else  -- 16x16 scaled to 8x8
-                "000";
+        for i in 0 to TEXT_LENGTH-1 loop
+            col_offset := std_logic_vector(unsigned(origin_col32) + to_unsigned(32*i, 10));
+            if (pixel_row >= origin_row32 and pixel_row < origin_row32 + 32 and
+                pixel_column >= col_offset and pixel_column < col_offset + 32) then
 
-    font_column <= local_col(2 downto 0) when active_letter = "01" else
-                   local_col(3 downto 1) when active_letter = "10" else
-                   "000";
-     
-	 -- Send that bounding box for the top-level entity to ensure correctness 
-    within_bounds <= '1' when active_letter /= "00" else '0'; 
+                font_row_s <= conv_std_logic_vector((unsigned(pixel_row) - unsigned(origin_row32)) srl 2, 3);
+                font_col_s <= conv_std_logic_vector((unsigned(pixel_column) - unsigned(col_offset)) srl 2, 3);
+                char_addr_s <= FLYGUY_address(i);
+                within_bounds_s <= '1';
+                found := true;
+            end if;
+        end loop;
 
-    character_addr <= "000001" when active_letter = "01" else -- Address for "A"
-                      "000010" when active_letter = "10"; -- Address for "B"
-end architecture; 
+        if not found then
+            font_row_s <= (others => '0');
+            font_col_s <= (others => '0');
+            char_addr_s <= (others => '0');
+            within_bounds_s <= '0';
+        end if;
+    end process;
+
+    font_row <= font_row_s;
+    font_column <= font_col_s;
+    character_addr <= char_addr_s;
+    within_bounds <= within_bounds_s;
+
+end architecture;
