@@ -1,5 +1,5 @@
 Analysis & Synthesis report for Flappy_Bird
-Wed May 14 14:32:41 2025
+Tue May 20 15:38:33 2025
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -13,17 +13,23 @@ Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
   5. Analysis & Synthesis Source Files Read
   6. Analysis & Synthesis Resource Usage Summary
   7. Analysis & Synthesis Resource Utilization by Entity
-  8. State Machine - |Flappy_bird|MOUSE:ps2|mouse_state
-  9. Registers Removed During Synthesis
- 10. General Register Statistics
- 11. Inverted Register Statistics
- 12. Multiplexer Restructuring Statistics (Restructuring Performed)
- 13. Port Connectivity Checks: "BCD_to_SevenSeg:ssh1"
- 14. Port Connectivity Checks: "BCD_to_SevenSeg:ssh0"
- 15. Port Connectivity Checks: "MOUSE:ps2"
- 16. Post-Synthesis Netlist Statistics for Top Partition
- 17. Elapsed Time Per Partition
- 18. Analysis & Synthesis Messages
+  8. Analysis & Synthesis RAM Summary
+  9. State Machine - |Flappy_bird|current_state
+ 10. State Machine - |Flappy_bird|MOUSE:ps2|mouse_state
+ 11. User-Specified and Inferred Latches
+ 12. Registers Removed During Synthesis
+ 13. General Register Statistics
+ 14. Inverted Register Statistics
+ 15. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 16. Source assignments for char_rom:TextComponent|altsyncram:altsyncram_component|altsyncram_d5g1:auto_generated
+ 17. Parameter Settings for User Entity Instance: char_rom:TextComponent|altsyncram:altsyncram_component
+ 18. altsyncram Parameter Settings by Entity Instance
+ 19. Port Connectivity Checks: "BCD_to_SevenSeg:ssh1"
+ 20. Port Connectivity Checks: "BCD_to_SevenSeg:ssh0"
+ 21. Port Connectivity Checks: "MOUSE:ps2"
+ 22. Post-Synthesis Netlist Statistics for Top Partition
+ 23. Elapsed Time Per Partition
+ 24. Analysis & Synthesis Messages
 
 
 
@@ -49,16 +55,16 @@ refer to the applicable agreement for further details.
 +-------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                  ;
 +---------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status     ; Successful - Wed May 14 14:32:40 2025       ;
+; Analysis & Synthesis Status     ; Successful - Tue May 20 15:38:33 2025       ;
 ; Quartus Prime Version           ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                   ; Flappy_Bird                                 ;
 ; Top-level Entity Name           ; Flappy_bird                                 ;
 ; Family                          ; Cyclone V                                   ;
 ; Logic utilization (in ALMs)     ; N/A                                         ;
-; Total registers                 ; 187                                         ;
-; Total pins                      ; 56                                          ;
+; Total registers                 ; 195                                         ;
+; Total pins                      ; 58                                          ;
 ; Total virtual pins              ; 0                                           ;
-; Total block memory bits         ; 0                                           ;
+; Total block memory bits         ; 256                                         ;
 ; Total DSP Blocks                ; 0                                           ;
 ; Total HSSI RX PCSs              ; 0                                           ;
 ; Total HSSI PMA RX Deserializers ; 0                                           ;
@@ -173,19 +179,31 @@ refer to the applicable agreement for further details.
 +----------------------------+-------------+
 
 
-+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Source Files Read                                                                                                                                          ;
-+----------------------------------------------+-----------------+-----------------+------------------------------------------------------------------------------------+---------+
-; File Name with User-Entered Path             ; Used in Netlist ; File Type       ; File Name with Absolute Path                                                       ; Library ;
-+----------------------------------------------+-----------------+-----------------+------------------------------------------------------------------------------------+---------+
-; MiniprojectResources/BCDtoHEX.vhd            ; yes             ; User VHDL File  ; F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/BCDtoHEX.vhd            ;         ;
-; MiniprojectResources/cursor.vhd              ; yes             ; User VHDL File  ; F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/cursor.vhd              ;         ;
-; MiniprojectResources/bouncy_bird.vhd         ; yes             ; User VHDL File  ; F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/bouncy_bird.vhd         ;         ;
-; MiniprojectResources/clock_divider_25MHz.vhd ; yes             ; User VHDL File  ; F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/clock_divider_25MHz.vhd ;         ;
-; MiniprojectResources/Flappy_bird.vhd         ; yes             ; User VHDL File  ; F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd         ;         ;
-; MiniprojectResources/mouse.vhd               ; yes             ; User VHDL File  ; F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/mouse.vhd               ;         ;
-; MiniprojectResources/vga_sync.vhd            ; yes             ; User VHDL File  ; F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/vga_sync.vhd            ;         ;
-+----------------------------------------------+-----------------+-----------------+------------------------------------------------------------------------------------+---------+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                                                             ;
++----------------------------------------------+-----------------+------------------------------+------------------------------------------------------------------------------------------+---------+
+; File Name with User-Entered Path             ; Used in Netlist ; File Type                    ; File Name with Absolute Path                                                             ; Library ;
++----------------------------------------------+-----------------+------------------------------+------------------------------------------------------------------------------------------+---------+
+; MiniprojectResources/scoreBox.vhd            ; yes             ; User VHDL File               ; F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/scoreBox.vhd                  ;         ;
+; MiniprojectResources/BCDtoHEX.vhd            ; yes             ; User VHDL File               ; F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/BCDtoHEX.vhd                  ;         ;
+; MiniprojectResources/cursor.vhd              ; yes             ; User VHDL File               ; F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/cursor.vhd                    ;         ;
+; MiniprojectResources/bouncy_bird.vhd         ; yes             ; User VHDL File               ; F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/bouncy_bird.vhd               ;         ;
+; MiniprojectResources/char_rom.vhd            ; yes             ; User VHDL File               ; F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/char_rom.vhd                  ;         ;
+; MiniprojectResources/clock_divider_25MHz.vhd ; yes             ; User VHDL File               ; F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/clock_divider_25MHz.vhd       ;         ;
+; MiniprojectResources/Flappy_bird.vhd         ; yes             ; User VHDL File               ; F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd               ;         ;
+; MiniprojectResources/mouse.vhd               ; yes             ; User VHDL File               ; F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/mouse.vhd                     ;         ;
+; MiniprojectResources/vga_sync.vhd            ; yes             ; User VHDL File               ; F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/vga_sync.vhd                  ;         ;
+; altsyncram.tdf                               ; yes             ; Megafunction                 ; f:/quartus-lite-18.1.0.625-windows/quartus/libraries/megafunctions/altsyncram.tdf        ;         ;
+; stratix_ram_block.inc                        ; yes             ; Megafunction                 ; f:/quartus-lite-18.1.0.625-windows/quartus/libraries/megafunctions/stratix_ram_block.inc ;         ;
+; lpm_mux.inc                                  ; yes             ; Megafunction                 ; f:/quartus-lite-18.1.0.625-windows/quartus/libraries/megafunctions/lpm_mux.inc           ;         ;
+; lpm_decode.inc                               ; yes             ; Megafunction                 ; f:/quartus-lite-18.1.0.625-windows/quartus/libraries/megafunctions/lpm_decode.inc        ;         ;
+; aglobal181.inc                               ; yes             ; Megafunction                 ; f:/quartus-lite-18.1.0.625-windows/quartus/libraries/megafunctions/aglobal181.inc        ;         ;
+; a_rdenreg.inc                                ; yes             ; Megafunction                 ; f:/quartus-lite-18.1.0.625-windows/quartus/libraries/megafunctions/a_rdenreg.inc         ;         ;
+; altrom.inc                                   ; yes             ; Megafunction                 ; f:/quartus-lite-18.1.0.625-windows/quartus/libraries/megafunctions/altrom.inc            ;         ;
+; altram.inc                                   ; yes             ; Megafunction                 ; f:/quartus-lite-18.1.0.625-windows/quartus/libraries/megafunctions/altram.inc            ;         ;
+; altdpram.inc                                 ; yes             ; Megafunction                 ; f:/quartus-lite-18.1.0.625-windows/quartus/libraries/megafunctions/altdpram.inc          ;         ;
+; db/altsyncram_d5g1.tdf                       ; yes             ; Auto-Generated Megafunction  ; F:/COMPSYS305-TechSupport/MiniProject/db/altsyncram_d5g1.tdf                             ;         ;
++----------------------------------------------+-----------------+------------------------------+------------------------------------------------------------------------------------------+---------+
 
 
 +--------------------------------------------------------------------------+
@@ -193,46 +211,75 @@ refer to the applicable agreement for further details.
 +---------------------------------------------+----------------------------+
 ; Resource                                    ; Usage                      ;
 +---------------------------------------------+----------------------------+
-; Estimate of Logic utilization (ALMs needed) ; 188                        ;
+; Estimate of Logic utilization (ALMs needed) ; 206                        ;
 ;                                             ;                            ;
-; Combinational ALUT usage for logic          ; 306                        ;
-;     -- 7 input functions                    ; 1                          ;
-;     -- 6 input functions                    ; 62                         ;
-;     -- 5 input functions                    ; 30                         ;
-;     -- 4 input functions                    ; 60                         ;
-;     -- <=3 input functions                  ; 153                        ;
+; Combinational ALUT usage for logic          ; 337                        ;
+;     -- 7 input functions                    ; 3                          ;
+;     -- 6 input functions                    ; 64                         ;
+;     -- 5 input functions                    ; 29                         ;
+;     -- 4 input functions                    ; 81                         ;
+;     -- <=3 input functions                  ; 160                        ;
 ;                                             ;                            ;
-; Dedicated logic registers                   ; 187                        ;
+; Dedicated logic registers                   ; 195                        ;
 ;                                             ;                            ;
-; I/O pins                                    ; 56                         ;
+; I/O pins                                    ; 58                         ;
+; Total MLAB memory bits                      ; 0                          ;
+; Total block memory bits                     ; 256                        ;
 ;                                             ;                            ;
 ; Total DSP Blocks                            ; 0                          ;
 ;                                             ;                            ;
 ; Maximum fan-out node                        ; MOUSE:ps2|MOUSE_CLK_FILTER ;
-; Maximum fan-out                             ; 91                         ;
-; Total fan-out                               ; 1804                       ;
-; Average fan-out                             ; 2.97                       ;
+; Maximum fan-out                             ; 93                         ;
+; Total fan-out                               ; 2007                       ;
+; Average fan-out                             ; 3.05                       ;
 +---------------------------------------------+----------------------------+
 
 
-+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                               ;
-+--------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+----------------------------------------+-----------------+--------------+
-; Compilation Hierarchy Node     ; Combinational ALUTs ; Dedicated Logic Registers ; Block Memory Bits ; DSP Blocks ; Pins ; Virtual Pins ; Full Hierarchy Name                    ; Entity Name     ; Library Name ;
-+--------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+----------------------------------------+-----------------+--------------+
-; |Flappy_bird                   ; 306 (1)             ; 187 (0)                   ; 0                 ; 0          ; 56   ; 0            ; |Flappy_bird                           ; Flappy_bird     ; work         ;
-;    |BCD_to_SevenSeg:ssh0|      ; 2 (2)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |Flappy_bird|BCD_to_SevenSeg:ssh0      ; BCD_to_SevenSeg ; work         ;
-;    |BCD_to_SevenSeg:sso0|      ; 7 (7)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |Flappy_bird|BCD_to_SevenSeg:sso0      ; BCD_to_SevenSeg ; work         ;
-;    |BCD_to_SevenSeg:sso1|      ; 7 (7)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |Flappy_bird|BCD_to_SevenSeg:sso1      ; BCD_to_SevenSeg ; work         ;
-;    |BCD_to_SevenSeg:sst0|      ; 7 (7)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |Flappy_bird|BCD_to_SevenSeg:sst0      ; BCD_to_SevenSeg ; work         ;
-;    |BCD_to_SevenSeg:sst1|      ; 7 (7)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |Flappy_bird|BCD_to_SevenSeg:sst1      ; BCD_to_SevenSeg ; work         ;
-;    |Clock_25MHz:ClockDivider|  ; 1 (1)               ; 1 (1)                     ; 0                 ; 0          ; 0    ; 0            ; |Flappy_bird|Clock_25MHz:ClockDivider  ; Clock_25MHz     ; work         ;
-;    |MOUSE:ps2|                 ; 107 (107)           ; 118 (118)                 ; 0                 ; 0          ; 0    ; 0            ; |Flappy_bird|MOUSE:ps2                 ; MOUSE           ; work         ;
-;    |VGA_SYNC:VGASync|          ; 41 (41)             ; 48 (48)                   ; 0                 ; 0          ; 0    ; 0            ; |Flappy_bird|VGA_SYNC:VGASync          ; VGA_SYNC        ; work         ;
-;    |bouncy_bird:BallComponent| ; 75 (75)             ; 19 (19)                   ; 0                 ; 0          ; 0    ; 0            ; |Flappy_bird|bouncy_bird:BallComponent ; bouncy_bird     ; work         ;
-;    |cursor_drawer:cursor|      ; 51 (51)             ; 1 (1)                     ; 0                 ; 0          ; 0    ; 0            ; |Flappy_bird|cursor_drawer:cursor      ; cursor_drawer   ; work         ;
-+--------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+----------------------------------------+-----------------+--------------+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                                                                      ;
++-------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+----------------------------------------------------------------------------------------------------+-----------------+--------------+
+; Compilation Hierarchy Node                ; Combinational ALUTs ; Dedicated Logic Registers ; Block Memory Bits ; DSP Blocks ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                                ; Entity Name     ; Library Name ;
++-------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+----------------------------------------------------------------------------------------------------+-----------------+--------------+
+; |Flappy_bird                              ; 337 (16)            ; 195 (5)                   ; 256               ; 0          ; 58   ; 0            ; |Flappy_bird                                                                                       ; Flappy_bird     ; work         ;
+;    |BCD_to_SevenSeg:ssh0|                 ; 2 (2)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |Flappy_bird|BCD_to_SevenSeg:ssh0                                                                  ; BCD_to_SevenSeg ; work         ;
+;    |BCD_to_SevenSeg:sso0|                 ; 7 (7)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |Flappy_bird|BCD_to_SevenSeg:sso0                                                                  ; BCD_to_SevenSeg ; work         ;
+;    |BCD_to_SevenSeg:sso1|                 ; 7 (7)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |Flappy_bird|BCD_to_SevenSeg:sso1                                                                  ; BCD_to_SevenSeg ; work         ;
+;    |BCD_to_SevenSeg:sst0|                 ; 7 (7)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |Flappy_bird|BCD_to_SevenSeg:sst0                                                                  ; BCD_to_SevenSeg ; work         ;
+;    |BCD_to_SevenSeg:sst1|                 ; 7 (7)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |Flappy_bird|BCD_to_SevenSeg:sst1                                                                  ; BCD_to_SevenSeg ; work         ;
+;    |Clock_25MHz:ClockDivider|             ; 1 (1)               ; 1 (1)                     ; 0                 ; 0          ; 0    ; 0            ; |Flappy_bird|Clock_25MHz:ClockDivider                                                              ; Clock_25MHz     ; work         ;
+;    |MOUSE:ps2|                            ; 106 (106)           ; 120 (120)                 ; 0                 ; 0          ; 0    ; 0            ; |Flappy_bird|MOUSE:ps2                                                                             ; MOUSE           ; work         ;
+;    |VGA_SYNC:VGASync|                     ; 42 (42)             ; 48 (48)                   ; 0                 ; 0          ; 0    ; 0            ; |Flappy_bird|VGA_SYNC:VGASync                                                                      ; VGA_SYNC        ; work         ;
+;    |bouncy_bird:BallComponent|            ; 70 (70)             ; 20 (20)                   ; 0                 ; 0          ; 0    ; 0            ; |Flappy_bird|bouncy_bird:BallComponent                                                             ; bouncy_bird     ; work         ;
+;    |char_rom:TextComponent|               ; 2 (2)               ; 0 (0)                     ; 256               ; 0          ; 0    ; 0            ; |Flappy_bird|char_rom:TextComponent                                                                ; char_rom        ; work         ;
+;       |altsyncram:altsyncram_component|   ; 0 (0)               ; 0 (0)                     ; 256               ; 0          ; 0    ; 0            ; |Flappy_bird|char_rom:TextComponent|altsyncram:altsyncram_component                                ; altsyncram      ; work         ;
+;          |altsyncram_d5g1:auto_generated| ; 0 (0)               ; 0 (0)                     ; 256               ; 0          ; 0    ; 0            ; |Flappy_bird|char_rom:TextComponent|altsyncram:altsyncram_component|altsyncram_d5g1:auto_generated ; altsyncram_d5g1 ; work         ;
+;    |cursor_drawer:cursor|                 ; 54 (54)             ; 1 (1)                     ; 0                 ; 0          ; 0    ; 0            ; |Flappy_bird|cursor_drawer:cursor                                                                  ; cursor_drawer   ; work         ;
+;    |scoreBox:ScoreDriver|                 ; 16 (16)             ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |Flappy_bird|scoreBox:ScoreDriver                                                                  ; scoreBox        ; work         ;
++-------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+----------------------------------------------------------------------------------------------------+-----------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis RAM Summary                                                                                                                                                               ;
++--------------------------------------------------------------------------------------------------+------+------+--------------+--------------+--------------+--------------+------+------------+
+; Name                                                                                             ; Type ; Mode ; Port A Depth ; Port A Width ; Port B Depth ; Port B Width ; Size ; MIF        ;
++--------------------------------------------------------------------------------------------------+------+------+--------------+--------------+--------------+--------------+------+------------+
+; char_rom:TextComponent|altsyncram:altsyncram_component|altsyncram_d5g1:auto_generated|ALTSYNCRAM ; AUTO ; ROM  ; 512          ; 8            ; --           ; --           ; 4096 ; tcgrom.mif ;
++--------------------------------------------------------------------------------------------------+------+------+--------------+--------------+--------------+--------------+------+------------+
+
+
+Encoding Type:  One-Hot
++--------------------------------------------------------------------------------------------------------------------------------------------+
+; State Machine - |Flappy_bird|current_state                                                                                                 ;
++-------------------------+-------------------------+---------------------+--------------------+------------------------+--------------------+
+; Name                    ; current_state.game_over ; current_state.pause ; current_state.play ; current_state.training ; current_state.menu ;
++-------------------------+-------------------------+---------------------+--------------------+------------------------+--------------------+
+; current_state.menu      ; 0                       ; 0                   ; 0                  ; 0                      ; 0                  ;
+; current_state.training  ; 0                       ; 0                   ; 0                  ; 1                      ; 1                  ;
+; current_state.play      ; 0                       ; 0                   ; 1                  ; 0                      ; 1                  ;
+; current_state.pause     ; 0                       ; 1                   ; 0                  ; 0                      ; 1                  ;
+; current_state.game_over ; 1                       ; 0                   ; 0                  ; 0                      ; 1                  ;
++-------------------------+-------------------------+---------------------+--------------------+------------------------+--------------------+
 
 
 Encoding Type:  One-Hot
@@ -248,6 +295,18 @@ Encoding Type:  One-Hot
 ; mouse_state.WAIT_CMD_ACK      ; 0                         ; 1                        ; 0                             ; 0                         ; 0                        ; 1                         ;
 ; mouse_state.INPUT_PACKETS     ; 1                         ; 0                        ; 0                             ; 0                         ; 0                        ; 1                         ;
 +-------------------------------+---------------------------+--------------------------+-------------------------------+---------------------------+--------------------------+---------------------------+
+
+
++---------------------------------------------------------------------------------------------------+
+; User-Specified and Inferred Latches                                                               ;
++----------------------------------------------------+---------------------+------------------------+
+; Latch Name                                         ; Latch Enable Signal ; Free of Timing Hazards ;
++----------------------------------------------------+---------------------+------------------------+
+; scoreBox:ScoreDriver|character_addr[0]             ; GND                 ; yes                    ;
+; scoreBox:ScoreDriver|character_addr[1]             ; GND                 ; yes                    ;
+; Number of user-specified and inferred latches = 2  ;                     ;                        ;
++----------------------------------------------------+---------------------+------------------------+
+Note: All latches listed above may not be present at the end of synthesis due to various synthesis optimizations.
 
 
 +----------------------------------------------------------------------------------+
@@ -272,12 +331,12 @@ Encoding Type:  One-Hot
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 187   ;
+; Total registers                              ; 195   ;
 ; Number of registers using Synchronous Clear  ; 38    ;
 ; Number of registers using Synchronous Load   ; 20    ;
 ; Number of registers using Asynchronous Clear ; 16    ;
 ; Number of registers using Asynchronous Load  ; 0     ;
-; Number of registers using Clock Enable       ; 129   ;
+; Number of registers using Clock Enable       ; 132   ;
 ; Number of registers using Preset             ; 0     ;
 +----------------------------------------------+-------+
 
@@ -287,10 +346,10 @@ Encoding Type:  One-Hot
 +-----------------------------------------+---------+
 ; Inverted Register                       ; Fan out ;
 +-----------------------------------------+---------+
-; bouncy_bird:BallComponent|ball_y_pos[7] ; 6       ;
-; bouncy_bird:BallComponent|ball_y_pos[6] ; 8       ;
-; bouncy_bird:BallComponent|ball_y_pos[5] ; 10      ;
-; bouncy_bird:BallComponent|ball_y_pos[4] ; 11      ;
+; bouncy_bird:BallComponent|ball_y_pos[7] ; 5       ;
+; bouncy_bird:BallComponent|ball_y_pos[6] ; 6       ;
+; bouncy_bird:BallComponent|ball_y_pos[5] ; 7       ;
+; bouncy_bird:BallComponent|ball_y_pos[4] ; 8       ;
 ; MOUSE:ps2|send_char                     ; 3       ;
 ; MOUSE:ps2|SHIFTOUT[3]                   ; 1       ;
 ; MOUSE:ps2|SHIFTOUT[5]                   ; 1       ;
@@ -306,21 +365,113 @@ Encoding Type:  One-Hot
 +--------------------+-----------+---------------+----------------------+------------------------+------------+---------------------------------------------------------+
 ; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                              ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+---------------------------------------------------------+
-; 3:1                ; 20 bits   ; 40 LEs        ; 20 LEs               ; 20 LEs                 ; Yes        ; |Flappy_bird|MOUSE:ps2|new_cursor_row[9]                ;
+; 3:1                ; 20 bits   ; 40 LEs        ; 20 LEs               ; 20 LEs                 ; Yes        ; |Flappy_bird|MOUSE:ps2|new_cursor_row[1]                ;
 ; 3:1                ; 3 bits    ; 6 LEs         ; 6 LEs                ; 0 LEs                  ; Yes        ; |Flappy_bird|bouncy_bird:BallComponent|ball_y_pos[1]    ;
-; 3:1                ; 3 bits    ; 6 LEs         ; 6 LEs                ; 0 LEs                  ; Yes        ; |Flappy_bird|bouncy_bird:BallComponent|ball_y_pos[3]    ;
-; 3:1                ; 10 bits   ; 20 LEs        ; 0 LEs                ; 20 LEs                 ; Yes        ; |Flappy_bird|VGA_SYNC:VGASync|v_count[0]                ;
-; 4:1                ; 10 bits   ; 20 LEs        ; 10 LEs               ; 10 LEs                 ; Yes        ; |Flappy_bird|bouncy_bird:BallComponent|ball_y_motion[1] ;
-; 5:1                ; 8 bits    ; 24 LEs        ; 8 LEs                ; 16 LEs                 ; Yes        ; |Flappy_bird|MOUSE:ps2|cursor_column[3]                 ;
-; 5:1                ; 2 bits    ; 6 LEs         ; 4 LEs                ; 2 LEs                  ; Yes        ; |Flappy_bird|MOUSE:ps2|cursor_column[6]                 ;
-; 5:1                ; 6 bits    ; 18 LEs        ; 12 LEs               ; 6 LEs                  ; Yes        ; |Flappy_bird|MOUSE:ps2|cursor_row[2]                    ;
+; 3:1                ; 3 bits    ; 6 LEs         ; 6 LEs                ; 0 LEs                  ; Yes        ; |Flappy_bird|bouncy_bird:BallComponent|ball_y_pos[0]    ;
+; 3:1                ; 10 bits   ; 20 LEs        ; 0 LEs                ; 20 LEs                 ; Yes        ; |Flappy_bird|VGA_SYNC:VGASync|v_count[6]                ;
+; 4:1                ; 10 bits   ; 20 LEs        ; 10 LEs               ; 10 LEs                 ; Yes        ; |Flappy_bird|bouncy_bird:BallComponent|ball_y_motion[4] ;
+; 5:1                ; 8 bits    ; 24 LEs        ; 8 LEs                ; 16 LEs                 ; Yes        ; |Flappy_bird|MOUSE:ps2|cursor_column[7]                 ;
+; 5:1                ; 2 bits    ; 6 LEs         ; 4 LEs                ; 2 LEs                  ; Yes        ; |Flappy_bird|MOUSE:ps2|cursor_column[8]                 ;
+; 5:1                ; 6 bits    ; 18 LEs        ; 12 LEs               ; 6 LEs                  ; Yes        ; |Flappy_bird|MOUSE:ps2|cursor_row[8]                    ;
 ; 5:1                ; 4 bits    ; 12 LEs        ; 8 LEs                ; 4 LEs                  ; Yes        ; |Flappy_bird|MOUSE:ps2|cursor_row[7]                    ;
 ; 3:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; Yes        ; |Flappy_bird|bouncy_bird:BallComponent|ball_y_pos[7]    ;
-; 5:1                ; 4 bits    ; 12 LEs        ; 12 LEs               ; 0 LEs                  ; No         ; |Flappy_bird|BCD_to_SevenSeg:sso0|SevenSeg_out[0]       ;
-; 5:1                ; 4 bits    ; 12 LEs        ; 12 LEs               ; 0 LEs                  ; No         ; |Flappy_bird|BCD_to_SevenSeg:sst0|SevenSeg_out[0]       ;
+; 4:1                ; 3 bits    ; 6 LEs         ; 6 LEs                ; 0 LEs                  ; No         ; |Flappy_bird|scoreBox:ScoreDriver|font_column[0]        ;
+; 5:1                ; 4 bits    ; 12 LEs        ; 12 LEs               ; 0 LEs                  ; No         ; |Flappy_bird|BCD_to_SevenSeg:sso0|SevenSeg_out[5]       ;
+; 5:1                ; 4 bits    ; 12 LEs        ; 12 LEs               ; 0 LEs                  ; No         ; |Flappy_bird|BCD_to_SevenSeg:sst0|SevenSeg_out[5]       ;
 ; 5:1                ; 4 bits    ; 12 LEs        ; 12 LEs               ; 0 LEs                  ; No         ; |Flappy_bird|BCD_to_SevenSeg:sso1|SevenSeg_out[0]       ;
-; 5:1                ; 4 bits    ; 12 LEs        ; 12 LEs               ; 0 LEs                  ; No         ; |Flappy_bird|BCD_to_SevenSeg:sst1|SevenSeg_out[0]       ;
+; 5:1                ; 4 bits    ; 12 LEs        ; 12 LEs               ; 0 LEs                  ; No         ; |Flappy_bird|BCD_to_SevenSeg:sst1|SevenSeg_out[5]       ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 9 LEs                ; 0 LEs                  ; No         ; |Flappy_bird|scoreBox:ScoreDriver|font_row[0]           ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+---------------------------------------------------------+
+
+
++--------------------------------------------------------------------------------------------------------------+
+; Source assignments for char_rom:TextComponent|altsyncram:altsyncram_component|altsyncram_d5g1:auto_generated ;
++---------------------------------+--------------------+------+------------------------------------------------+
+; Assignment                      ; Value              ; From ; To                                             ;
++---------------------------------+--------------------+------+------------------------------------------------+
+; OPTIMIZE_POWER_DURING_SYNTHESIS ; NORMAL_COMPILATION ; -    ; -                                              ;
++---------------------------------+--------------------+------+------------------------------------------------+
+
+
++-----------------------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: char_rom:TextComponent|altsyncram:altsyncram_component ;
++------------------------------------+----------------------+-----------------------------------------+
+; Parameter Name                     ; Value                ; Type                                    ;
++------------------------------------+----------------------+-----------------------------------------+
+; BYTE_SIZE_BLOCK                    ; 8                    ; Untyped                                 ;
+; AUTO_CARRY_CHAINS                  ; ON                   ; AUTO_CARRY                              ;
+; IGNORE_CARRY_BUFFERS               ; OFF                  ; IGNORE_CARRY                            ;
+; AUTO_CASCADE_CHAINS                ; ON                   ; AUTO_CASCADE                            ;
+; IGNORE_CASCADE_BUFFERS             ; OFF                  ; IGNORE_CASCADE                          ;
+; WIDTH_BYTEENA                      ; 1                    ; Untyped                                 ;
+; OPERATION_MODE                     ; ROM                  ; Untyped                                 ;
+; WIDTH_A                            ; 8                    ; Signed Integer                          ;
+; WIDTHAD_A                          ; 9                    ; Signed Integer                          ;
+; NUMWORDS_A                         ; 512                  ; Signed Integer                          ;
+; OUTDATA_REG_A                      ; UNREGISTERED         ; Untyped                                 ;
+; ADDRESS_ACLR_A                     ; NONE                 ; Untyped                                 ;
+; OUTDATA_ACLR_A                     ; NONE                 ; Untyped                                 ;
+; WRCONTROL_ACLR_A                   ; NONE                 ; Untyped                                 ;
+; INDATA_ACLR_A                      ; NONE                 ; Untyped                                 ;
+; BYTEENA_ACLR_A                     ; NONE                 ; Untyped                                 ;
+; WIDTH_B                            ; 1                    ; Untyped                                 ;
+; WIDTHAD_B                          ; 1                    ; Untyped                                 ;
+; NUMWORDS_B                         ; 1                    ; Untyped                                 ;
+; INDATA_REG_B                       ; CLOCK1               ; Untyped                                 ;
+; WRCONTROL_WRADDRESS_REG_B          ; CLOCK1               ; Untyped                                 ;
+; RDCONTROL_REG_B                    ; CLOCK1               ; Untyped                                 ;
+; ADDRESS_REG_B                      ; CLOCK1               ; Untyped                                 ;
+; OUTDATA_REG_B                      ; UNREGISTERED         ; Untyped                                 ;
+; BYTEENA_REG_B                      ; CLOCK1               ; Untyped                                 ;
+; INDATA_ACLR_B                      ; NONE                 ; Untyped                                 ;
+; WRCONTROL_ACLR_B                   ; NONE                 ; Untyped                                 ;
+; ADDRESS_ACLR_B                     ; NONE                 ; Untyped                                 ;
+; OUTDATA_ACLR_B                     ; NONE                 ; Untyped                                 ;
+; RDCONTROL_ACLR_B                   ; NONE                 ; Untyped                                 ;
+; BYTEENA_ACLR_B                     ; NONE                 ; Untyped                                 ;
+; WIDTH_BYTEENA_A                    ; 1                    ; Signed Integer                          ;
+; WIDTH_BYTEENA_B                    ; 1                    ; Untyped                                 ;
+; RAM_BLOCK_TYPE                     ; AUTO                 ; Untyped                                 ;
+; BYTE_SIZE                          ; 8                    ; Untyped                                 ;
+; READ_DURING_WRITE_MODE_MIXED_PORTS ; DONT_CARE            ; Untyped                                 ;
+; READ_DURING_WRITE_MODE_PORT_A      ; NEW_DATA_NO_NBE_READ ; Untyped                                 ;
+; READ_DURING_WRITE_MODE_PORT_B      ; NEW_DATA_NO_NBE_READ ; Untyped                                 ;
+; INIT_FILE                          ; tcgrom.mif           ; Untyped                                 ;
+; INIT_FILE_LAYOUT                   ; PORT_A               ; Untyped                                 ;
+; MAXIMUM_DEPTH                      ; 0                    ; Untyped                                 ;
+; CLOCK_ENABLE_INPUT_A               ; BYPASS               ; Untyped                                 ;
+; CLOCK_ENABLE_INPUT_B               ; NORMAL               ; Untyped                                 ;
+; CLOCK_ENABLE_OUTPUT_A              ; BYPASS               ; Untyped                                 ;
+; CLOCK_ENABLE_OUTPUT_B              ; NORMAL               ; Untyped                                 ;
+; CLOCK_ENABLE_CORE_A                ; USE_INPUT_CLKEN      ; Untyped                                 ;
+; CLOCK_ENABLE_CORE_B                ; USE_INPUT_CLKEN      ; Untyped                                 ;
+; ENABLE_ECC                         ; FALSE                ; Untyped                                 ;
+; ECC_PIPELINE_STAGE_ENABLED         ; FALSE                ; Untyped                                 ;
+; WIDTH_ECCSTATUS                    ; 3                    ; Untyped                                 ;
+; DEVICE_FAMILY                      ; Cyclone V            ; Untyped                                 ;
+; CBXI_PARAMETER                     ; altsyncram_d5g1      ; Untyped                                 ;
++------------------------------------+----------------------+-----------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++----------------------------------------------------------------------------------------------------+
+; altsyncram Parameter Settings by Entity Instance                                                   ;
++-------------------------------------------+--------------------------------------------------------+
+; Name                                      ; Value                                                  ;
++-------------------------------------------+--------------------------------------------------------+
+; Number of entity instances                ; 1                                                      ;
+; Entity Instance                           ; char_rom:TextComponent|altsyncram:altsyncram_component ;
+;     -- OPERATION_MODE                     ; ROM                                                    ;
+;     -- WIDTH_A                            ; 8                                                      ;
+;     -- NUMWORDS_A                         ; 512                                                    ;
+;     -- OUTDATA_REG_A                      ; UNREGISTERED                                           ;
+;     -- WIDTH_B                            ; 1                                                      ;
+;     -- NUMWORDS_B                         ; 1                                                      ;
+;     -- ADDRESS_REG_B                      ; CLOCK1                                                 ;
+;     -- OUTDATA_REG_B                      ; UNREGISTERED                                           ;
+;     -- RAM_BLOCK_TYPE                     ; AUTO                                                   ;
+;     -- READ_DURING_WRITE_MODE_MIXED_PORTS ; DONT_CARE                                              ;
++-------------------------------------------+--------------------------------------------------------+
 
 
 +---------------------------------------------------+
@@ -341,14 +492,13 @@ Encoding Type:  One-Hot
 +-----------------+-------+----------+--------------+
 
 
-+------------------------------------------------------------------------------------------------------------------------+
-; Port Connectivity Checks: "MOUSE:ps2"                                                                                  ;
-+--------------+--------+----------+-------------------------------------------------------------------------------------+
-; Port         ; Type   ; Severity ; Details                                                                             ;
-+--------------+--------+----------+-------------------------------------------------------------------------------------+
-; reset        ; Input  ; Info     ; Stuck at GND                                                                        ;
-; right_button ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
-+--------------+--------+----------+-------------------------------------------------------------------------------------+
++-----------------------------------------+
+; Port Connectivity Checks: "MOUSE:ps2"   ;
++-------+-------+----------+--------------+
+; Port  ; Type  ; Severity ; Details      ;
++-------+-------+----------+--------------+
+; reset ; Input ; Info     ; Stuck at GND ;
++-------+-------+----------+--------------+
 
 
 +-----------------------------------------------------+
@@ -356,37 +506,38 @@ Encoding Type:  One-Hot
 +-----------------------+-----------------------------+
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
-; arriav_ff             ; 187                         ;
+; arriav_ff             ; 195                         ;
 ;     CLR               ; 1                           ;
-;     ENA               ; 76                          ;
+;     ENA               ; 79                          ;
 ;     ENA CLR           ; 15                          ;
 ;     ENA SCLR          ; 18                          ;
 ;     ENA SLD           ; 20                          ;
 ;     SCLR              ; 20                          ;
-;     plain             ; 37                          ;
+;     plain             ; 42                          ;
 ; arriav_io_obuf        ; 2                           ;
-; arriav_lcell_comb     ; 314                         ;
+; arriav_lcell_comb     ; 345                         ;
 ;     arith             ; 86                          ;
 ;         0 data inputs ; 1                           ;
 ;         1 data inputs ; 62                          ;
 ;         2 data inputs ; 23                          ;
-;     extend            ; 1                           ;
-;         7 data inputs ; 1                           ;
-;     normal            ; 217                         ;
+;     extend            ; 3                           ;
+;         7 data inputs ; 3                           ;
+;     normal            ; 246                         ;
 ;         0 data inputs ; 2                           ;
 ;         1 data inputs ; 13                          ;
-;         2 data inputs ; 30                          ;
-;         3 data inputs ; 20                          ;
-;         4 data inputs ; 60                          ;
-;         5 data inputs ; 30                          ;
-;         6 data inputs ; 62                          ;
+;         2 data inputs ; 22                          ;
+;         3 data inputs ; 35                          ;
+;         4 data inputs ; 81                          ;
+;         5 data inputs ; 29                          ;
+;         6 data inputs ; 64                          ;
 ;     shared            ; 10                          ;
 ;         1 data inputs ; 1                           ;
 ;         2 data inputs ; 9                           ;
-; boundary_port         ; 56                          ;
+; boundary_port         ; 58                          ;
+; stratixv_ram_block    ; 8                           ;
 ;                       ;                             ;
-; Max LUT depth         ; 4.80                        ;
-; Average LUT depth     ; 2.43                        ;
+; Max LUT depth         ; 6.00                        ;
+; Average LUT depth     ; 2.64                        ;
 +-----------------------+-----------------------------+
 
 
@@ -395,7 +546,7 @@ Encoding Type:  One-Hot
 +----------------+--------------+
 ; Partition Name ; Elapsed Time ;
 +----------------+--------------+
-; Top            ; 00:00:00     ;
+; Top            ; 00:00:01     ;
 +----------------+--------------+
 
 
@@ -405,10 +556,13 @@ Encoding Type:  One-Hot
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
-    Info: Processing started: Wed May 14 14:32:29 2025
+    Info: Processing started: Tue May 20 15:38:18 2025
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off Flappy_Bird -c Flappy_Bird
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 6 of the 6 processors detected
+Info (12021): Found 2 design units, including 1 entities, in source file miniprojectresources/scorebox.vhd
+    Info (12022): Found design unit 1: scoreBox-behaviour File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/scoreBox.vhd Line: 16
+    Info (12023): Found entity 1: scoreBox File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/scoreBox.vhd Line: 6
 Info (12021): Found 2 design units, including 1 entities, in source file miniprojectresources/bcdtohex.vhd
     Info (12022): Found design unit 1: BCD_to_SevenSeg-arc1 File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/BCDtoHEX.vhd Line: 12
     Info (12023): Found entity 1: BCD_to_SevenSeg File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/BCDtoHEX.vhd Line: 7
@@ -418,12 +572,8 @@ Info (12021): Found 2 design units, including 1 entities, in source file minipro
 Info (12021): Found 2 design units, including 1 entities, in source file miniprojectresources/bouncy_bird.vhd
     Info (12022): Found design unit 1: bouncy_bird-behavior File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/bouncy_bird.vhd Line: 13
     Info (12023): Found entity 1: bouncy_bird File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/bouncy_bird.vhd Line: 5
-Info (12021): Found 2 design units, including 1 entities, in source file miniprojectresources/ball.vhd
-    Info (12022): Found design unit 1: ball-behavior File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/ball.vhd Line: 14
-    Info (12023): Found entity 1: ball File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/ball.vhd Line: 7
-Info (12021): Found 2 design units, including 1 entities, in source file miniprojectresources/bouncy_ball.vhd
-    Info (12022): Found design unit 1: bouncy_ball-behavior File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/bouncy_ball.vhd Line: 14
-    Info (12023): Found entity 1: bouncy_ball File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/bouncy_ball.vhd Line: 7
+Warning (12019): Can't analyze file -- file MiniprojectResources/ball.vhd is missing
+Warning (12019): Can't analyze file -- file MiniprojectResources/bouncy_ball.vhd is missing
 Info (12021): Found 2 design units, including 1 entities, in source file miniprojectresources/char_rom.vhd
     Info (12022): Found design unit 1: char_rom-SYN File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/char_rom.vhd Line: 20
     Info (12023): Found entity 1: char_rom File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/char_rom.vhd Line: 9
@@ -431,8 +581,8 @@ Info (12021): Found 2 design units, including 1 entities, in source file minipro
     Info (12022): Found design unit 1: Clock_25MHz-arc File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/clock_divider_25MHz.vhd Line: 11
     Info (12023): Found entity 1: Clock_25MHz File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/clock_divider_25MHz.vhd Line: 5
 Info (12021): Found 2 design units, including 1 entities, in source file miniprojectresources/flappy_bird.vhd
-    Info (12022): Found design unit 1: Flappy_bird-Behavioral File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 32
-    Info (12023): Found entity 1: Flappy_bird File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 6
+    Info (12022): Found design unit 1: Flappy_bird-Behavioral File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 35
+    Info (12023): Found entity 1: Flappy_bird File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 7
 Info (12021): Found 2 design units, including 1 entities, in source file miniprojectresources/mouse.vhd
     Info (12022): Found design unit 1: MOUSE-behavior File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/mouse.vhd Line: 18
     Info (12023): Found entity 1: MOUSE File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/mouse.vhd Line: 9
@@ -440,35 +590,63 @@ Info (12021): Found 2 design units, including 1 entities, in source file minipro
     Info (12022): Found design unit 1: VGA_SYNC-a File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/vga_sync.vhd Line: 15
     Info (12023): Found entity 1: VGA_SYNC File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/vga_sync.vhd Line: 7
 Info (12127): Elaborating entity "Flappy_bird" for the top level hierarchy
-Warning (10540): VHDL Signal Declaration warning at Flappy_bird.vhd(39): used explicit default value for signal "ps2_reset" because signal was never assigned a value File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 39
-Warning (10036): Verilog HDL or VHDL warning at Flappy_bird.vhd(41): object "ps2_right" assigned a value but never read File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 41
-Info (12128): Elaborating entity "Clock_25MHz" for hierarchy "Clock_25MHz:ClockDivider" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 116
-Info (12128): Elaborating entity "MOUSE" for hierarchy "MOUSE:ps2" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 123
+Warning (10540): VHDL Signal Declaration warning at Flappy_bird.vhd(42): used explicit default value for signal "ps2_reset" because signal was never assigned a value File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 42
+Info (12128): Elaborating entity "Clock_25MHz" for hierarchy "Clock_25MHz:ClockDivider" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 213
+Info (12128): Elaborating entity "MOUSE" for hierarchy "MOUSE:ps2" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 220
 Warning (10036): Verilog HDL or VHDL warning at mouse.vhd(25): object "CHARIN" assigned a value but never read File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/mouse.vhd Line: 25
 Warning (10492): VHDL Process Statement warning at mouse.vhd(151): signal "CHAROUT" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/mouse.vhd Line: 151
 Warning (10492): VHDL Process Statement warning at mouse.vhd(155): signal "CHAROUT" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/mouse.vhd Line: 155
 Warning (10492): VHDL Process Statement warning at mouse.vhd(156): signal "CHAROUT" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/mouse.vhd Line: 156
 Warning (10492): VHDL Process Statement warning at mouse.vhd(157): signal "CHAROUT" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/mouse.vhd Line: 157
-Info (12128): Elaborating entity "cursor_drawer" for hierarchy "cursor_drawer:cursor" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 135
-Info (12128): Elaborating entity "BCD_to_SevenSeg" for hierarchy "BCD_to_SevenSeg:sso0" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 147
-Info (12128): Elaborating entity "bouncy_bird" for hierarchy "bouncy_bird:BallComponent" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 192
+Info (12128): Elaborating entity "cursor_drawer" for hierarchy "cursor_drawer:cursor" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 232
+Info (12128): Elaborating entity "BCD_to_SevenSeg" for hierarchy "BCD_to_SevenSeg:sso0" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 244
+Info (12128): Elaborating entity "bouncy_bird" for hierarchy "bouncy_bird:BallComponent" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 282
 Warning (10540): VHDL Signal Declaration warning at bouncy_bird.vhd(22): used explicit default value for signal "size" because signal was never assigned a value File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/bouncy_bird.vhd Line: 22
 Warning (10540): VHDL Signal Declaration warning at bouncy_bird.vhd(24): used explicit default value for signal "ball_x_pos" because signal was never assigned a value File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/bouncy_bird.vhd Line: 24
-Info (12128): Elaborating entity "VGA_SYNC" for hierarchy "VGA_SYNC:VGASync" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 222
-Warning (12069): Ignored assignment(s) for "blue[2]" because "blue" is not a bus or array File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 20
-Warning (12069): Ignored assignment(s) for "green[1]" because "green" is not a bus or array File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 19
-Warning (12069): Ignored assignment(s) for "green[2]" because "green" is not a bus or array File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 19
-Warning (12069): Ignored assignment(s) for "red[1]" because "red" is not a bus or array File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 18
-Warning (12069): Ignored assignment(s) for "red[2]" because "red" is not a bus or array File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 18
-Warning (12069): Ignored assignment(s) for "red[3]" because "red" is not a bus or array File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 18
+Info (12128): Elaborating entity "char_rom" for hierarchy "char_rom:TextComponent" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 315
+Info (12128): Elaborating entity "altsyncram" for hierarchy "char_rom:TextComponent|altsyncram:altsyncram_component" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/char_rom.vhd Line: 51
+Info (12130): Elaborated megafunction instantiation "char_rom:TextComponent|altsyncram:altsyncram_component" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/char_rom.vhd Line: 51
+Info (12133): Instantiated megafunction "char_rom:TextComponent|altsyncram:altsyncram_component" with the following parameter: File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/char_rom.vhd Line: 51
+    Info (12134): Parameter "address_aclr_a" = "NONE"
+    Info (12134): Parameter "clock_enable_input_a" = "BYPASS"
+    Info (12134): Parameter "clock_enable_output_a" = "BYPASS"
+    Info (12134): Parameter "init_file" = "tcgrom.mif"
+    Info (12134): Parameter "intended_device_family" = "Cyclone V"
+    Info (12134): Parameter "lpm_hint" = "ENABLE_RUNTIME_MOD=NO"
+    Info (12134): Parameter "lpm_type" = "altsyncram"
+    Info (12134): Parameter "numwords_a" = "512"
+    Info (12134): Parameter "operation_mode" = "ROM"
+    Info (12134): Parameter "outdata_aclr_a" = "NONE"
+    Info (12134): Parameter "outdata_reg_a" = "UNREGISTERED"
+    Info (12134): Parameter "widthad_a" = "9"
+    Info (12134): Parameter "width_a" = "8"
+    Info (12134): Parameter "width_byteena_a" = "1"
+Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_d5g1.tdf
+    Info (12023): Found entity 1: altsyncram_d5g1 File: F:/COMPSYS305-TechSupport/MiniProject/db/altsyncram_d5g1.tdf Line: 27
+Info (12128): Elaborating entity "altsyncram_d5g1" for hierarchy "char_rom:TextComponent|altsyncram:altsyncram_component|altsyncram_d5g1:auto_generated" File: f:/quartus-lite-18.1.0.625-windows/quartus/libraries/megafunctions/altsyncram.tdf Line: 791
+Info (12128): Elaborating entity "scoreBox" for hierarchy "scoreBox:ScoreDriver" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 325
+Info (10041): Inferred latch for "character_addr[0]" at scoreBox.vhd(63) File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/scoreBox.vhd Line: 63
+Info (10041): Inferred latch for "character_addr[1]" at scoreBox.vhd(63) File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/scoreBox.vhd Line: 63
+Info (10041): Inferred latch for "character_addr[2]" at scoreBox.vhd(63) File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/scoreBox.vhd Line: 63
+Info (10041): Inferred latch for "character_addr[3]" at scoreBox.vhd(63) File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/scoreBox.vhd Line: 63
+Info (10041): Inferred latch for "character_addr[4]" at scoreBox.vhd(63) File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/scoreBox.vhd Line: 63
+Info (10041): Inferred latch for "character_addr[5]" at scoreBox.vhd(63) File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/scoreBox.vhd Line: 63
+Info (12128): Elaborating entity "VGA_SYNC" for hierarchy "VGA_SYNC:VGASync" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 340
+Warning (12069): Ignored assignment(s) for "blue[2]" because "blue" is not a bus or array File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 23
+Warning (12069): Ignored assignment(s) for "green[1]" because "green" is not a bus or array File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 22
+Warning (12069): Ignored assignment(s) for "green[2]" because "green" is not a bus or array File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 22
+Warning (12069): Ignored assignment(s) for "red[1]" because "red" is not a bus or array File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 21
+Warning (12069): Ignored assignment(s) for "red[2]" because "red" is not a bus or array File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 21
+Warning (12069): Ignored assignment(s) for "red[3]" because "red" is not a bus or array File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 21
 Info (13000): Registers with preset signals will power-up high File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/mouse.vhd Line: 146
 Info (13003): DEV_CLRn pin will set, and not reset, register with preset signal due to NOT Gate Push-Back
 Warning (13024): Output pins are stuck at VCC or GND
-    Warning (13410): Pin "HEX2[1]" is stuck at GND File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 24
-    Warning (13410): Pin "HEX5[1]" is stuck at GND File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 27
-    Warning (13410): Pin "HEX5[2]" is stuck at GND File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 27
-    Warning (13410): Pin "HEX5[6]" is stuck at VCC File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 27
+    Warning (13410): Pin "HEX2[1]" is stuck at GND File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 27
+    Warning (13410): Pin "HEX5[1]" is stuck at GND File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 30
+    Warning (13410): Pin "HEX5[2]" is stuck at GND File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 30
+    Warning (13410): Pin "HEX5[6]" is stuck at VCC File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 30
 Info (286030): Timing-Driven Synthesis is running
+Info (17036): Removed 4 MSB VCC or GND address nodes from RAM block "char_rom:TextComponent|altsyncram:altsyncram_component|altsyncram_d5g1:auto_generated|ALTSYNCRAM" File: F:/COMPSYS305-TechSupport/MiniProject/db/altsyncram_d5g1.tdf Line: 31
 Warning (20013): Ignored 24 assignments for entity "DE0_CV_Default" -- entity does not exist in design
     Warning (20014): Assignment for entity set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -entity DE0_CV_Default -section_id Top was ignored
     Warning (20014): Assignment for entity set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -entity DE0_CV_Default -section_id Top was ignored
@@ -497,17 +675,18 @@ Warning (20013): Ignored 24 assignments for entity "DE0_CV_Default" -- entity do
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
 Warning (21074): Design contains 2 input pin(s) that do not drive logic
-    Warning (15610): No output dependent on input pin "button_1" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 13
-    Warning (15610): No output dependent on input pin "button_2" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 14
-Info (21057): Implemented 429 device resources after synthesis - the final resource count might be different
-    Info (21058): Implemented 6 input pins
+    Warning (15610): No output dependent on input pin "button_3" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 16
+    Warning (15610): No output dependent on input pin "button_4" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 17
+Info (21057): Implemented 474 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 8 input pins
     Info (21059): Implemented 48 output pins
     Info (21060): Implemented 2 bidirectional pins
-    Info (21061): Implemented 373 logic cells
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 49 warnings
-    Info: Peak virtual memory: 4869 megabytes
-    Info: Processing ended: Wed May 14 14:32:41 2025
-    Info: Elapsed time: 00:00:12
-    Info: Total CPU time (on all processors): 00:00:22
+    Info (21061): Implemented 408 logic cells
+    Info (21064): Implemented 8 RAM segments
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 50 warnings
+    Info: Peak virtual memory: 4871 megabytes
+    Info: Processing ended: Tue May 20 15:38:33 2025
+    Info: Elapsed time: 00:00:15
+    Info: Total CPU time (on all processors): 00:00:28
 
 

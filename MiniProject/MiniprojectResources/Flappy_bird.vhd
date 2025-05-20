@@ -146,7 +146,12 @@ architecture Behavioral of Flappy_bird is
 		); 
 	end component; 
 
-    state_check: process(clk_25MHz) then
+   
+
+
+  begin
+  
+   state_check: process(clk_25MHz) 
       begin
         if rising_edge(clk_25Mhz) then
           current_state <= next_state;
@@ -154,13 +159,13 @@ architecture Behavioral of Flappy_bird is
       end process;
 
     -- State machine to handle game states
-    state_machine: process(current_state, button_1, button_2,collision,ps2_left,ps2_right) then
+    state_machine: process(current_state, button_1, button_2,collision,ps2_left,ps2_right) 
       begin
         case current_state is
           when menu =>
-            if button_1 = '0' then
+            if ps2_right = '1' then
               next_state <= training;
-              elsif ps2_left then
+              elsif ps2_left = '1' then
               next_state <= play;
             else
               next_state <= menu;
@@ -192,7 +197,7 @@ architecture Behavioral of Flappy_bird is
             end if;
 
           when game_over =>
-            if button_1 = '1' then
+            if ps2_left = '1' then
               next_state <= menu;
             else
               next_state <= game_over;
@@ -203,9 +208,6 @@ architecture Behavioral of Flappy_bird is
         end case;
       end process;
 
-
-
-  begin
 
     -- Instantiate the clock divider to generate 25 MHz clock
     ClockDivider: Clock_25MHz
@@ -287,13 +289,13 @@ architecture Behavioral of Flappy_bird is
     pixel_column   => pixel_column,
     red            => red_ball,
     green          => green_ball,
-    blue           => blue_ball
+    blue           => blue_ball,
     ends       => collision
   );
   
 
   -- Logic to determine if the current pixel is part of the bird
-  ball_on <= '1' when ((current_state = PLAYING or current_state = TRAINING) and(red_ball = '1' or green_ball = '1' or blue_ball = '1')) else '0';
+  ball_on <= '1' when ((current_state = PLAY or current_state = TRAINING) and(red_ball = '1' or green_ball = '1' or blue_ball = '1')) else '0';
   
   -- Logic to determine if the text will be on
   text_on <= '1' when (within_bounds = '1' and rom_mux_output = '1') else '0';
