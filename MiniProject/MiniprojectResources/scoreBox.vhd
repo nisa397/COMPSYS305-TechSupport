@@ -27,28 +27,30 @@ architecture behaviour of scoreBox is
     constant origin_row32 : std_logic_vector(9 downto 0) := conv_std_logic_vector(110, 10);
     constant origin_col32 : std_logic_vector(9 downto 0) := conv_std_logic_vector(100, 10);
 
-    signal font_row_s, font_col_s : std_logic_vector(2 downto 0) := (others => '0');
+    signal font_row_s, font_col_s : std_logic_vector(9 downto 0) := (others => '0');
     signal char_addr_s : std_logic_vector(5 downto 0) := (others => '0');
     signal within_bounds_s : std_logic := '0';
 
 begin
 
-    process(pixel_row, pixel_column)
-        variable found : boolean := false;
+    process(pixel_row, pixel_column) -- Start the process whenever we get the raw values 
+        variable found : boolean := false; -- Handles the bounding box signal to be sent out 
         variable col_offset : std_logic_vector(9 downto 0);
     begin
+        -- Reset everything
         font_row_s <= (others => '0');
         font_col_s <= (others => '0');
         char_addr_s <= (others => '0');
         within_bounds_s <= '0';
 
         for i in 0 to TEXT_LENGTH-1 loop
-            col_offset := std_logic_vector(unsigned(origin_col32) + to_unsigned(32*i, 10));
+            -- Changes the bounding box according to the letter in the sequence
+            col_offset := conv_std_logic_vector(unsigned(origin_col32) + conv_unsigned(32*i, 10), 10);
             if (pixel_row >= origin_row32 and pixel_row < origin_row32 + 32 and
                 pixel_column >= col_offset and pixel_column < col_offset + 32) then
 
-                font_row_s <= conv_std_logic_vector((unsigned(pixel_row) - unsigned(origin_row32)) srl 2, 3);
-                font_col_s <= conv_std_logic_vector((unsigned(pixel_column) - unsigned(col_offset)) srl 2, 3);
+                font_row_s <= pixel_row - origin_row32;
+                font_col_s <= pixel_column - col_offset;
                 char_addr_s <= FLYGUY_address(i);
                 within_bounds_s <= '1';
                 found := true;
@@ -63,8 +65,8 @@ begin
         end if;
     end process;
 
-    font_row <= font_row_s;
-    font_column <= font_col_s;
+    font_row <= font_row_s(5 downto 3);
+    font_column <= font_col_s(5 downto 3);
     character_addr <= char_addr_s;
     within_bounds <= within_bounds_s;
 
