@@ -69,6 +69,14 @@ architecture Behavioral of Flappy_bird is
   
   signal v_sync_signal : std_logic;
 
+  -- Latch signals for button presses
+  signal ps2_left_latch : std_logic := '0';
+  signal ps2_right_latch : std_logic := '0';
+  signal button_1_latched : std_logic := '0';
+  signal button_2_latched : std_logic := '0';
+  signal button_3_latched : std_logic := '0';
+  signal button_4_latched : std_logic := '0';
+
 
   -- Datatypes for game states
   type game_state_type is (menu, training, play, pause, game_over);
@@ -146,67 +154,83 @@ architecture Behavioral of Flappy_bird is
 		); 
 	end component; 
 
-   
-
 
   begin
   
-   state_check: process(clk_25MHz) 
-      begin
-        if rising_edge(clk_25Mhz) then
-          current_state <= next_state;
-        end if;
-      end process;
 
     -- State machine to handle game states
-    state_machine: process(current_state, button_1, button_2,collision,ps2_left,ps2_right) 
-      begin
+ process(clk_25MHz)
+begin
+    if rising_edge(clk_25MHz) then
+        -- Latch logic
+        if ps2_left = '1' then
+            ps2_left_latch <= '1';
+        elsif ( -- clear only when used for a transition
+            (current_state = menu and next_state = play) or
+            (current_state = pause and next_state = play) or
+            (current_state = game_over and next_state = menu)
+        ) then
+            ps2_left_latch <= '0';
+        end if;
+
+        if ps2_right = '1' then
+            ps2_right_latch <= '1';
+        elsif (
+            (current_state = menu and next_state = training) or
+            (current_state = play and next_state = pause) or
+            (current_state = pause and next_state = menu)
+        ) then
+            ps2_right_latch <= '0';
+        end if;
+
+        if button_1 = '0' then
+            button_1_latched <= '1';
+        elsif (current_state = training and next_state = play) then
+            button_1_latched <= '0';
+        end if;
+
+        -- State machine
+        next_state <= current_state; -- Default
+
         case current_state is
-          when menu =>
-            if ps2_right = '1' then
-              next_state <= training;
-              elsif ps2_left = '1' then
-              next_state <= play;
-            else
-              next_state <= menu;
-            end if;
+            when menu =>
+                if ps2_right_latch = '1' then
+                    next_state <= training;
+                elsif ps2_left_latch = '1' then
+                    next_state <= play;
+                end if;
 
-          when training =>
-            if button_1 = '0' then
-              next_state <= play;
-            else
-              next_state <= training;
-            end if;
+            when training =>
+                if button_1_latched = '1' then
+                    next_state <= play;
+                end if;
 
-          when play =>
-            if ps2_right = '1' then
-              next_state <= pause;
-            elsif collision = '1' then
-              next_state <= game_over;
-            else
-              next_state <= play;
-            end if;
+            when play =>
+                if ps2_right_latch = '1' then
+                    next_state <= pause;
+                elsif collision = '1' then
+                    next_state <= game_over;
+                end if;
 
-          when pause =>
-            if ps2_left = '1' then
-              next_state <= play;
-            elsif ps2_right = '1' then
-              next_state <= menu;
-            else
-              next_state <= pause;
-            end if;
+            when pause =>
+                if ps2_left_latch = '1' then
+                    next_state <= play;
+                elsif ps2_right_latch = '1' then
+                    next_state <= menu;
+                end if;
 
-          when game_over =>
-            if ps2_left = '1' then
-              next_state <= menu;
-            else
-              next_state <= game_over;
-            end if;
+            when game_over =>
+                if ps2_left_latch = '1' then
+                    next_state <= menu;
+                end if;
 
-          when others =>
-            next_state <= menu; -- Default state
+            when others =>
+                next_state <= menu;
         end case;
-      end process;
+
+        current_state <= next_state;
+    end if;
+end process;
 
 
     -- Instantiate the clock divider to generate 25 MHz clock
