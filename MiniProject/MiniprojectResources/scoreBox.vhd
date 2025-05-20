@@ -19,10 +19,10 @@ architecture behaviour of scoreBox is
     constant FLYGUY_address : char_addr_array := (
         "000110", -- F
         "001100", -- L
-        "110001", -- Y
-        "001111", -- G
-        "110101", -- U
-        "110001"  -- Y
+        "011001", -- Y
+        "000111", -- G
+        "010101", -- U
+        "011001"  -- Y
     );
     constant origin_row32 : std_logic_vector(9 downto 0) := conv_std_logic_vector(110, 10);
     constant origin_col32 : std_logic_vector(9 downto 0) := conv_std_logic_vector(100, 10);
@@ -65,8 +65,8 @@ begin
         end if;
     end process;
 
-    font_row <= font_row_s(5 downto 3);
-    font_column <= font_col_s(5 downto 3);
+    font_row <= font_row_s(4 downto 2);
+    font_column <= font_col_s(4 downto 2);
     character_addr <= char_addr_s;
     within_bounds <= within_bounds_s;
 
