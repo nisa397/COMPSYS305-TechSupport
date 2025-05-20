@@ -29,6 +29,8 @@ architecture behavior of bouncy_bird is
     -- Converted inputs for arithmetic
     signal px, py       : unsigned(9 downto 0);
 
+    ends <= '0'; -- Initialize ends to 0 by default
+
 begin
 
     -- Convert pixel inputs

@@ -13,6 +13,8 @@ entity Flappy_bird is
 		PS2_DAT		: INOUT std_logic;
 		button_1 : In std_logic; --push button
 		button_2: In std_logic; --second push button
+    button_3: In std_logic; --third push button
+    button_4: In std_logic; --fourth push button
       clk_50MHz   : IN  std_logic;  -- DE0-CV clock
       h_sync      : OUT std_logic;  -- VGA horizontal sync
       v_sync      : OUT std_logic;  -- VGA vertical sync
@@ -152,25 +154,27 @@ architecture Behavioral of Flappy_bird is
       end process;
 
     -- State machine to handle game states
-    state_machine: process(current_state, button_1, button_2,collision) then
+    state_machine: process(current_state, button_1, button_2,collision,ps2_left,ps2_right) then
       begin
         case current_state is
           when menu =>
-            if button_1 = '1' then
+            if button_1 = '0' then
               next_state <= training;
+              elsif ps2_left then
+              next_state <= play;
             else
               next_state <= menu;
             end if;
 
           when training =>
-            if button_1 = '1' then
+            if button_1 = '0' then
               next_state <= play;
             else
               next_state <= training;
             end if;
 
           when play =>
-            if button_2 = '1' then
+            if ps2_right = '1' then
               next_state <= pause;
             elsif collision = '1' then
               next_state <= game_over;
@@ -179,8 +183,10 @@ architecture Behavioral of Flappy_bird is
             end if;
 
           when pause =>
-            if button_2 = '1' then
+            if ps2_left = '1' then
               next_state <= play;
+            elsif ps2_right = '1' then
+              next_state <= menu;
             else
               next_state <= pause;
             end if;
@@ -196,8 +202,6 @@ architecture Behavioral of Flappy_bird is
             next_state <= menu; -- Default state
         end case;
       end process;
-
-
 
 
 
