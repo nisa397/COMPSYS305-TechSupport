@@ -204,11 +204,11 @@
 					"strict" : false
 				},
 				{
-					"name" : "button_1",
+					"name" : "button_2",
 					"strict" : false
 				},
 				{
-					"name" : "button_2",
+					"name" : "button_1",
 					"strict" : false
 				}
 			]

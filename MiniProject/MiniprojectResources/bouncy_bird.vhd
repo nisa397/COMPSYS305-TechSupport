@@ -2,11 +2,12 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
+
 entity bouncy_bird is
     port (
         ps2_left, pb2, clk, vert_sync : in  std_logic;
         pixel_row, pixel_column  : in  std_logic_vector(9 downto 0);
-        game_state : in game_state_type; 
+        game_state : in std_logic; 
         red, green, blue, ends        : out std_logic 
     );
 end bouncy_bird;
@@ -18,6 +19,8 @@ architecture behavior of bouncy_bird is
     constant JUMP_STRENGTH : integer := -10;
     constant MAX_Y         : integer := 470;
     constant MIN_Y         : integer := 0;
+	 
+
 
     -- Internal signals
     signal size         : unsigned(9 downto 0) := to_unsigned(8, 10);
@@ -58,7 +61,7 @@ begin
 begin
     if rising_edge(vert_sync) then
         -- Only update movement if not paused or game over
-        if (game_state = play) or (game_state = training) then
+        if (game_state = '1') then
             -- Apply jump on button press
             if (ps2_left = '1') or (pb2 = '0') then
                 ball_y_motion <= to_signed(JUMP_STRENGTH, ball_y_motion'length);

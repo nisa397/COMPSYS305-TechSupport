@@ -7,6 +7,14 @@ current_state.play 0 0 1 0 1
 current_state.pause 0 1 0 0 1 
 current_state.game_over 1 0 0 0 1 
 
+State Machine - |Flappy_bird|next_state
+Name next_state.game_over next_state.pause next_state.play next_state.training next_state.menu 
+next_state.menu 0 0 0 0 0 
+next_state.training 0 0 0 1 1 
+next_state.play 0 0 1 0 1 
+next_state.pause 0 1 0 0 1 
+next_state.game_over 1 0 0 0 1 
+
 State Machine - |Flappy_bird|MOUSE:ps2|mouse_state
 Name mouse_state.INPUT_PACKETS mouse_state.WAIT_CMD_ACK mouse_state.WAIT_OUTPUT_READY mouse_state.LOAD_COMMAND2 mouse_state.LOAD_COMMAND mouse_state.INHIBIT_TRANS 
 mouse_state.INHIBIT_TRANS 0 0 0 0 0 0 

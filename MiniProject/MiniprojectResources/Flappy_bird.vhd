@@ -78,11 +78,13 @@ architecture Behavioral of Flappy_bird is
   signal button_4_latched : std_logic := '0';
 
 
+
   -- Datatypes for game states
   type game_state_type is (menu, training, play, pause, game_over);
   signal current_state : game_state_type := menu;
   signal next_state : game_state_type;
   signal collision : std_logic := '0';
+  signal game_active : std_logic := '0';
 
     
 
@@ -98,7 +100,7 @@ architecture Behavioral of Flappy_bird is
      port (
         ps2_left, pb2, clk, vert_sync : in  std_logic;
         pixel_row, pixel_column  : in  std_logic_vector(9 downto 0);
-        game_state : in game_state_type; 
+        game_state : in std_logic; 
         red, green, blue, ends        : out std_logic 
     );
   end component;
@@ -157,7 +159,9 @@ architecture Behavioral of Flappy_bird is
 
 
   begin
-  
+	
+	game_active <= '1' when (current_state = play or current_state = training) else '0';
+
 
     -- State machine to handle game states
  process(clk_25MHz)
@@ -189,6 +193,7 @@ begin
         elsif (current_state = training and next_state = play) then
             button_1_latched <= '0';
         end if;
+		  
 
         -- State machine
         next_state <= current_state; -- Default
@@ -197,18 +202,25 @@ begin
             when menu =>
                 if ps2_right_latch = '1' then
                     next_state <= training;
+						  ps2_right_latch <= '0';
                 elsif ps2_left_latch = '1' then
                     next_state <= play;
+						  ps2_left_latch <= '0';
                 end if;
 
             when training =>
                 if button_1_latched = '1' then
                     next_state <= play;
+						  button_1_latched <= '0';
+					elsif ps2_right_latch = '1' then
+							next_state <= pause;
+							ps2_right_latch <= '0';
                 end if;
 
             when play =>
                 if ps2_right_latch = '1' then
                     next_state <= pause;
+						  ps2_right_latch <= '0';
                 elsif collision = '1' then
                     next_state <= game_over;
                 end if;
@@ -216,13 +228,16 @@ begin
             when pause =>
                 if ps2_left_latch = '1' then
                     next_state <= play;
+						  ps2_left_latch <= '0';
                 elsif ps2_right_latch = '1' then
                     next_state <= menu;
+						  ps2_right_latch <= '0';
                 end if;
 
             when game_over =>
                 if ps2_left_latch = '1' then
                     next_state <= menu;
+						  ps2_left_latch <= '0';
                 end if;
 
             when others =>
@@ -312,7 +327,7 @@ end process;
     clk            => clk_25MHz,
     pixel_row      => pixel_row,
     pixel_column   => pixel_column,
-    game_state => current_state,
+    game_state => game_active,
     red            => red_ball,
     green          => green_ball,
     blue           => blue_ball,
