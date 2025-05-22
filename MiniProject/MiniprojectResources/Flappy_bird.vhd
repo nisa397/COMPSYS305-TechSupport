@@ -55,11 +55,15 @@ architecture Behavioral of Flappy_bird is
   SIGNAL video_on : std_logic;
   
   -- Text pixel row 
-  signal font_row_in, font_col_in : std_logic_vector(2 downto 0); 
-  signal character_address_in : std_logic_vector(5 downto 0); 
+  signal font_row_in, font_col_in, font_row_64, font_col_64, font_row_32, font_col_32 : std_logic_vector(2 downto 0); 
+  signal character_address_in, character_address_64, character_address_32 : std_logic_vector(5 downto 0); 
   signal rom_mux_output : std_logic; 
-  signal within_bounds : std_logic; 
+  signal within_bounds, within_bounds_64, within_bounds_32 : std_logic; 
   signal text_on : std_logic; 
+  
+  
+  
+  --64x74
 
   -- RGB pixel output from ball component
   SIGNAL red_ball, green_ball, blue_ball : std_logic;
@@ -138,6 +142,16 @@ architecture Behavioral of Flappy_bird is
 			character_addr : out std_logic_vector(5 downto 0); 
 			within_bounds : out std_logic
 		); 
+	end component; 
+	
+	component textBox is 
+				port(
+		clock : in std_logic; 
+		pixel_row, pixel_column : in std_logic_vector(9 downto 0); 
+		font_row, font_column : out std_logic_vector(2 downto 0); 
+		character_addr : out std_logic_vector(5 downto 0);
+      within_bounds : out std_logic
+	); 
 	end component; 
 
   begin
@@ -233,7 +247,11 @@ architecture Behavioral of Flappy_bird is
   );
   
   
-  
+  -- Mux logic for text/score box
+	font_row_in <= font_row_64 when within_bounds_64 = '1' else font_row_32;
+	font_col_in <= font_col_64 when within_bounds_64 = '1' else font_col_32;
+	character_address_in <= character_address_64 when within_bounds_64 = '1' else character_address_32;
+	within_bounds <= within_bounds_64 or within_bounds_32;
 
   -- Logic to determine if the current pixel is part of the bird
   ball_on <= '1' when (red_ball = '1' or green_ball = '1' or blue_ball = '1') else '0';
@@ -270,10 +288,21 @@ architecture Behavioral of Flappy_bird is
 	clock => clk_25MHz,
 	pixel_row => pixel_row,
 	pixel_column => pixel_column,
-	font_row => font_row_in, -- Input 
-	font_column => font_col_in,
-	character_addr => character_address_in,
-	within_bounds => within_bounds
+	font_row => font_row_64, -- Input 
+	font_column => font_col_64,
+	character_addr => character_address_64,
+	within_bounds => within_bounds_64
+  ); 
+  
+  TextDriver: textBox 
+   port map(
+	clock => clk_25MHz,
+	pixel_row => pixel_row,
+	pixel_column => pixel_column,
+	font_row => font_row_32, -- Input 
+	font_column => font_col_32, 
+	character_addr => character_address_32,
+	within_bounds => within_bounds_32
   ); 
   
   
