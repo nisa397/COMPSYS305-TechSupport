@@ -76,6 +76,8 @@ architecture Behavioral of Flappy_bird is
   signal button_2_latched : std_logic := '0';
   signal button_3_latched : std_logic := '0';
   signal button_4_latched : std_logic := '0';
+  signal collision_latched : std_logic := '0';
+
 
 
 
@@ -193,7 +195,11 @@ begin
         elsif (current_state = training and next_state = play) then
             button_1_latched <= '0';
         end if;
-		  
+        if collision = '1' then
+          collision_latched <= '1';
+        elsif current_state = game_over then
+          collision_latched <= '0'; -- Clear it once we enter game_over
+        end if;
 
         -- State machine
         next_state <= current_state; -- Default
@@ -218,12 +224,12 @@ begin
                 end if;
 
             when play =>
-                if ps2_right_latch = '1' then
-                    next_state <= pause;
-						  ps2_right_latch <= '0';
-                elsif collision = '1' then
-                    next_state <= game_over;
-                end if;
+            if ps2_right_latch = '1' then
+              next_state <= pause;
+              ps2_right_latch <= '0';
+            elsif collision_latched = '1' then
+              next_state <= game_over;
+            end if;
 
             when pause =>
                 if ps2_left_latch = '1' then
