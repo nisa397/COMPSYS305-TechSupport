@@ -6,6 +6,7 @@ entity bouncy_bird is
     port (
         ps2_left, pb2, clk, vert_sync : in  std_logic;
         pixel_row, pixel_column  : in  std_logic_vector(9 downto 0);
+        game_state : in game_state_type; 
         red, green, blue, ends        : out std_logic 
     );
 end bouncy_bird;
@@ -53,10 +54,11 @@ begin
 
     -- Movement process: update on vertical sync (frame tick)
     Move_Ball: process(vert_sync)
-        variable next_y_pos : integer;
-    begin
-        if rising_edge(vert_sync) then
-
+    variable next_y_pos : integer;
+begin
+    if rising_edge(vert_sync) then
+        -- Only update movement if not paused or game over
+        if (game_state = play) or (game_state = training) then
             -- Apply jump on button press
             if (ps2_left = '1') or (pb2 = '0') then
                 ball_y_motion <= to_signed(JUMP_STRENGTH, ball_y_motion'length);
@@ -79,10 +81,11 @@ begin
                 ends <= '1'; -- Game over condition
             else
                 ball_y_pos <= to_unsigned(next_y_pos, ball_y_pos'length);
-					 ends <='0';
+                ends <='0';
             end if;
-
         end if;
-    end process;
+        -- If paused or in other states, do nothing: ball stays frozen
+    end if;
+end process;
 
 end behavior;

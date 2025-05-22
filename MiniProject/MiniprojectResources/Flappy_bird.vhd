@@ -95,11 +95,12 @@ architecture Behavioral of Flappy_bird is
   end component;
 
   component bouncy_bird IS
-    port (
-        ps2_left, pb2, clk, vert_sync : IN std_logic;
-        pixel_row, pixel_column  : IN std_logic_vector(9 DOWNTO 0);
-        red, green, blue, ends        : OUT std_logic
-    );	
+     port (
+        ps2_left, pb2, clk, vert_sync : in  std_logic;
+        pixel_row, pixel_column  : in  std_logic_vector(9 downto 0);
+        game_state : in game_state_type; 
+        red, green, blue, ends        : out std_logic 
+    );
   end component;
   
   component Clock_25MHZ is 
@@ -311,6 +312,7 @@ end process;
     clk            => clk_25MHz,
     pixel_row      => pixel_row,
     pixel_column   => pixel_column,
+    game_state => current_state,
     red            => red_ball,
     green          => green_ball,
     blue           => blue_ball,
@@ -319,7 +321,7 @@ end process;
   
 
   -- Logic to determine if the current pixel is part of the bird
-  ball_on <= '1' when ((current_state = PLAY or current_state = TRAINING) and(red_ball = '1' or green_ball = '1' or blue_ball = '1')) else '0';
+  ball_on <= '1' when ((current_state /= MENU) and(red_ball = '1' or green_ball = '1' or blue_ball = '1')) else '0';
   
   -- Logic to determine if the text will be on
   text_on <= '1' when (within_bounds = '1' and rom_mux_output = '1') else '0';
@@ -327,12 +329,14 @@ end process;
   -- Logic to combine bird and background colors
   -- If the current pixel is part of the bird, use the bird's color.
   -- Otherwise, use a constant background color (e.g., green background).
-  red_pixel   <= '0' when (ball_on = '1') or (text_on = '1') or (current_state = GAME_OVER) else '1' when (current_state = TRAINING) or (current_state = PLAY) or (current_state = PAUSE) else
-     dip_sw1;
+  red_pixel   <= '0' when (ball_on = '1') or (text_on = '1') else
+               '1' when (current_state = TRAINING) or (current_state = PLAY) or (current_state = PAUSE) or (current_state = GAME_OVER) else dip_sw1;
 
-  green_pixel <= '0' when (ball_on = '1') or (text_on = '1') or (current_state = GAME_OVER) else '1' when (current_state = TRAINING) or (current_state = PLAY) else dip_sw2;
-  blue_pixel  <= '1' when (ball_on = '1') or (text_on = '1') or (cursor_on = '1')  else
-                 '0' when (current_state = GAME_OVER) else dip_sw3;
+  green_pixel <= '0' when (ball_on = '1') or (text_on = '1') else
+               '1' when (current_state = TRAINING) or (current_state = PLAY) or (current_state = GAME_OVER) else dip_sw2;
+
+  blue_pixel  <= '1' when (ball_on = '1') or (text_on = '1') or (cursor_on = '1') else
+               dip_sw3;
 
   
   -- Instantiate the text component 
