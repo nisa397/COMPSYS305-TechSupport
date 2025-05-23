@@ -118,6 +118,7 @@ set_location_assignment PIN_U13 -to dip_sw1
 set_location_assignment PIN_V13 -to dip_sw2
 set_location_assignment PIN_T13 -to dip_sw3
 
+set_global_assignment -name VHDL_FILE MiniprojectResources/pipe.vhd
 set_global_assignment -name VHDL_FILE MiniprojectResources/scoreBox.vhd
 set_global_assignment -name VHDL_FILE MiniprojectResources/BCDtoHEX.vhd
 set_global_assignment -name VHDL_FILE MiniprojectResources/cursor.vhd

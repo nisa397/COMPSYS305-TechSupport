@@ -1,6 +1,5 @@
 library ieee;
 use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
 use ieee.std_logic_unsigned.all;
 USE  IEEE.STD_LOGIC_ARITH.all;
 
@@ -43,8 +42,9 @@ architecture Behavioral of Flappy_bird is
   signal ps2_cursor_row: std_logic_vector(9 DOWNTO 0);
   signal ps2_cursor_col: std_logic_vector(9 DOWNTO 0);
   
-  
-
+  -- Pipe signals
+  signal s_height: std_logic_vector(9 downto 0);
+  signal s_pipe_on: std_logic;
   
   
   --Cursor signals
@@ -79,6 +79,13 @@ architecture Behavioral of Flappy_bird is
 			horiz_sync_out, vert_sync_out	: OUT	STD_LOGIC;
 			pixel_row, pixel_column: OUT STD_LOGIC_VECTOR(9 DOWNTO 0));
   end component;
+  
+  component pipe is
+		port (
+        height  : in  std_logic_vector(9 downto 0);
+		pixel_row, pixel_column : in std_logic_vector(9 downto 0);
+        pipe_on        : out std_logic);
+	end component;
 
   component bouncy_bird IS
     port (
@@ -141,6 +148,8 @@ architecture Behavioral of Flappy_bird is
 	end component; 
 
   begin
+  
+  s_height <= conv_std_logic_vector(200,10);
 
     -- Instantiate the clock divider to generate 25 MHz clock
     ClockDivider: Clock_25MHz
@@ -233,6 +242,16 @@ architecture Behavioral of Flappy_bird is
   );
   
   
+  pipe_component: pipe
+  port map(
+	height			=> s_height,
+	pixel_row      => pixel_row,
+   pixel_column   => pixel_column,
+	pipe_on			=> s_pipe_on
+	
+	
+  );
+  
   
 
   -- Logic to determine if the current pixel is part of the bird
@@ -245,7 +264,7 @@ architecture Behavioral of Flappy_bird is
   -- If the current pixel is part of the bird, use the bird's color.
   -- Otherwise, use a constant background color (e.g., green background).
   red_pixel   <= '0' when (ball_on = '1') or (text_on = '1') else dip_sw1; -- Bird: red, Background: no red
-  green_pixel <= '0' when (ball_on = '1') or (text_on = '1') else dip_sw2; -- Bird: no green, Background: green
+  green_pixel <= '0' when (ball_on = '1') or (text_on = '1') or (s_pipe_on = '1') else dip_sw2; -- Bird: no green, Background: green
   blue_pixel  <= '1' when (ball_on = '1') or (text_on = '1') or (cursor_on = '1') else dip_sw3; -- Bird: no blue, Background: no blue
 
 
