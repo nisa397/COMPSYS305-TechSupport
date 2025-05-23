@@ -7,6 +7,7 @@ entity scoreBox is
 	port(
 		clock : in std_logic; 
 		pixel_row, pixel_column : in std_logic_vector(9 downto 0); 
+        state : in std_logic_vector(2 downto 0); 
 		font_row, font_column : out std_logic_vector(2 downto 0); 
 		character_addr : out std_logic_vector(5 downto 0);
       within_bounds : out std_logic
@@ -40,26 +41,36 @@ begin
     process(pixel_row, pixel_column) -- Start the process whenever we get the raw values 
         variable found : boolean := false; -- Handles the bounding box signal to be sent out 
         variable col_offset : std_logic_vector(9 downto 0);
+        variable show_text : boolean := false; 
     begin
+        -- State 
+        if state = "000" then 
+            show_text := true; 
+        else 
+            show_text := false; 
+        end if;
+
+
         -- Reset everything
         font_row_s <= (others => '0');
         font_col_s <= (others => '0');
         char_addr_s <= (others => '0');
         within_bounds_s <= '0';
-			
-        for i in 0 to TEXT_LENGTH-1 loop
-            -- Changes the bounding box according to the letter in the sequence
-            col_offset := conv_std_logic_vector(unsigned(origin_col64) + conv_unsigned(64*i, 10), 10);
-            if (pixel_row >= origin_row64 and pixel_row < origin_row64 + 64 and
-                pixel_column >= col_offset and pixel_column < col_offset + 64) then
+		if show_text then 
+            for i in 0 to TEXT_LENGTH-1 loop
+                -- Changes the bounding box according to the letter in the sequence
+                col_offset := conv_std_logic_vector(unsigned(origin_col64) + conv_unsigned(64*i, 10), 10);
+                if (pixel_row >= origin_row64 and pixel_row < origin_row64 + 64 and
+                    pixel_column >= col_offset and pixel_column < col_offset + 64) then
 
-                font_row_s <= pixel_row - origin_row64;
-                font_col_s <= pixel_column - col_offset;
-                char_addr_s <= FLYGUY_address(i);
-                within_bounds_s <= '1';
-                found := true;
-            end if;
-        end loop;
+                    font_row_s <= pixel_row - origin_row64;
+                    font_col_s <= pixel_column - col_offset;
+                    char_addr_s <= FLYGUY_address(i);
+                    within_bounds_s <= '1';
+                    found := true;
+                end if;
+            end loop;
+        end if; 
 
 
         if not found then

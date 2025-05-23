@@ -92,7 +92,7 @@ architecture Behavioral of Flappy_bird is
   signal collision : std_logic := '0';
   signal game_active : std_logic := '0';
 
-    
+  signal current_state_vec : std_logic_vector(2 downto 0); 
 
   component vga_sync is
     PORT(	clock_25Mhz : IN std_logic;
@@ -157,6 +157,7 @@ architecture Behavioral of Flappy_bird is
 		port(
 			clock : in std_logic; 
 			pixel_row, pixel_column : in std_logic_vector(9 downto 0); 
+      state : in std_logic_vector(2 downto 0); 
 			font_row, font_column : out std_logic_vector(3 downto 1); 
 			character_addr : out std_logic_vector(5 downto 0); 
 			within_bounds : out std_logic
@@ -268,6 +269,16 @@ begin
     end if;
 end process;
 
+	  -- Assign the current_state something that is able to passed onto other components 
+  -- Made since state and multicharacter text was developed seperately. 
+  with current_state select 
+    current_state_vec <=
+        "000" when menu,
+        "001" when training,
+        "010" when play,
+        "011" when pause,
+        "100" when game_over,
+        "000" when others;
 
     -- Instantiate the clock divider to generate 25 MHz clock
     ClockDivider: Clock_25MHz
@@ -397,6 +408,7 @@ end process;
 	pixel_row => pixel_row,
 	pixel_column => pixel_column,
 	font_row => font_row_64, -- Input 
+  state => current_state_vec,
 	font_column => font_col_64,
 	character_addr => character_address_64,
 	within_bounds => within_bounds_64
