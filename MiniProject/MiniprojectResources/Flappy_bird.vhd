@@ -168,6 +168,7 @@ architecture Behavioral of Flappy_bird is
 				port(
 		clock : in std_logic; 
 		pixel_row, pixel_column : in std_logic_vector(9 downto 0); 
+		state : in std_logic_vector(2 downto 0); 
 		font_row, font_column : out std_logic_vector(2 downto 0); 
 		character_addr : out std_logic_vector(5 downto 0);
       within_bounds : out std_logic
@@ -420,6 +421,7 @@ end process;
 	pixel_row => pixel_row,
 	pixel_column => pixel_column,
 	font_row => font_row_32, -- Input 
+	state => current_state_vec,
 	font_column => font_col_32, 
 	character_addr => character_address_32,
 	within_bounds => within_bounds_32
