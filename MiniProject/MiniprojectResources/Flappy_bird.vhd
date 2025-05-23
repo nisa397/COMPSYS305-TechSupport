@@ -218,7 +218,7 @@ begin
         end if;
 
         -- State machine
-        next_state <= current_state; -- Default
+        --next_state <= current_state; -- Default
 
         case current_state is
             when menu =>

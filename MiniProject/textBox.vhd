@@ -16,17 +16,46 @@ end entity textBox;
 
 architecture behaviour of textBox is
 	constant PAUSE_length : integer := 5; 
+    constant TRAINING_length : integer := 8;
+	 constant PLAY_LENGTH  : integer := 4; 
     type char_addr_array is array(0 to PAUSE_LENGTH-1) of std_logic_vector(5 downto 0);
-    constant FLYGUY_address : char_addr_array := (
+	 type char_addr_array_long is array(0 to TRAINING_LENGTH-1)  of std_logic_vector(5 downto 0); 
+	 type char_addr_array_p is array(0 to PLAY_LENGTH-1) of std_logic_vector(5 downto 0); 
+    constant PAUSE_address : char_addr_array := (
         "010000", -- P
         "000001", -- A
         "010101", -- U
         "010011", -- S
         "000101" -- E
     );
+
+    constant TRAINING_address : char_addr_array_long := (
+        "010100", -- T 
+        "010010", -- R 
+        "000001", -- A 
+        "001001", -- I 
+        "001110", -- N 
+        "001001", -- I 
+        "001110", -- N 
+        "000111" -- G 
+    );
 	 
-	 constant po_row : std_logic_vector(9 downto 0) :=  conv_std_logic_vector(180,10); 
-	 constant po_col : std_logic_vector(9 downto 0) :=  conv_std_logic_vector(240,10); 
+	 constant PLAY_address : char_addr_array_p := (
+		"010000", -- P 
+		"001100", -- L 
+		"000001", -- A 
+		"011001" -- Y 
+	 );
+
+    constant po_row : std_logic_vector(9 downto 0) :=  conv_std_logic_vector(180,10); 
+    constant po_col : std_logic_vector(9 downto 0) :=  conv_std_logic_vector(240,10); 
+
+    constant to_row : std_logic_vector(9 downto 0) := conv_std_logic_vector(250, 10); 
+    constant to_col : std_logic_vector(9 downto 0) := conv_std_logic_vector(128, 10); 
+	 
+	 constant play_row : std_logic_vector(9 downto 0) :=  conv_std_logic_vector(292,10); 
+    constant play_col : std_logic_vector(9 downto 0) :=  conv_std_logic_vector(128,10); 
+
 	 
     signal font_row_s, font_col_s : std_logic_vector(9 downto 0) := (others => '0');
     signal char_addr_s : std_logic_vector(5 downto 0) := (others => '0');
@@ -55,7 +84,37 @@ begin
 
                     font_row_s <= pixel_row - po_row;
                     font_col_s <= pixel_column - col_offset;
-                    char_addr_s <= FLYGUY_address(i);
+                    char_addr_s <= PAUSE_address(i);
+                    within_bounds_s <= '1';
+                    found := true;
+                end if;
+            end loop;
+        end if; 
+
+        if (state="000") then
+                for i in 0 to TRAINING_LENGTH-1 loop
+                -- Changes the bounding box according to the letter in the sequence
+                col_offset := conv_std_logic_vector(unsigned(to_col) + conv_unsigned(32*i, 10), 10);
+                if (pixel_row >= to_row and pixel_row < to_row + 32 and
+                    pixel_column >= col_offset and pixel_column < col_offset + 32) then
+
+                    font_row_s <= pixel_row - to_row;
+                    font_col_s <= pixel_column - col_offset;
+                    char_addr_s <= TRAINING_address(i);
+                    within_bounds_s <= '1';
+                    found := true;
+                end if;
+            end loop;
+
+				for i in 0 to PLAY_LENGTH-1 loop
+                -- Changes the bounding box according to the letter in the sequence
+                col_offset := conv_std_logic_vector(unsigned(play_col) + conv_unsigned(32*i, 10), 10);
+                if (pixel_row >= play_row and pixel_row < play_row + 32 and
+                    pixel_column >= col_offset and pixel_column < col_offset + 32) then
+
+                    font_row_s <= pixel_row - play_row;
+                    font_col_s <= pixel_column - col_offset;
+                    char_addr_s <= PLAY_address(i);
                     within_bounds_s <= '1';
                     found := true;
                 end if;
