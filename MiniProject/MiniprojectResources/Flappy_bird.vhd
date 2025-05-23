@@ -13,6 +13,8 @@ entity Flappy_bird is
 		PS2_DAT		: INOUT std_logic;
 		button_1 : In std_logic; --push button
 		button_2: In std_logic; --second push button
+    button_3: In std_logic; --third push button
+    button_4: In std_logic; --fourth push button
       clk_50MHz   : IN  std_logic;  -- DE0-CV clock
       h_sync      : OUT std_logic;  -- VGA horizontal sync
       v_sync      : OUT std_logic;  -- VGA vertical sync
@@ -44,9 +46,6 @@ architecture Behavioral of Flappy_bird is
   signal ps2_cursor_col: std_logic_vector(9 DOWNTO 0);
   
   
-
-  
-  
   --Cursor signals
   signal cursor_on: std_logic;
   
@@ -74,6 +73,25 @@ architecture Behavioral of Flappy_bird is
   
   signal v_sync_signal : std_logic;
 
+  -- Latch signals for button presses
+  signal ps2_left_latch : std_logic := '0';
+  signal ps2_right_latch : std_logic := '0';
+  signal button_1_latched : std_logic := '0';
+  signal button_2_latched : std_logic := '0';
+  signal button_3_latched : std_logic := '0';
+  signal button_4_latched : std_logic := '0';
+  signal collision_latched : std_logic := '0';
+
+
+
+
+  -- Datatypes for game states
+  type game_state_type is (menu, training, play, pause, game_over);
+  signal current_state : game_state_type := menu;
+  signal next_state : game_state_type;
+  signal collision : std_logic := '0';
+  signal game_active : std_logic := '0';
+
     
 
   component vga_sync is
@@ -85,11 +103,12 @@ architecture Behavioral of Flappy_bird is
   end component;
 
   component bouncy_bird IS
-    port (
-        ps2_left, pb2, clk, vert_sync : IN std_logic;
-        pixel_row, pixel_column  : IN std_logic_vector(9 DOWNTO 0);
-        red, green, blue         : OUT std_logic
-    );	
+     port (
+        ps2_left, pb2, clk, vert_sync : in  std_logic;
+        pixel_row, pixel_column  : in  std_logic_vector(9 downto 0);
+        game_state : in std_logic; 
+        red, green, blue, ends        : out std_logic 
+    );
   end component;
   
   component Clock_25MHZ is 
@@ -154,7 +173,101 @@ architecture Behavioral of Flappy_bird is
 	); 
 	end component; 
 
+
   begin
+	
+	game_active <= '1' when (current_state = play or current_state = training) else '0';
+
+
+    -- State machine to handle game states
+ process(clk_25MHz)
+begin
+    if rising_edge(clk_25MHz) then
+        -- Latch logic
+        if ps2_left = '1' then
+            ps2_left_latch <= '1';
+        elsif ( -- clear only when used for a transition
+            (current_state = menu and next_state = play) or
+            (current_state = pause and next_state = play) or
+            (current_state = game_over and next_state = menu)
+        ) then
+            ps2_left_latch <= '0';
+        end if;
+
+        if ps2_right = '1' then
+            ps2_right_latch <= '1';
+        elsif (
+            (current_state = menu and next_state = training) or
+            (current_state = play and next_state = pause) or
+            (current_state = pause and next_state = menu)
+        ) then
+            ps2_right_latch <= '0';
+        end if;
+
+        if button_1 = '0' then
+            button_1_latched <= '1';
+        elsif (current_state = training and next_state = play) then
+            button_1_latched <= '0';
+        end if;
+        if collision = '1' then
+          collision_latched <= '1';
+        elsif current_state = game_over then
+          collision_latched <= '0'; -- Clear it once we enter game_over
+        end if;
+
+        -- State machine
+        next_state <= current_state; -- Default
+
+        case current_state is
+            when menu =>
+                if ps2_right_latch = '1' then
+                    next_state <= training;
+						  ps2_right_latch <= '0';
+                elsif ps2_left_latch = '1' then
+                    next_state <= play;
+						  ps2_left_latch <= '0';
+                end if;
+
+            when training =>
+                if button_1_latched = '1' then
+                    next_state <= play;
+						  button_1_latched <= '0';
+					elsif ps2_right_latch = '1' then
+							next_state <= pause;
+							ps2_right_latch <= '0';
+                end if;
+
+            when play =>
+            if ps2_right_latch = '1' then
+              next_state <= pause;
+              ps2_right_latch <= '0';
+            elsif collision_latched = '1' then
+              next_state <= game_over;
+            end if;
+
+            when pause =>
+                if ps2_left_latch = '1' then
+                    next_state <= play;
+						  ps2_left_latch <= '0';
+                elsif ps2_right_latch = '1' then
+                    next_state <= menu;
+						  ps2_right_latch <= '0';
+                end if;
+
+            when game_over =>
+                if ps2_left_latch = '1' then
+                    next_state <= menu;
+						  ps2_left_latch <= '0';
+                end if;
+
+            when others =>
+                next_state <= menu;
+        end case;
+
+        current_state <= next_state;
+    end if;
+end process;
+
 
     -- Instantiate the clock divider to generate 25 MHz clock
     ClockDivider: Clock_25MHz
@@ -225,13 +338,6 @@ architecture Behavioral of Flappy_bird is
     SevenSeg_out => HEX5
 	);
 	
-	
-	
-	
-	
-	
-	
-
     -- Instantiate the ball component
   BallComponent: bouncy_bird
   port map(
@@ -241,9 +347,11 @@ architecture Behavioral of Flappy_bird is
     clk            => clk_25MHz,
     pixel_row      => pixel_row,
     pixel_column   => pixel_column,
+    game_state => game_active,
     red            => red_ball,
     green          => green_ball,
-    blue           => blue_ball
+    blue           => blue_ball,
+    ends       => collision
   );
   
   
@@ -254,7 +362,7 @@ architecture Behavioral of Flappy_bird is
 	within_bounds <= within_bounds_64 or within_bounds_32;
 
   -- Logic to determine if the current pixel is part of the bird
-  ball_on <= '1' when (red_ball = '1' or green_ball = '1' or blue_ball = '1') else '0';
+  ball_on <= '1' when ((current_state /= MENU) and(red_ball = '1' or green_ball = '1' or blue_ball = '1')) else '0';
   
   -- Logic to determine if the text will be on
   text_on <= '1' when (within_bounds = '1' and rom_mux_output = '1') else '0';
@@ -262,15 +370,15 @@ architecture Behavioral of Flappy_bird is
   -- Logic to combine bird and background colors
   -- If the current pixel is part of the bird, use the bird's color.
   -- Otherwise, use a constant background color (e.g., green background).
-  red_pixel   <= '0' when (ball_on = '1') or (text_on = '1') else dip_sw1; -- Bird: red, Background: no red
-  green_pixel <= '0' when (ball_on = '1') or (text_on = '1') else dip_sw2; -- Bird: no green, Background: green
-  blue_pixel  <= '1' when (ball_on = '1') or (text_on = '1') or (cursor_on = '1') else dip_sw3; -- Bird: no blue, Background: no blue
+  red_pixel   <= '0' when (ball_on = '1') or (text_on = '1') else
+               '1' when (current_state = TRAINING) or (current_state = PLAY) or (current_state = PAUSE) or (current_state = GAME_OVER) else dip_sw1;
 
+  green_pixel <= '0' when (ball_on = '1') or (text_on = '1') else
+               '1' when (current_state = TRAINING) or (current_state = PLAY) or (current_state = GAME_OVER) else dip_sw2;
 
+  blue_pixel  <= '1' when (ball_on = '1') or (text_on = '1') or (cursor_on = '1') else
+               dip_sw3;
 
---   red_pixel   <= '0' when ball_on = '1' or text_on = '1' else '0'; -- Bird: red, Background: no red
---   green_pixel <= '0' when ball_on = '1' or text_on = '1' else '1'; -- Bird: no green, Background: green
---   blue_pixel  <= '1' when ball_on = '1' or text_on = '1' else '0'; -- Bird: no blue, Background: no blue
   
   -- Instantiate the text component 
   TextComponent: char_rom 
