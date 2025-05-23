@@ -1,0 +1,52 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
+
+entity tb_LFSR is
+end tb_LFSR;
+
+architecture sim of tb_LFSR is
+    -- Signals to connect to the LFSR
+    signal Clock    : std_logic := '0';
+    signal seed     : unsigned(7 downto 0) := (others => '0');
+    signal rand_num : unsigned(7 downto 0);
+
+    -- Clock period definition
+    constant clk_period : time := 10 ns;
+begin
+
+    -- Instantiate the LFSR
+    uut: entity work.LFSR
+        port map (
+            seed     => seed,
+            Clock    => Clock,
+            rand_num => rand_num
+        );
+
+    -- Clock process
+    clk_process : process
+    begin
+        while now < 200 ns loop
+            Clock <= '0';
+            wait for clk_period / 2;
+            Clock <= '1';
+            wait for clk_period / 2;
+        end loop;
+        wait;
+    end process;
+
+    -- Stimulus process
+    stim_proc: process
+    begin
+        -- Apply seed
+        wait for 5 ns;
+        seed <= "10101110";  -- Arbitrary seed
+
+        -- Wait and let the clock drive LFSR
+        wait for 150 ns;
+
+        -- Finish
+        wait;
+    end process;
+
+end sim;
