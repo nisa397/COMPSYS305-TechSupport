@@ -213,8 +213,13 @@ begin
         end if;
         if collision = '1' then
           collision_latched <= '1';
-        elsif current_state = game_over then
+        elsif (current_state = game_over and next_state /= game over) then
           collision_latched <= '0'; -- Clear it once we enter game_over
+        end if;
+        if button_2 = '0' then
+            button_2_latched <= '1';
+        elsif (current_state = menu) then
+            button_2_latched <= '0';
         end if;
 
         -- State machine
@@ -251,15 +256,18 @@ begin
                 if ps2_left_latch = '1' then
                     next_state <= play;
 						  ps2_left_latch <= '0';
-                elsif ps2_right_latch = '1' then
+                elsif button_2_latched = '1' then
                     next_state <= menu;
-						  ps2_right_latch <= '0';
+						  button_2_latched <= '0';
                 end if;
 
             when game_over =>
                 if ps2_left_latch = '1' then
-                    next_state <= menu;
+                    next_state <= play;
 						  ps2_left_latch <= '0';
+               elsif button_2_latched = '1' then
+                    next_state <= menu;
+						  button_2_latched <= '0';
                 end if;
 
             when others =>
