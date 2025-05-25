@@ -5,27 +5,29 @@ use ieee.numeric_std.all;
 entity pipe is
     port (
 		vert_sync: in std_logic;
-        height  : in  std_logic_vector(9 downto 0);
+		width : in unsigned(9 downto 0);
+		pipe_x_pos	: in unsigned (9 DOWNTO 0);
+		speed: in integer;
+      height  : in  unsigned(9 downto 0);
 		pixel_row, pixel_column : in std_logic_vector(9 downto 0);
-        pipe_on        : out std_logic);
+      pipe_on        : out std_logic);
 end pipe;
 
 architecture behavior of pipe is
-signal width : unsigned(9 downto 0) := to_unsigned(50, 10);
-signal gap: unsigned (9 downto 0):= to_unsigned(70,10);
+signal vertical_gap: unsigned (9 downto 0):= to_unsigned(100,10);
 signal px, py       : unsigned(9 downto 0);
 signal top_pipe_height: unsigned (9 DOWNTO 0);
 SIGNAL top_pipe_y_pos :unsigned (9 DOWNTO 0):= to_unsigned(0,10);
-signal pipe_x_pos	: unsigned (9 DOWNTO 0):= to_unsigned(640,10);
 signal bottom_pipe_y_pos: unsigned(9 downto 0):= to_unsigned(480,10);
-signal s_height: unsigned (9 downto 0);
 signal bottom_pipe_height: unsigned(9 downto 0);
+signal s_pipe_x_pos: unsigned(9 downto 0);
 
 
 begin
-
-	top_pipe_height <= unsigned(height);
-	bottom_pipe_height <= to_unsigned(480,10) - top_pipe_height - gap;
+	
+	
+	top_pipe_height <= height;
+	bottom_pipe_height <= to_unsigned(480,10) - top_pipe_height - vertical_gap;
 
     -- Convert pixel inputs
     px <= unsigned(pixel_column);
@@ -45,18 +47,7 @@ begin
 	else '0';
 	
 	
-	moving_pipe: process(vert_sync)
-	begin
-		if rising_edge(vert_sync) then
-		
-			if (pipe_x_pos = to_unsigned(0, 10)) then
-				pipe_x_pos <= to_unsigned(640,10);			
-			else		
-			pipe_x_pos <= pipe_x_pos - to_unsigned(10,10);
-			end if;
-		end if;
-	end process moving_pipe;
-	
+
 
 
 end behavior;
