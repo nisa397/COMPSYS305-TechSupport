@@ -92,6 +92,7 @@ architecture Behavioral of Flappy_bird is
   signal prev_state : game_state_type := play; -- Used to track the previous state
   signal collision : std_logic := '0';
   signal game_active : std_logic := '0';
+  signal game_start : std_logic := '0';
 
   signal current_state_vec : std_logic_vector(2 downto 0); 
 
@@ -104,10 +105,10 @@ architecture Behavioral of Flappy_bird is
   end component;
 
   component bouncy_bird IS
-     port (
-        ps2_left, pb2, clk, vert_sync : in  std_logic;
+		port (
+        ps2_left, pb2, clk, vert_sync, game_start : in  std_logic;
         pixel_row, pixel_column  : in  std_logic_vector(9 downto 0);
-        game_state : in std_logic; 
+        game_state : in std_logic_vector(2 downto 0); 
         red, green, blue, ends        : out std_logic 
     );
   end component;
@@ -214,7 +215,7 @@ begin
         end if;
         if collision = '1' then
           collision_latched <= '1';
-        elsif (current_state = game_over and next_state /= game over) then
+        elsif (current_state = game_over and next_state /= game_over) then
           collision_latched <= '0'; -- Clear it once we enter game_over
         end if;
         if button_2 = '0' then
@@ -276,6 +277,11 @@ begin
             when others =>
                 next_state <= menu;
         end case;
+		  if (current_state /= play) and (next_state = play) then
+			game_start <= '1';
+		  else
+			game_start <= '0';
+		  end if;
 
         current_state <= next_state;
     end if;
@@ -367,10 +373,11 @@ end process;
 	 ps2_left 				 => ps2_left,
 	 pb2 				 => button_2,
 	 vert_sync 		 => v_sync_signal,
+	 game_start     => game_start,
     clk            => clk_25MHz,
     pixel_row      => pixel_row,
     pixel_column   => pixel_column,
-    game_state => game_active,
+    game_state => current_state_vec,
     red            => red_ball,
     green          => green_ball,
     blue           => blue_ball,

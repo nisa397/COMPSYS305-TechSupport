@@ -7,6 +7,14 @@ current_state.play 0 0 1 0 1
 current_state.pause 0 1 0 0 1 
 current_state.game_over 1 0 0 0 1 
 
+State Machine - |Flappy_bird|prev_state
+Name prev_state.game_over prev_state.pause prev_state.play prev_state.training prev_state.menu 
+prev_state.menu 0 0 0 0 0 
+prev_state.training 0 0 0 1 1 
+prev_state.play 0 0 1 0 1 
+prev_state.pause 0 1 0 0 1 
+prev_state.game_over 1 0 0 0 1 
+
 State Machine - |Flappy_bird|next_state
 Name next_state.game_over next_state.pause next_state.play next_state.training next_state.menu 
 next_state.menu 0 0 0 0 0 
