@@ -483,23 +483,35 @@ end process;
   -- Logic to combine bird and background colors
   -- If the current pixel is part of the bird, use the bird's color.
   -- Otherwise, use a constant background color (e.g., green background).
-  red_pixel   <= '0' when (ball_on = '1') or (text_on = '1') else
-               '1' when (current_state = TRAINING) or (current_state = PLAY) or (current_state = PAUSE) or (current_state = GAME_OVER) else dip_sw1;
+-- RED PIXEL: Bird = Red (no green/blue), background may vary by state
+red_pixel <= '0' when (ball_on = '1') or (text_on = '1') else
+             '1' when (current_state = TRAINING) or 
+                      (current_state = PLAY) or 
+                      (current_state = PAUSE) or 
+                      (current_state = GAME_OVER) else 
+             dip_sw1;
 
-  green_pixel <= '0' when (ball_on = '1') or (text_on = '1') else
-               '1' when (current_state = TRAINING) or (current_state = PLAY) or (current_state = GAME_OVER) else dip_sw2;
-  red_pixel   <= '0' when (ball_on = '1') or (text_on = '1') else dip_sw1; -- Bird: red, Background: no red
-  green_pixel <= '0' when (ball_on = '1') or (text_on = '1') or (s_pipe1_on = '1') or (s_pipe2_on = '1') else dip_sw2; -- Bird: no green, Background: green
-  blue_pixel  <= '1' when (ball_on = '1') or (text_on = '1') or (cursor_on = '1') else dip_sw3; -- Bird: no blue, Background: no blue
+-- GREEN PIXEL: Bird = No green; pipes/text off green; background varies by state
+green_pixel <= '0' when (ball_on = '1') or 
+                         (text_on = '1') or 
+                         (s_pipe1_on = '1') or 
+                         (s_pipe2_on = '1') else
+               '1' when (current_state = TRAINING) or 
+                        (current_state = PLAY) or 
+                        (current_state = GAME_OVER) else 
+               dip_sw2;
 
-  
+-- BLUE PIXEL: Bird/text/cursor always = blue off; otherwise from dip_sw3
+blue_pixel <= '1' when (ball_on = '1') or 
+                        (text_on = '1') or 
+                        (cursor_on = '1') else 
+              dip_sw3;
   -- Dead bird
   dead <= '1' when (ball_on = '1') and (s_pipe1_on = '1' or s_pipe2_on = '1') else '0';
   LEDR0 <= dead;
   
 
-  blue_pixel  <= '1' when (ball_on = '1') or (text_on = '1') or (cursor_on = '1') else
-               dip_sw3;
+
 
   
   -- Instantiate the text component 
