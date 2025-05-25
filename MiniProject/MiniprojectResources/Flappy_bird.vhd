@@ -89,6 +89,7 @@ architecture Behavioral of Flappy_bird is
   type game_state_type is (menu, training, play, pause, game_over);
   signal current_state : game_state_type := menu;
   signal next_state : game_state_type;
+  signal prev_state : game_state_type := play; -- Used to track the previous state
   signal collision : std_logic := '0';
   signal game_active : std_logic := '0';
 
@@ -240,12 +241,14 @@ begin
                     next_state <= play;
 						  button_1_latched <= '0';
 					elsif ps2_right_latch = '1' then
+              prev_state <= training; -- Store the previous state before pausing
 							next_state <= pause;
 							ps2_right_latch <= '0';
                 end if;
 
             when play =>
             if ps2_right_latch = '1' then
+              prev_state <= play; -- Store the previous state before pausing
               next_state <= pause;
               ps2_right_latch <= '0';
             elsif collision_latched = '1' then
@@ -254,7 +257,7 @@ begin
 
             when pause =>
                 if ps2_left_latch = '1' then
-                    next_state <= play;
+                    next_state <= prev_state; -- Return to the previous state
 						  ps2_left_latch <= '0';
                 elsif button_2_latched = '1' then
                     next_state <= menu;
