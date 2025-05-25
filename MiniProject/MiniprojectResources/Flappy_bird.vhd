@@ -214,7 +214,7 @@ begin
         end if;
         if collision = '1' then
           collision_latched <= '1';
-        elsif (current_state = game_over and next_state /= game over) then
+        elsif (current_state = game_over and next_state /= game_over) then
           collision_latched <= '0'; -- Clear it once we enter game_over
         end if;
         if button_2 = '0' then
