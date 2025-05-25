@@ -14,7 +14,7 @@ entity pipe is
 end pipe;
 
 architecture behavior of pipe is
-signal vertical_gap: unsigned (9 downto 0):= to_unsigned(100,10);
+signal vertical_gap: unsigned (9 downto 0):= to_unsigned(150,10);
 signal px, py       : unsigned(9 downto 0);
 signal top_pipe_height: unsigned (9 DOWNTO 0);
 SIGNAL top_pipe_y_pos :unsigned (9 DOWNTO 0):= to_unsigned(0,10);

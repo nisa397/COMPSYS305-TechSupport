@@ -50,7 +50,7 @@ architecture Behavioral of Flappy_bird is
   signal speed: integer:=5;
   signal pipe1_x_pos: unsigned(9 downto 0) := to_unsigned(640,10);
   signal pipe2_x_pos: unsigned(9 downto 0);
-  
+  signal dead: std_logic := '0';
   
   --Cursor signals
   signal cursor_on: std_logic;
@@ -327,6 +327,11 @@ end process;
   green_pixel <= '0' when (ball_on = '1') or (text_on = '1') or (s_pipe1_on = '1') or (s_pipe2_on = '1') else dip_sw2; -- Bird: no green, Background: green
   blue_pixel  <= '1' when (ball_on = '1') or (text_on = '1') or (cursor_on = '1') else dip_sw3; -- Bird: no blue, Background: no blue
 
+  
+  -- Dead bird
+  dead <= '1' when (ball_on = '1') and (s_pipe1_on = '1' or s_pipe2_on = '1') else '0';
+  LEDR0 <= dead;
+  
 
 
 --   red_pixel   <= '0' when ball_on = '1' or text_on = '1' else '0'; -- Bird: red, Background: no red
@@ -356,7 +361,7 @@ end process;
   ); 
   
   
-  LEDR0 <= ps2_left;
+  -- LEDR0 <= ps2_left;
   
   -- Instantiate the VGA sync component
   VGASync: vga_sync
