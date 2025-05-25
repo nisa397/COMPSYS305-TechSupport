@@ -82,6 +82,7 @@ architecture Behavioral of Flappy_bird is
   
   component pipe is
 		port (
+		vert_sync: in std_logic;
         height  : in  std_logic_vector(9 downto 0);
 		pixel_row, pixel_column : in std_logic_vector(9 downto 0);
         pipe_on        : out std_logic);
@@ -244,6 +245,7 @@ architecture Behavioral of Flappy_bird is
   
   pipe_component: pipe
   port map(
+	vert_sync 		 => v_sync_signal,
 	height			=> s_height,
 	pixel_row      => pixel_row,
    pixel_column   => pixel_column,
