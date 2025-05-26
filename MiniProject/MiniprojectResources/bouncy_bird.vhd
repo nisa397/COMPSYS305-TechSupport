@@ -67,7 +67,7 @@ begin
             ends          <= '0';
         -- Handle normal play/training movement
         elsif (game_state = "001" or game_state = "010") then
-            if (ps2_left = '1') or (pb2 = '0') then
+            if (ps2_left = '1') then
                 ball_y_motion <= to_signed(JUMP_STRENGTH, ball_y_motion'length);
             else
                 ball_y_motion <= to_signed(to_integer(ball_y_motion) + GRAVITY, ball_y_motion'length);

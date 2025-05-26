@@ -273,6 +273,8 @@ begin
               ps2_right_latch <= '0';
             elsif collision_latched = '1' then
               next_state <= game_over;
+				elsif dead = '1' then
+					next_state <= game_over;
             end if;
 
             when pause =>

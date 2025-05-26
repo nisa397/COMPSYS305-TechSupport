@@ -1,5 +1,5 @@
 Analysis & Synthesis report for Flappy_Bird
-Mon May 26 11:17:28 2025
+Mon May 26 12:11:22 2025
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -10,27 +10,31 @@ Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
   2. Analysis & Synthesis Summary
   3. Analysis & Synthesis Settings
   4. Parallel Compilation
-  5. Analysis & Synthesis Source Files Read
-  6. Analysis & Synthesis Resource Usage Summary
-  7. Analysis & Synthesis Resource Utilization by Entity
-  8. Analysis & Synthesis RAM Summary
-  9. State Machine - |Flappy_bird|current_state
- 10. State Machine - |Flappy_bird|prev_state
- 11. State Machine - |Flappy_bird|next_state
- 12. State Machine - |Flappy_bird|MOUSE:ps2|mouse_state
- 13. Registers Removed During Synthesis
- 14. General Register Statistics
- 15. Inverted Register Statistics
- 16. Multiplexer Restructuring Statistics (Restructuring Performed)
- 17. Source assignments for char_rom:TextComponent|altsyncram:altsyncram_component|altsyncram_d5g1:auto_generated
- 18. Parameter Settings for User Entity Instance: char_rom:TextComponent|altsyncram:altsyncram_component
- 19. altsyncram Parameter Settings by Entity Instance
- 20. Port Connectivity Checks: "BCD_to_SevenSeg:ssh1"
- 21. Port Connectivity Checks: "BCD_to_SevenSeg:ssh0"
- 22. Port Connectivity Checks: "MOUSE:ps2"
- 23. Post-Synthesis Netlist Statistics for Top Partition
- 24. Elapsed Time Per Partition
- 25. Analysis & Synthesis Messages
+  5. Source assignments for BCD_to_SevenSeg:sso0|altsyncram:altsyncram_component|altsyncram_d5g1:auto_generated
+  6. Source assignments for BCD_to_SevenSeg:sst0|altsyncram:altsyncram_component|altsyncram_d5g1:auto_generated
+  7. Source assignments for BCD_to_SevenSeg:ssh0|altsyncram:altsyncram_component|altsyncram_d5g1:auto_generated
+  8. Source assignments for BCD_to_SevenSeg:sso1|altsyncram:altsyncram_component|altsyncram_d5g1:auto_generated
+  9. Source assignments for BCD_to_SevenSeg:sst1|altsyncram:altsyncram_component|altsyncram_d5g1:auto_generated
+ 10. Source assignments for BCD_to_SevenSeg:ssh1|altsyncram:altsyncram_component|altsyncram_d5g1:auto_generated
+ 11. Source assignments for char_rom:TextComponent|altsyncram:altsyncram_component|altsyncram_d5g1:auto_generated
+ 12. Source assignments for VGA_SYNC:VGASync
+ 13. Parameter Settings for User Entity Instance: BCD_to_SevenSeg:sso0|altsyncram:altsyncram_component
+ 14. Parameter Settings for User Entity Instance: BCD_to_SevenSeg:sst0|altsyncram:altsyncram_component
+ 15. Parameter Settings for User Entity Instance: BCD_to_SevenSeg:ssh0|altsyncram:altsyncram_component
+ 16. Parameter Settings for User Entity Instance: BCD_to_SevenSeg:sso1|altsyncram:altsyncram_component
+ 17. Parameter Settings for User Entity Instance: BCD_to_SevenSeg:sst1|altsyncram:altsyncram_component
+ 18. Parameter Settings for User Entity Instance: BCD_to_SevenSeg:ssh1|altsyncram:altsyncram_component
+ 19. Parameter Settings for User Entity Instance: char_rom:TextComponent|altsyncram:altsyncram_component
+ 20. Port Connectivity Checks: "pipe:pipe_2"
+ 21. Port Connectivity Checks: "pipe:pipe_1"
+ 22. Port Connectivity Checks: "BCD_to_SevenSeg:ssh1"
+ 23. Port Connectivity Checks: "BCD_to_SevenSeg:sst1"
+ 24. Port Connectivity Checks: "BCD_to_SevenSeg:sso1"
+ 25. Port Connectivity Checks: "BCD_to_SevenSeg:ssh0"
+ 26. Port Connectivity Checks: "BCD_to_SevenSeg:sst0"
+ 27. Port Connectivity Checks: "BCD_to_SevenSeg:sso0"
+ 28. Port Connectivity Checks: "MOUSE:ps2"
+ 29. Analysis & Synthesis Messages
 
 
 
@@ -53,27 +57,22 @@ refer to the applicable agreement for further details.
 
 
 
-+-------------------------------------------------------------------------------+
-; Analysis & Synthesis Summary                                                  ;
-+---------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status     ; Successful - Mon May 26 11:17:28 2025       ;
-; Quartus Prime Version           ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
-; Revision Name                   ; Flappy_Bird                                 ;
-; Top-level Entity Name           ; Flappy_bird                                 ;
-; Family                          ; Cyclone V                                   ;
-; Logic utilization (in ALMs)     ; N/A                                         ;
-; Total registers                 ; 209                                         ;
-; Total pins                      ; 58                                          ;
-; Total virtual pins              ; 0                                           ;
-; Total block memory bits         ; 2,048                                       ;
-; Total DSP Blocks                ; 0                                           ;
-; Total HSSI RX PCSs              ; 0                                           ;
-; Total HSSI PMA RX Deserializers ; 0                                           ;
-; Total HSSI TX PCSs              ; 0                                           ;
-; Total HSSI PMA TX Serializers   ; 0                                           ;
-; Total PLLs                      ; 0                                           ;
-; Total DLLs                      ; 0                                           ;
-+---------------------------------+---------------------------------------------+
++---------------------------------------------------------------------------+
+; Analysis & Synthesis Summary                                              ;
++-----------------------------+---------------------------------------------+
+; Analysis & Synthesis Status ; Failed - Mon May 26 12:11:22 2025           ;
+; Quartus Prime Version       ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
+; Revision Name               ; Flappy_Bird                                 ;
+; Top-level Entity Name       ; Flappy_bird                                 ;
+; Family                      ; Cyclone V                                   ;
+; Logic utilization (in ALMs) ; N/A until Partition Merge                   ;
+; Total registers             ; N/A until Partition Merge                   ;
+; Total pins                  ; N/A until Partition Merge                   ;
+; Total virtual pins          ; N/A until Partition Merge                   ;
+; Total block memory bits     ; N/A until Partition Merge                   ;
+; Total PLLs                  ; N/A until Partition Merge                   ;
+; Total DLLs                  ; N/A until Partition Merge                   ;
++-----------------------------+---------------------------------------------+
 
 
 +---------------------------------------------------------------------------------------------------------------------------+
@@ -172,239 +171,65 @@ refer to the applicable agreement for further details.
 ; Maximum allowed            ; 6           ;
 ;                            ;             ;
 ; Average used               ; 1.00        ;
-; Maximum used               ; 6           ;
+; Maximum used               ; 1           ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processors 2-6         ;   0.0%      ;
 +----------------------------+-------------+
 
 
-+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Source Files Read                                                                                                                                                             ;
-+----------------------------------------------+-----------------+------------------------------+------------------------------------------------------------------------------------------+---------+
-; File Name with User-Entered Path             ; Used in Netlist ; File Type                    ; File Name with Absolute Path                                                             ; Library ;
-+----------------------------------------------+-----------------+------------------------------+------------------------------------------------------------------------------------------+---------+
-; MiniprojectResources/scoreBox.vhd            ; yes             ; User VHDL File               ; F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/scoreBox.vhd                  ;         ;
-; MiniprojectResources/BCDtoHEX.vhd            ; yes             ; User VHDL File               ; F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/BCDtoHEX.vhd                  ;         ;
-; MiniprojectResources/cursor.vhd              ; yes             ; User VHDL File               ; F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/cursor.vhd                    ;         ;
-; MiniprojectResources/bouncy_bird.vhd         ; yes             ; User VHDL File               ; F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/bouncy_bird.vhd               ;         ;
-; MiniprojectResources/char_rom.vhd            ; yes             ; User VHDL File               ; F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/char_rom.vhd                  ;         ;
-; MiniprojectResources/clock_divider_25MHz.vhd ; yes             ; User VHDL File               ; F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/clock_divider_25MHz.vhd       ;         ;
-; MiniprojectResources/Flappy_bird.vhd         ; yes             ; User VHDL File               ; F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd               ;         ;
-; MiniprojectResources/mouse.vhd               ; yes             ; User VHDL File               ; F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/mouse.vhd                     ;         ;
-; MiniprojectResources/vga_sync.vhd            ; yes             ; User VHDL File               ; F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/vga_sync.vhd                  ;         ;
-; altsyncram.tdf                               ; yes             ; Megafunction                 ; f:/quartus-lite-18.1.0.625-windows/quartus/libraries/megafunctions/altsyncram.tdf        ;         ;
-; stratix_ram_block.inc                        ; yes             ; Megafunction                 ; f:/quartus-lite-18.1.0.625-windows/quartus/libraries/megafunctions/stratix_ram_block.inc ;         ;
-; lpm_mux.inc                                  ; yes             ; Megafunction                 ; f:/quartus-lite-18.1.0.625-windows/quartus/libraries/megafunctions/lpm_mux.inc           ;         ;
-; lpm_decode.inc                               ; yes             ; Megafunction                 ; f:/quartus-lite-18.1.0.625-windows/quartus/libraries/megafunctions/lpm_decode.inc        ;         ;
-; aglobal181.inc                               ; yes             ; Megafunction                 ; f:/quartus-lite-18.1.0.625-windows/quartus/libraries/megafunctions/aglobal181.inc        ;         ;
-; a_rdenreg.inc                                ; yes             ; Megafunction                 ; f:/quartus-lite-18.1.0.625-windows/quartus/libraries/megafunctions/a_rdenreg.inc         ;         ;
-; altrom.inc                                   ; yes             ; Megafunction                 ; f:/quartus-lite-18.1.0.625-windows/quartus/libraries/megafunctions/altrom.inc            ;         ;
-; altram.inc                                   ; yes             ; Megafunction                 ; f:/quartus-lite-18.1.0.625-windows/quartus/libraries/megafunctions/altram.inc            ;         ;
-; altdpram.inc                                 ; yes             ; Megafunction                 ; f:/quartus-lite-18.1.0.625-windows/quartus/libraries/megafunctions/altdpram.inc          ;         ;
-; db/altsyncram_d5g1.tdf                       ; yes             ; Auto-Generated Megafunction  ; F:/COMPSYS305-TechSupport/MiniProject/db/altsyncram_d5g1.tdf                             ;         ;
-; textbox.vhd                                  ; yes             ; Auto-Found VHDL File         ; F:/COMPSYS305-TechSupport/MiniProject/textbox.vhd                                        ;         ;
-+----------------------------------------------+-----------------+------------------------------+------------------------------------------------------------------------------------------+---------+
++------------------------------------------------------------------------------------------------------------+
+; Source assignments for BCD_to_SevenSeg:sso0|altsyncram:altsyncram_component|altsyncram_d5g1:auto_generated ;
++---------------------------------+--------------------+------+----------------------------------------------+
+; Assignment                      ; Value              ; From ; To                                           ;
++---------------------------------+--------------------+------+----------------------------------------------+
+; OPTIMIZE_POWER_DURING_SYNTHESIS ; NORMAL_COMPILATION ; -    ; -                                            ;
++---------------------------------+--------------------+------+----------------------------------------------+
 
 
-+----------------------------------------------------------------------------+
-; Analysis & Synthesis Resource Usage Summary                                ;
-+---------------------------------------------+------------------------------+
-; Resource                                    ; Usage                        ;
-+---------------------------------------------+------------------------------+
-; Estimate of Logic utilization (ALMs needed) ; 270                          ;
-;                                             ;                              ;
-; Combinational ALUT usage for logic          ; 431                          ;
-;     -- 7 input functions                    ; 6                            ;
-;     -- 6 input functions                    ; 94                           ;
-;     -- 5 input functions                    ; 64                           ;
-;     -- 4 input functions                    ; 93                           ;
-;     -- <=3 input functions                  ; 174                          ;
-;                                             ;                              ;
-; Dedicated logic registers                   ; 209                          ;
-;                                             ;                              ;
-; I/O pins                                    ; 58                           ;
-; Total MLAB memory bits                      ; 0                            ;
-; Total block memory bits                     ; 2048                         ;
-;                                             ;                              ;
-; Total DSP Blocks                            ; 0                            ;
-;                                             ;                              ;
-; Maximum fan-out node                        ; Clock_25MHz:ClockDivider|p_Q ;
-; Maximum fan-out                             ; 105                          ;
-; Total fan-out                               ; 2543                         ;
-; Average fan-out                             ; 3.32                         ;
-+---------------------------------------------+------------------------------+
++------------------------------------------------------------------------------------------------------------+
+; Source assignments for BCD_to_SevenSeg:sst0|altsyncram:altsyncram_component|altsyncram_d5g1:auto_generated ;
++---------------------------------+--------------------+------+----------------------------------------------+
+; Assignment                      ; Value              ; From ; To                                           ;
++---------------------------------+--------------------+------+----------------------------------------------+
+; OPTIMIZE_POWER_DURING_SYNTHESIS ; NORMAL_COMPILATION ; -    ; -                                            ;
++---------------------------------+--------------------+------+----------------------------------------------+
 
 
-+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                                                                      ;
-+-------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+----------------------------------------------------------------------------------------------------+-----------------+--------------+
-; Compilation Hierarchy Node                ; Combinational ALUTs ; Dedicated Logic Registers ; Block Memory Bits ; DSP Blocks ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                                ; Entity Name     ; Library Name ;
-+-------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+----------------------------------------------------------------------------------------------------+-----------------+--------------+
-; |Flappy_bird                              ; 431 (69)            ; 209 (19)                  ; 2048              ; 0          ; 58   ; 0            ; |Flappy_bird                                                                                       ; Flappy_bird     ; work         ;
-;    |BCD_to_SevenSeg:ssh0|                 ; 2 (2)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |Flappy_bird|BCD_to_SevenSeg:ssh0                                                                  ; BCD_to_SevenSeg ; work         ;
-;    |BCD_to_SevenSeg:sso0|                 ; 7 (7)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |Flappy_bird|BCD_to_SevenSeg:sso0                                                                  ; BCD_to_SevenSeg ; work         ;
-;    |BCD_to_SevenSeg:sso1|                 ; 7 (7)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |Flappy_bird|BCD_to_SevenSeg:sso1                                                                  ; BCD_to_SevenSeg ; work         ;
-;    |BCD_to_SevenSeg:sst0|                 ; 7 (7)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |Flappy_bird|BCD_to_SevenSeg:sst0                                                                  ; BCD_to_SevenSeg ; work         ;
-;    |BCD_to_SevenSeg:sst1|                 ; 7 (7)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |Flappy_bird|BCD_to_SevenSeg:sst1                                                                  ; BCD_to_SevenSeg ; work         ;
-;    |Clock_25MHz:ClockDivider|             ; 1 (1)               ; 1 (1)                     ; 0                 ; 0          ; 0    ; 0            ; |Flappy_bird|Clock_25MHz:ClockDivider                                                              ; Clock_25MHz     ; work         ;
-;    |MOUSE:ps2|                            ; 106 (106)           ; 120 (120)                 ; 0                 ; 0          ; 0    ; 0            ; |Flappy_bird|MOUSE:ps2                                                                             ; MOUSE           ; work         ;
-;    |VGA_SYNC:VGASync|                     ; 42 (42)             ; 48 (48)                   ; 0                 ; 0          ; 0    ; 0            ; |Flappy_bird|VGA_SYNC:VGASync                                                                      ; VGA_SYNC        ; work         ;
-;    |bouncy_bird:BallComponent|            ; 71 (71)             ; 20 (20)                   ; 0                 ; 0          ; 0    ; 0            ; |Flappy_bird|bouncy_bird:BallComponent                                                             ; bouncy_bird     ; work         ;
-;    |char_rom:TextComponent|               ; 2 (2)               ; 0 (0)                     ; 2048              ; 0          ; 0    ; 0            ; |Flappy_bird|char_rom:TextComponent                                                                ; char_rom        ; work         ;
-;       |altsyncram:altsyncram_component|   ; 0 (0)               ; 0 (0)                     ; 2048              ; 0          ; 0    ; 0            ; |Flappy_bird|char_rom:TextComponent|altsyncram:altsyncram_component                                ; altsyncram      ; work         ;
-;          |altsyncram_d5g1:auto_generated| ; 0 (0)               ; 0 (0)                     ; 2048              ; 0          ; 0    ; 0            ; |Flappy_bird|char_rom:TextComponent|altsyncram:altsyncram_component|altsyncram_d5g1:auto_generated ; altsyncram_d5g1 ; work         ;
-;    |cursor_drawer:cursor|                 ; 44 (44)             ; 1 (1)                     ; 0                 ; 0          ; 0    ; 0            ; |Flappy_bird|cursor_drawer:cursor                                                                  ; cursor_drawer   ; work         ;
-;    |scoreBox:ScoreDriver|                 ; 7 (7)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |Flappy_bird|scoreBox:ScoreDriver                                                                  ; scoreBox        ; work         ;
-;    |textBox:TextDriver|                   ; 59 (59)             ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |Flappy_bird|textBox:TextDriver                                                                    ; textBox         ; work         ;
-+-------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+----------------------------------------------------------------------------------------------------+-----------------+--------------+
-Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
++------------------------------------------------------------------------------------------------------------+
+; Source assignments for BCD_to_SevenSeg:ssh0|altsyncram:altsyncram_component|altsyncram_d5g1:auto_generated ;
++---------------------------------+--------------------+------+----------------------------------------------+
+; Assignment                      ; Value              ; From ; To                                           ;
++---------------------------------+--------------------+------+----------------------------------------------+
+; OPTIMIZE_POWER_DURING_SYNTHESIS ; NORMAL_COMPILATION ; -    ; -                                            ;
++---------------------------------+--------------------+------+----------------------------------------------+
 
 
-+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis RAM Summary                                                                                                                                                               ;
-+--------------------------------------------------------------------------------------------------+------+------+--------------+--------------+--------------+--------------+------+------------+
-; Name                                                                                             ; Type ; Mode ; Port A Depth ; Port A Width ; Port B Depth ; Port B Width ; Size ; MIF        ;
-+--------------------------------------------------------------------------------------------------+------+------+--------------+--------------+--------------+--------------+------+------------+
-; char_rom:TextComponent|altsyncram:altsyncram_component|altsyncram_d5g1:auto_generated|ALTSYNCRAM ; AUTO ; ROM  ; 512          ; 8            ; --           ; --           ; 4096 ; tcgrom.mif ;
-+--------------------------------------------------------------------------------------------------+------+------+--------------+--------------+--------------+--------------+------+------------+
++------------------------------------------------------------------------------------------------------------+
+; Source assignments for BCD_to_SevenSeg:sso1|altsyncram:altsyncram_component|altsyncram_d5g1:auto_generated ;
++---------------------------------+--------------------+------+----------------------------------------------+
+; Assignment                      ; Value              ; From ; To                                           ;
++---------------------------------+--------------------+------+----------------------------------------------+
+; OPTIMIZE_POWER_DURING_SYNTHESIS ; NORMAL_COMPILATION ; -    ; -                                            ;
++---------------------------------+--------------------+------+----------------------------------------------+
 
 
-Encoding Type:  One-Hot
-+--------------------------------------------------------------------------------------------------------------------------------------------+
-; State Machine - |Flappy_bird|current_state                                                                                                 ;
-+-------------------------+-------------------------+---------------------+--------------------+------------------------+--------------------+
-; Name                    ; current_state.game_over ; current_state.pause ; current_state.play ; current_state.training ; current_state.menu ;
-+-------------------------+-------------------------+---------------------+--------------------+------------------------+--------------------+
-; current_state.menu      ; 0                       ; 0                   ; 0                  ; 0                      ; 0                  ;
-; current_state.training  ; 0                       ; 0                   ; 0                  ; 1                      ; 1                  ;
-; current_state.play      ; 0                       ; 0                   ; 1                  ; 0                      ; 1                  ;
-; current_state.pause     ; 0                       ; 1                   ; 0                  ; 0                      ; 1                  ;
-; current_state.game_over ; 1                       ; 0                   ; 0                  ; 0                      ; 1                  ;
-+-------------------------+-------------------------+---------------------+--------------------+------------------------+--------------------+
++------------------------------------------------------------------------------------------------------------+
+; Source assignments for BCD_to_SevenSeg:sst1|altsyncram:altsyncram_component|altsyncram_d5g1:auto_generated ;
++---------------------------------+--------------------+------+----------------------------------------------+
+; Assignment                      ; Value              ; From ; To                                           ;
++---------------------------------+--------------------+------+----------------------------------------------+
+; OPTIMIZE_POWER_DURING_SYNTHESIS ; NORMAL_COMPILATION ; -    ; -                                            ;
++---------------------------------+--------------------+------+----------------------------------------------+
 
 
-Encoding Type:  One-Hot
-+--------------------------------------------------------------------------------------------------------------------------+
-; State Machine - |Flappy_bird|prev_state                                                                                  ;
-+----------------------+----------------------+------------------+-----------------+---------------------+-----------------+
-; Name                 ; prev_state.game_over ; prev_state.pause ; prev_state.play ; prev_state.training ; prev_state.menu ;
-+----------------------+----------------------+------------------+-----------------+---------------------+-----------------+
-; prev_state.menu      ; 0                    ; 0                ; 0               ; 0                   ; 0               ;
-; prev_state.training  ; 0                    ; 0                ; 0               ; 1                   ; 1               ;
-; prev_state.play      ; 0                    ; 0                ; 1               ; 0                   ; 1               ;
-; prev_state.pause     ; 0                    ; 1                ; 0               ; 0                   ; 1               ;
-; prev_state.game_over ; 1                    ; 0                ; 0               ; 0                   ; 1               ;
-+----------------------+----------------------+------------------+-----------------+---------------------+-----------------+
-
-
-Encoding Type:  One-Hot
-+--------------------------------------------------------------------------------------------------------------------------+
-; State Machine - |Flappy_bird|next_state                                                                                  ;
-+----------------------+----------------------+------------------+-----------------+---------------------+-----------------+
-; Name                 ; next_state.game_over ; next_state.pause ; next_state.play ; next_state.training ; next_state.menu ;
-+----------------------+----------------------+------------------+-----------------+---------------------+-----------------+
-; next_state.menu      ; 0                    ; 0                ; 0               ; 0                   ; 0               ;
-; next_state.training  ; 0                    ; 0                ; 0               ; 1                   ; 1               ;
-; next_state.play      ; 0                    ; 0                ; 1               ; 0                   ; 1               ;
-; next_state.pause     ; 0                    ; 1                ; 0               ; 0                   ; 1               ;
-; next_state.game_over ; 1                    ; 0                ; 0               ; 0                   ; 1               ;
-+----------------------+----------------------+------------------+-----------------+---------------------+-----------------+
-
-
-Encoding Type:  One-Hot
-+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; State Machine - |Flappy_bird|MOUSE:ps2|mouse_state                                                                                                                                                      ;
-+-------------------------------+---------------------------+--------------------------+-------------------------------+---------------------------+--------------------------+---------------------------+
-; Name                          ; mouse_state.INPUT_PACKETS ; mouse_state.WAIT_CMD_ACK ; mouse_state.WAIT_OUTPUT_READY ; mouse_state.LOAD_COMMAND2 ; mouse_state.LOAD_COMMAND ; mouse_state.INHIBIT_TRANS ;
-+-------------------------------+---------------------------+--------------------------+-------------------------------+---------------------------+--------------------------+---------------------------+
-; mouse_state.INHIBIT_TRANS     ; 0                         ; 0                        ; 0                             ; 0                         ; 0                        ; 0                         ;
-; mouse_state.LOAD_COMMAND      ; 0                         ; 0                        ; 0                             ; 0                         ; 1                        ; 1                         ;
-; mouse_state.LOAD_COMMAND2     ; 0                         ; 0                        ; 0                             ; 1                         ; 0                        ; 1                         ;
-; mouse_state.WAIT_OUTPUT_READY ; 0                         ; 0                        ; 1                             ; 0                         ; 0                        ; 1                         ;
-; mouse_state.WAIT_CMD_ACK      ; 0                         ; 1                        ; 0                             ; 0                         ; 0                        ; 1                         ;
-; mouse_state.INPUT_PACKETS     ; 1                         ; 0                        ; 0                             ; 0                         ; 0                        ; 1                         ;
-+-------------------------------+---------------------------+--------------------------+-------------------------------+---------------------------+--------------------------+---------------------------+
-
-
-+----------------------------------------------------------------------------------+
-; Registers Removed During Synthesis                                               ;
-+-----------------------------------------+----------------------------------------+
-; Register name                           ; Reason for Removal                     ;
-+-----------------------------------------+----------------------------------------+
-; MOUSE:ps2|CHAROUT[4..7]                 ; Stuck at VCC due to stuck port data_in ;
-; MOUSE:ps2|CHAROUT[3]                    ; Stuck at GND due to stuck port data_in ;
-; MOUSE:ps2|CHAROUT[2]                    ; Stuck at VCC due to stuck port data_in ;
-; MOUSE:ps2|CHAROUT[0,1]                  ; Stuck at GND due to stuck port data_in ;
-; MOUSE:ps2|SHIFTOUT[10]                  ; Stuck at VCC due to stuck port data_in ;
-; MOUSE:ps2|cursor_row[9]                 ; Stuck at GND due to stuck port data_in ;
-; VGA_SYNC:VGASync|pixel_row[9]           ; Stuck at GND due to stuck port data_in ;
-; bouncy_bird:BallComponent|ball_y_pos[9] ; Stuck at GND due to stuck port data_in ;
-; prev_state.pause                        ; Merged with prev_state.game_over       ;
-; prev_state.game_over                    ; Stuck at GND due to stuck port data_in ;
-; Total Number of Removed Registers = 14  ;                                        ;
-+-----------------------------------------+----------------------------------------+
-
-
-+------------------------------------------------------+
-; General Register Statistics                          ;
-+----------------------------------------------+-------+
-; Statistic                                    ; Value ;
-+----------------------------------------------+-------+
-; Total registers                              ; 209   ;
-; Number of registers using Synchronous Clear  ; 38    ;
-; Number of registers using Synchronous Load   ; 20    ;
-; Number of registers using Asynchronous Clear ; 16    ;
-; Number of registers using Asynchronous Load  ; 0     ;
-; Number of registers using Clock Enable       ; 153   ;
-; Number of registers using Preset             ; 0     ;
-+----------------------------------------------+-------+
-
-
-+---------------------------------------------------+
-; Inverted Register Statistics                      ;
-+-----------------------------------------+---------+
-; Inverted Register                       ; Fan out ;
-+-----------------------------------------+---------+
-; bouncy_bird:BallComponent|ball_y_pos[7] ; 5       ;
-; bouncy_bird:BallComponent|ball_y_pos[4] ; 9       ;
-; bouncy_bird:BallComponent|ball_y_pos[6] ; 8       ;
-; bouncy_bird:BallComponent|ball_y_pos[5] ; 8       ;
-; MOUSE:ps2|send_char                     ; 3       ;
-; MOUSE:ps2|SHIFTOUT[3]                   ; 1       ;
-; MOUSE:ps2|SHIFTOUT[5]                   ; 1       ;
-; MOUSE:ps2|SHIFTOUT[6]                   ; 1       ;
-; MOUSE:ps2|SHIFTOUT[7]                   ; 1       ;
-; MOUSE:ps2|SHIFTOUT[8]                   ; 1       ;
-; Total number of inverted registers = 10 ;         ;
-+-----------------------------------------+---------+
-
-
-+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                        ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+---------------------------------------------------------+
-; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                              ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+---------------------------------------------------------+
-; 3:1                ; 20 bits   ; 40 LEs        ; 20 LEs               ; 20 LEs                 ; Yes        ; |Flappy_bird|MOUSE:ps2|new_cursor_column[5]             ;
-; 3:1                ; 10 bits   ; 20 LEs        ; 0 LEs                ; 20 LEs                 ; Yes        ; |Flappy_bird|VGA_SYNC:VGASync|v_count[3]                ;
-; 5:1                ; 8 bits    ; 24 LEs        ; 8 LEs                ; 16 LEs                 ; Yes        ; |Flappy_bird|MOUSE:ps2|cursor_column[2]                 ;
-; 5:1                ; 2 bits    ; 6 LEs         ; 4 LEs                ; 2 LEs                  ; Yes        ; |Flappy_bird|MOUSE:ps2|cursor_column[6]                 ;
-; 5:1                ; 6 bits    ; 18 LEs        ; 12 LEs               ; 6 LEs                  ; Yes        ; |Flappy_bird|MOUSE:ps2|cursor_row[3]                    ;
-; 5:1                ; 4 bits    ; 12 LEs        ; 8 LEs                ; 4 LEs                  ; Yes        ; |Flappy_bird|MOUSE:ps2|cursor_row[4]                    ;
-; 5:1                ; 6 bits    ; 18 LEs        ; 12 LEs               ; 6 LEs                  ; Yes        ; |Flappy_bird|bouncy_bird:BallComponent|ball_y_pos[9]    ;
-; 6:1                ; 10 bits   ; 40 LEs        ; 10 LEs               ; 30 LEs                 ; Yes        ; |Flappy_bird|bouncy_bird:BallComponent|ball_y_motion[1] ;
-; 5:1                ; 4 bits    ; 12 LEs        ; 8 LEs                ; 4 LEs                  ; Yes        ; |Flappy_bird|bouncy_bird:BallComponent|ball_y_pos[7]    ;
-; 5:1                ; 4 bits    ; 12 LEs        ; 12 LEs               ; 0 LEs                  ; No         ; |Flappy_bird|BCD_to_SevenSeg:sso0|SevenSeg_out[2]       ;
-; 5:1                ; 4 bits    ; 12 LEs        ; 12 LEs               ; 0 LEs                  ; No         ; |Flappy_bird|BCD_to_SevenSeg:sst0|SevenSeg_out[5]       ;
-; 5:1                ; 4 bits    ; 12 LEs        ; 12 LEs               ; 0 LEs                  ; No         ; |Flappy_bird|BCD_to_SevenSeg:sso1|SevenSeg_out[0]       ;
-; 5:1                ; 4 bits    ; 12 LEs        ; 12 LEs               ; 0 LEs                  ; No         ; |Flappy_bird|BCD_to_SevenSeg:sst1|SevenSeg_out[2]       ;
-; 4:1                ; 3 bits    ; 6 LEs         ; 3 LEs                ; 3 LEs                  ; No         ; |Flappy_bird|Selector7                                  ;
-; 5:1                ; 2 bits    ; 6 LEs         ; 4 LEs                ; 2 LEs                  ; No         ; |Flappy_bird|Selector9                                  ;
-; 7:1                ; 2 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |Flappy_bird|font_col_in[1]                             ;
-; 8:1                ; 2 bits    ; 10 LEs        ; 8 LEs                ; 2 LEs                  ; No         ; |Flappy_bird|font_row_in[1]                             ;
-; 13:1               ; 5 bits    ; 40 LEs        ; 30 LEs               ; 10 LEs                 ; No         ; |Flappy_bird|Selector0                                  ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+---------------------------------------------------------+
++------------------------------------------------------------------------------------------------------------+
+; Source assignments for BCD_to_SevenSeg:ssh1|altsyncram:altsyncram_component|altsyncram_d5g1:auto_generated ;
++---------------------------------+--------------------+------+----------------------------------------------+
+; Assignment                      ; Value              ; From ; To                                           ;
++---------------------------------+--------------------+------+----------------------------------------------+
+; OPTIMIZE_POWER_DURING_SYNTHESIS ; NORMAL_COMPILATION ; -    ; -                                            ;
++---------------------------------+--------------------+------+----------------------------------------------+
 
 
 +--------------------------------------------------------------------------------------------------------------+
@@ -414,6 +239,381 @@ Encoding Type:  One-Hot
 +---------------------------------+--------------------+------+------------------------------------------------+
 ; OPTIMIZE_POWER_DURING_SYNTHESIS ; NORMAL_COMPILATION ; -    ; -                                              ;
 +---------------------------------+--------------------+------+------------------------------------------------+
+
+
++------------------------------------------------------------------+
+; Source assignments for VGA_SYNC:VGASync                          ;
++---------------------------------+--------------------+------+----+
+; Assignment                      ; Value              ; From ; To ;
++---------------------------------+--------------------+------+----+
+; OPTIMIZE_POWER_DURING_SYNTHESIS ; NORMAL_COMPILATION ; -    ; -  ;
++---------------------------------+--------------------+------+----+
+
+
++---------------------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: BCD_to_SevenSeg:sso0|altsyncram:altsyncram_component ;
++------------------------------------+----------------------+---------------------------------------+
+; Parameter Name                     ; Value                ; Type                                  ;
++------------------------------------+----------------------+---------------------------------------+
+; BYTE_SIZE_BLOCK                    ; 8                    ; Untyped                               ;
+; AUTO_CARRY_CHAINS                  ; ON                   ; AUTO_CARRY                            ;
+; IGNORE_CARRY_BUFFERS               ; OFF                  ; IGNORE_CARRY                          ;
+; AUTO_CASCADE_CHAINS                ; ON                   ; AUTO_CASCADE                          ;
+; IGNORE_CASCADE_BUFFERS             ; OFF                  ; IGNORE_CASCADE                        ;
+; WIDTH_BYTEENA                      ; 1                    ; Untyped                               ;
+; OPERATION_MODE                     ; ROM                  ; Untyped                               ;
+; WIDTH_A                            ; 8                    ; Signed Integer                        ;
+; WIDTHAD_A                          ; 9                    ; Signed Integer                        ;
+; NUMWORDS_A                         ; 512                  ; Signed Integer                        ;
+; OUTDATA_REG_A                      ; UNREGISTERED         ; Untyped                               ;
+; ADDRESS_ACLR_A                     ; NONE                 ; Untyped                               ;
+; OUTDATA_ACLR_A                     ; NONE                 ; Untyped                               ;
+; WRCONTROL_ACLR_A                   ; NONE                 ; Untyped                               ;
+; INDATA_ACLR_A                      ; NONE                 ; Untyped                               ;
+; BYTEENA_ACLR_A                     ; NONE                 ; Untyped                               ;
+; WIDTH_B                            ; 1                    ; Untyped                               ;
+; WIDTHAD_B                          ; 1                    ; Untyped                               ;
+; NUMWORDS_B                         ; 1                    ; Untyped                               ;
+; INDATA_REG_B                       ; CLOCK1               ; Untyped                               ;
+; WRCONTROL_WRADDRESS_REG_B          ; CLOCK1               ; Untyped                               ;
+; RDCONTROL_REG_B                    ; CLOCK1               ; Untyped                               ;
+; ADDRESS_REG_B                      ; CLOCK1               ; Untyped                               ;
+; OUTDATA_REG_B                      ; UNREGISTERED         ; Untyped                               ;
+; BYTEENA_REG_B                      ; CLOCK1               ; Untyped                               ;
+; INDATA_ACLR_B                      ; NONE                 ; Untyped                               ;
+; WRCONTROL_ACLR_B                   ; NONE                 ; Untyped                               ;
+; ADDRESS_ACLR_B                     ; NONE                 ; Untyped                               ;
+; OUTDATA_ACLR_B                     ; NONE                 ; Untyped                               ;
+; RDCONTROL_ACLR_B                   ; NONE                 ; Untyped                               ;
+; BYTEENA_ACLR_B                     ; NONE                 ; Untyped                               ;
+; WIDTH_BYTEENA_A                    ; 1                    ; Signed Integer                        ;
+; WIDTH_BYTEENA_B                    ; 1                    ; Untyped                               ;
+; RAM_BLOCK_TYPE                     ; AUTO                 ; Untyped                               ;
+; BYTE_SIZE                          ; 8                    ; Untyped                               ;
+; READ_DURING_WRITE_MODE_MIXED_PORTS ; DONT_CARE            ; Untyped                               ;
+; READ_DURING_WRITE_MODE_PORT_A      ; NEW_DATA_NO_NBE_READ ; Untyped                               ;
+; READ_DURING_WRITE_MODE_PORT_B      ; NEW_DATA_NO_NBE_READ ; Untyped                               ;
+; INIT_FILE                          ; tcgrom.mif           ; Untyped                               ;
+; INIT_FILE_LAYOUT                   ; PORT_A               ; Untyped                               ;
+; MAXIMUM_DEPTH                      ; 0                    ; Untyped                               ;
+; CLOCK_ENABLE_INPUT_A               ; BYPASS               ; Untyped                               ;
+; CLOCK_ENABLE_INPUT_B               ; NORMAL               ; Untyped                               ;
+; CLOCK_ENABLE_OUTPUT_A              ; BYPASS               ; Untyped                               ;
+; CLOCK_ENABLE_OUTPUT_B              ; NORMAL               ; Untyped                               ;
+; CLOCK_ENABLE_CORE_A                ; USE_INPUT_CLKEN      ; Untyped                               ;
+; CLOCK_ENABLE_CORE_B                ; USE_INPUT_CLKEN      ; Untyped                               ;
+; ENABLE_ECC                         ; FALSE                ; Untyped                               ;
+; ECC_PIPELINE_STAGE_ENABLED         ; FALSE                ; Untyped                               ;
+; WIDTH_ECCSTATUS                    ; 3                    ; Untyped                               ;
+; DEVICE_FAMILY                      ; Cyclone V            ; Untyped                               ;
+; CBXI_PARAMETER                     ; altsyncram_d5g1      ; Untyped                               ;
++------------------------------------+----------------------+---------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++---------------------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: BCD_to_SevenSeg:sst0|altsyncram:altsyncram_component ;
++------------------------------------+----------------------+---------------------------------------+
+; Parameter Name                     ; Value                ; Type                                  ;
++------------------------------------+----------------------+---------------------------------------+
+; BYTE_SIZE_BLOCK                    ; 8                    ; Untyped                               ;
+; AUTO_CARRY_CHAINS                  ; ON                   ; AUTO_CARRY                            ;
+; IGNORE_CARRY_BUFFERS               ; OFF                  ; IGNORE_CARRY                          ;
+; AUTO_CASCADE_CHAINS                ; ON                   ; AUTO_CASCADE                          ;
+; IGNORE_CASCADE_BUFFERS             ; OFF                  ; IGNORE_CASCADE                        ;
+; WIDTH_BYTEENA                      ; 1                    ; Untyped                               ;
+; OPERATION_MODE                     ; ROM                  ; Untyped                               ;
+; WIDTH_A                            ; 8                    ; Signed Integer                        ;
+; WIDTHAD_A                          ; 9                    ; Signed Integer                        ;
+; NUMWORDS_A                         ; 512                  ; Signed Integer                        ;
+; OUTDATA_REG_A                      ; UNREGISTERED         ; Untyped                               ;
+; ADDRESS_ACLR_A                     ; NONE                 ; Untyped                               ;
+; OUTDATA_ACLR_A                     ; NONE                 ; Untyped                               ;
+; WRCONTROL_ACLR_A                   ; NONE                 ; Untyped                               ;
+; INDATA_ACLR_A                      ; NONE                 ; Untyped                               ;
+; BYTEENA_ACLR_A                     ; NONE                 ; Untyped                               ;
+; WIDTH_B                            ; 1                    ; Untyped                               ;
+; WIDTHAD_B                          ; 1                    ; Untyped                               ;
+; NUMWORDS_B                         ; 1                    ; Untyped                               ;
+; INDATA_REG_B                       ; CLOCK1               ; Untyped                               ;
+; WRCONTROL_WRADDRESS_REG_B          ; CLOCK1               ; Untyped                               ;
+; RDCONTROL_REG_B                    ; CLOCK1               ; Untyped                               ;
+; ADDRESS_REG_B                      ; CLOCK1               ; Untyped                               ;
+; OUTDATA_REG_B                      ; UNREGISTERED         ; Untyped                               ;
+; BYTEENA_REG_B                      ; CLOCK1               ; Untyped                               ;
+; INDATA_ACLR_B                      ; NONE                 ; Untyped                               ;
+; WRCONTROL_ACLR_B                   ; NONE                 ; Untyped                               ;
+; ADDRESS_ACLR_B                     ; NONE                 ; Untyped                               ;
+; OUTDATA_ACLR_B                     ; NONE                 ; Untyped                               ;
+; RDCONTROL_ACLR_B                   ; NONE                 ; Untyped                               ;
+; BYTEENA_ACLR_B                     ; NONE                 ; Untyped                               ;
+; WIDTH_BYTEENA_A                    ; 1                    ; Signed Integer                        ;
+; WIDTH_BYTEENA_B                    ; 1                    ; Untyped                               ;
+; RAM_BLOCK_TYPE                     ; AUTO                 ; Untyped                               ;
+; BYTE_SIZE                          ; 8                    ; Untyped                               ;
+; READ_DURING_WRITE_MODE_MIXED_PORTS ; DONT_CARE            ; Untyped                               ;
+; READ_DURING_WRITE_MODE_PORT_A      ; NEW_DATA_NO_NBE_READ ; Untyped                               ;
+; READ_DURING_WRITE_MODE_PORT_B      ; NEW_DATA_NO_NBE_READ ; Untyped                               ;
+; INIT_FILE                          ; tcgrom.mif           ; Untyped                               ;
+; INIT_FILE_LAYOUT                   ; PORT_A               ; Untyped                               ;
+; MAXIMUM_DEPTH                      ; 0                    ; Untyped                               ;
+; CLOCK_ENABLE_INPUT_A               ; BYPASS               ; Untyped                               ;
+; CLOCK_ENABLE_INPUT_B               ; NORMAL               ; Untyped                               ;
+; CLOCK_ENABLE_OUTPUT_A              ; BYPASS               ; Untyped                               ;
+; CLOCK_ENABLE_OUTPUT_B              ; NORMAL               ; Untyped                               ;
+; CLOCK_ENABLE_CORE_A                ; USE_INPUT_CLKEN      ; Untyped                               ;
+; CLOCK_ENABLE_CORE_B                ; USE_INPUT_CLKEN      ; Untyped                               ;
+; ENABLE_ECC                         ; FALSE                ; Untyped                               ;
+; ECC_PIPELINE_STAGE_ENABLED         ; FALSE                ; Untyped                               ;
+; WIDTH_ECCSTATUS                    ; 3                    ; Untyped                               ;
+; DEVICE_FAMILY                      ; Cyclone V            ; Untyped                               ;
+; CBXI_PARAMETER                     ; altsyncram_d5g1      ; Untyped                               ;
++------------------------------------+----------------------+---------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++---------------------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: BCD_to_SevenSeg:ssh0|altsyncram:altsyncram_component ;
++------------------------------------+----------------------+---------------------------------------+
+; Parameter Name                     ; Value                ; Type                                  ;
++------------------------------------+----------------------+---------------------------------------+
+; BYTE_SIZE_BLOCK                    ; 8                    ; Untyped                               ;
+; AUTO_CARRY_CHAINS                  ; ON                   ; AUTO_CARRY                            ;
+; IGNORE_CARRY_BUFFERS               ; OFF                  ; IGNORE_CARRY                          ;
+; AUTO_CASCADE_CHAINS                ; ON                   ; AUTO_CASCADE                          ;
+; IGNORE_CASCADE_BUFFERS             ; OFF                  ; IGNORE_CASCADE                        ;
+; WIDTH_BYTEENA                      ; 1                    ; Untyped                               ;
+; OPERATION_MODE                     ; ROM                  ; Untyped                               ;
+; WIDTH_A                            ; 8                    ; Signed Integer                        ;
+; WIDTHAD_A                          ; 9                    ; Signed Integer                        ;
+; NUMWORDS_A                         ; 512                  ; Signed Integer                        ;
+; OUTDATA_REG_A                      ; UNREGISTERED         ; Untyped                               ;
+; ADDRESS_ACLR_A                     ; NONE                 ; Untyped                               ;
+; OUTDATA_ACLR_A                     ; NONE                 ; Untyped                               ;
+; WRCONTROL_ACLR_A                   ; NONE                 ; Untyped                               ;
+; INDATA_ACLR_A                      ; NONE                 ; Untyped                               ;
+; BYTEENA_ACLR_A                     ; NONE                 ; Untyped                               ;
+; WIDTH_B                            ; 1                    ; Untyped                               ;
+; WIDTHAD_B                          ; 1                    ; Untyped                               ;
+; NUMWORDS_B                         ; 1                    ; Untyped                               ;
+; INDATA_REG_B                       ; CLOCK1               ; Untyped                               ;
+; WRCONTROL_WRADDRESS_REG_B          ; CLOCK1               ; Untyped                               ;
+; RDCONTROL_REG_B                    ; CLOCK1               ; Untyped                               ;
+; ADDRESS_REG_B                      ; CLOCK1               ; Untyped                               ;
+; OUTDATA_REG_B                      ; UNREGISTERED         ; Untyped                               ;
+; BYTEENA_REG_B                      ; CLOCK1               ; Untyped                               ;
+; INDATA_ACLR_B                      ; NONE                 ; Untyped                               ;
+; WRCONTROL_ACLR_B                   ; NONE                 ; Untyped                               ;
+; ADDRESS_ACLR_B                     ; NONE                 ; Untyped                               ;
+; OUTDATA_ACLR_B                     ; NONE                 ; Untyped                               ;
+; RDCONTROL_ACLR_B                   ; NONE                 ; Untyped                               ;
+; BYTEENA_ACLR_B                     ; NONE                 ; Untyped                               ;
+; WIDTH_BYTEENA_A                    ; 1                    ; Signed Integer                        ;
+; WIDTH_BYTEENA_B                    ; 1                    ; Untyped                               ;
+; RAM_BLOCK_TYPE                     ; AUTO                 ; Untyped                               ;
+; BYTE_SIZE                          ; 8                    ; Untyped                               ;
+; READ_DURING_WRITE_MODE_MIXED_PORTS ; DONT_CARE            ; Untyped                               ;
+; READ_DURING_WRITE_MODE_PORT_A      ; NEW_DATA_NO_NBE_READ ; Untyped                               ;
+; READ_DURING_WRITE_MODE_PORT_B      ; NEW_DATA_NO_NBE_READ ; Untyped                               ;
+; INIT_FILE                          ; tcgrom.mif           ; Untyped                               ;
+; INIT_FILE_LAYOUT                   ; PORT_A               ; Untyped                               ;
+; MAXIMUM_DEPTH                      ; 0                    ; Untyped                               ;
+; CLOCK_ENABLE_INPUT_A               ; BYPASS               ; Untyped                               ;
+; CLOCK_ENABLE_INPUT_B               ; NORMAL               ; Untyped                               ;
+; CLOCK_ENABLE_OUTPUT_A              ; BYPASS               ; Untyped                               ;
+; CLOCK_ENABLE_OUTPUT_B              ; NORMAL               ; Untyped                               ;
+; CLOCK_ENABLE_CORE_A                ; USE_INPUT_CLKEN      ; Untyped                               ;
+; CLOCK_ENABLE_CORE_B                ; USE_INPUT_CLKEN      ; Untyped                               ;
+; ENABLE_ECC                         ; FALSE                ; Untyped                               ;
+; ECC_PIPELINE_STAGE_ENABLED         ; FALSE                ; Untyped                               ;
+; WIDTH_ECCSTATUS                    ; 3                    ; Untyped                               ;
+; DEVICE_FAMILY                      ; Cyclone V            ; Untyped                               ;
+; CBXI_PARAMETER                     ; altsyncram_d5g1      ; Untyped                               ;
++------------------------------------+----------------------+---------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++---------------------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: BCD_to_SevenSeg:sso1|altsyncram:altsyncram_component ;
++------------------------------------+----------------------+---------------------------------------+
+; Parameter Name                     ; Value                ; Type                                  ;
++------------------------------------+----------------------+---------------------------------------+
+; BYTE_SIZE_BLOCK                    ; 8                    ; Untyped                               ;
+; AUTO_CARRY_CHAINS                  ; ON                   ; AUTO_CARRY                            ;
+; IGNORE_CARRY_BUFFERS               ; OFF                  ; IGNORE_CARRY                          ;
+; AUTO_CASCADE_CHAINS                ; ON                   ; AUTO_CASCADE                          ;
+; IGNORE_CASCADE_BUFFERS             ; OFF                  ; IGNORE_CASCADE                        ;
+; WIDTH_BYTEENA                      ; 1                    ; Untyped                               ;
+; OPERATION_MODE                     ; ROM                  ; Untyped                               ;
+; WIDTH_A                            ; 8                    ; Signed Integer                        ;
+; WIDTHAD_A                          ; 9                    ; Signed Integer                        ;
+; NUMWORDS_A                         ; 512                  ; Signed Integer                        ;
+; OUTDATA_REG_A                      ; UNREGISTERED         ; Untyped                               ;
+; ADDRESS_ACLR_A                     ; NONE                 ; Untyped                               ;
+; OUTDATA_ACLR_A                     ; NONE                 ; Untyped                               ;
+; WRCONTROL_ACLR_A                   ; NONE                 ; Untyped                               ;
+; INDATA_ACLR_A                      ; NONE                 ; Untyped                               ;
+; BYTEENA_ACLR_A                     ; NONE                 ; Untyped                               ;
+; WIDTH_B                            ; 1                    ; Untyped                               ;
+; WIDTHAD_B                          ; 1                    ; Untyped                               ;
+; NUMWORDS_B                         ; 1                    ; Untyped                               ;
+; INDATA_REG_B                       ; CLOCK1               ; Untyped                               ;
+; WRCONTROL_WRADDRESS_REG_B          ; CLOCK1               ; Untyped                               ;
+; RDCONTROL_REG_B                    ; CLOCK1               ; Untyped                               ;
+; ADDRESS_REG_B                      ; CLOCK1               ; Untyped                               ;
+; OUTDATA_REG_B                      ; UNREGISTERED         ; Untyped                               ;
+; BYTEENA_REG_B                      ; CLOCK1               ; Untyped                               ;
+; INDATA_ACLR_B                      ; NONE                 ; Untyped                               ;
+; WRCONTROL_ACLR_B                   ; NONE                 ; Untyped                               ;
+; ADDRESS_ACLR_B                     ; NONE                 ; Untyped                               ;
+; OUTDATA_ACLR_B                     ; NONE                 ; Untyped                               ;
+; RDCONTROL_ACLR_B                   ; NONE                 ; Untyped                               ;
+; BYTEENA_ACLR_B                     ; NONE                 ; Untyped                               ;
+; WIDTH_BYTEENA_A                    ; 1                    ; Signed Integer                        ;
+; WIDTH_BYTEENA_B                    ; 1                    ; Untyped                               ;
+; RAM_BLOCK_TYPE                     ; AUTO                 ; Untyped                               ;
+; BYTE_SIZE                          ; 8                    ; Untyped                               ;
+; READ_DURING_WRITE_MODE_MIXED_PORTS ; DONT_CARE            ; Untyped                               ;
+; READ_DURING_WRITE_MODE_PORT_A      ; NEW_DATA_NO_NBE_READ ; Untyped                               ;
+; READ_DURING_WRITE_MODE_PORT_B      ; NEW_DATA_NO_NBE_READ ; Untyped                               ;
+; INIT_FILE                          ; tcgrom.mif           ; Untyped                               ;
+; INIT_FILE_LAYOUT                   ; PORT_A               ; Untyped                               ;
+; MAXIMUM_DEPTH                      ; 0                    ; Untyped                               ;
+; CLOCK_ENABLE_INPUT_A               ; BYPASS               ; Untyped                               ;
+; CLOCK_ENABLE_INPUT_B               ; NORMAL               ; Untyped                               ;
+; CLOCK_ENABLE_OUTPUT_A              ; BYPASS               ; Untyped                               ;
+; CLOCK_ENABLE_OUTPUT_B              ; NORMAL               ; Untyped                               ;
+; CLOCK_ENABLE_CORE_A                ; USE_INPUT_CLKEN      ; Untyped                               ;
+; CLOCK_ENABLE_CORE_B                ; USE_INPUT_CLKEN      ; Untyped                               ;
+; ENABLE_ECC                         ; FALSE                ; Untyped                               ;
+; ECC_PIPELINE_STAGE_ENABLED         ; FALSE                ; Untyped                               ;
+; WIDTH_ECCSTATUS                    ; 3                    ; Untyped                               ;
+; DEVICE_FAMILY                      ; Cyclone V            ; Untyped                               ;
+; CBXI_PARAMETER                     ; altsyncram_d5g1      ; Untyped                               ;
++------------------------------------+----------------------+---------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++---------------------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: BCD_to_SevenSeg:sst1|altsyncram:altsyncram_component ;
++------------------------------------+----------------------+---------------------------------------+
+; Parameter Name                     ; Value                ; Type                                  ;
++------------------------------------+----------------------+---------------------------------------+
+; BYTE_SIZE_BLOCK                    ; 8                    ; Untyped                               ;
+; AUTO_CARRY_CHAINS                  ; ON                   ; AUTO_CARRY                            ;
+; IGNORE_CARRY_BUFFERS               ; OFF                  ; IGNORE_CARRY                          ;
+; AUTO_CASCADE_CHAINS                ; ON                   ; AUTO_CASCADE                          ;
+; IGNORE_CASCADE_BUFFERS             ; OFF                  ; IGNORE_CASCADE                        ;
+; WIDTH_BYTEENA                      ; 1                    ; Untyped                               ;
+; OPERATION_MODE                     ; ROM                  ; Untyped                               ;
+; WIDTH_A                            ; 8                    ; Signed Integer                        ;
+; WIDTHAD_A                          ; 9                    ; Signed Integer                        ;
+; NUMWORDS_A                         ; 512                  ; Signed Integer                        ;
+; OUTDATA_REG_A                      ; UNREGISTERED         ; Untyped                               ;
+; ADDRESS_ACLR_A                     ; NONE                 ; Untyped                               ;
+; OUTDATA_ACLR_A                     ; NONE                 ; Untyped                               ;
+; WRCONTROL_ACLR_A                   ; NONE                 ; Untyped                               ;
+; INDATA_ACLR_A                      ; NONE                 ; Untyped                               ;
+; BYTEENA_ACLR_A                     ; NONE                 ; Untyped                               ;
+; WIDTH_B                            ; 1                    ; Untyped                               ;
+; WIDTHAD_B                          ; 1                    ; Untyped                               ;
+; NUMWORDS_B                         ; 1                    ; Untyped                               ;
+; INDATA_REG_B                       ; CLOCK1               ; Untyped                               ;
+; WRCONTROL_WRADDRESS_REG_B          ; CLOCK1               ; Untyped                               ;
+; RDCONTROL_REG_B                    ; CLOCK1               ; Untyped                               ;
+; ADDRESS_REG_B                      ; CLOCK1               ; Untyped                               ;
+; OUTDATA_REG_B                      ; UNREGISTERED         ; Untyped                               ;
+; BYTEENA_REG_B                      ; CLOCK1               ; Untyped                               ;
+; INDATA_ACLR_B                      ; NONE                 ; Untyped                               ;
+; WRCONTROL_ACLR_B                   ; NONE                 ; Untyped                               ;
+; ADDRESS_ACLR_B                     ; NONE                 ; Untyped                               ;
+; OUTDATA_ACLR_B                     ; NONE                 ; Untyped                               ;
+; RDCONTROL_ACLR_B                   ; NONE                 ; Untyped                               ;
+; BYTEENA_ACLR_B                     ; NONE                 ; Untyped                               ;
+; WIDTH_BYTEENA_A                    ; 1                    ; Signed Integer                        ;
+; WIDTH_BYTEENA_B                    ; 1                    ; Untyped                               ;
+; RAM_BLOCK_TYPE                     ; AUTO                 ; Untyped                               ;
+; BYTE_SIZE                          ; 8                    ; Untyped                               ;
+; READ_DURING_WRITE_MODE_MIXED_PORTS ; DONT_CARE            ; Untyped                               ;
+; READ_DURING_WRITE_MODE_PORT_A      ; NEW_DATA_NO_NBE_READ ; Untyped                               ;
+; READ_DURING_WRITE_MODE_PORT_B      ; NEW_DATA_NO_NBE_READ ; Untyped                               ;
+; INIT_FILE                          ; tcgrom.mif           ; Untyped                               ;
+; INIT_FILE_LAYOUT                   ; PORT_A               ; Untyped                               ;
+; MAXIMUM_DEPTH                      ; 0                    ; Untyped                               ;
+; CLOCK_ENABLE_INPUT_A               ; BYPASS               ; Untyped                               ;
+; CLOCK_ENABLE_INPUT_B               ; NORMAL               ; Untyped                               ;
+; CLOCK_ENABLE_OUTPUT_A              ; BYPASS               ; Untyped                               ;
+; CLOCK_ENABLE_OUTPUT_B              ; NORMAL               ; Untyped                               ;
+; CLOCK_ENABLE_CORE_A                ; USE_INPUT_CLKEN      ; Untyped                               ;
+; CLOCK_ENABLE_CORE_B                ; USE_INPUT_CLKEN      ; Untyped                               ;
+; ENABLE_ECC                         ; FALSE                ; Untyped                               ;
+; ECC_PIPELINE_STAGE_ENABLED         ; FALSE                ; Untyped                               ;
+; WIDTH_ECCSTATUS                    ; 3                    ; Untyped                               ;
+; DEVICE_FAMILY                      ; Cyclone V            ; Untyped                               ;
+; CBXI_PARAMETER                     ; altsyncram_d5g1      ; Untyped                               ;
++------------------------------------+----------------------+---------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++---------------------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: BCD_to_SevenSeg:ssh1|altsyncram:altsyncram_component ;
++------------------------------------+----------------------+---------------------------------------+
+; Parameter Name                     ; Value                ; Type                                  ;
++------------------------------------+----------------------+---------------------------------------+
+; BYTE_SIZE_BLOCK                    ; 8                    ; Untyped                               ;
+; AUTO_CARRY_CHAINS                  ; ON                   ; AUTO_CARRY                            ;
+; IGNORE_CARRY_BUFFERS               ; OFF                  ; IGNORE_CARRY                          ;
+; AUTO_CASCADE_CHAINS                ; ON                   ; AUTO_CASCADE                          ;
+; IGNORE_CASCADE_BUFFERS             ; OFF                  ; IGNORE_CASCADE                        ;
+; WIDTH_BYTEENA                      ; 1                    ; Untyped                               ;
+; OPERATION_MODE                     ; ROM                  ; Untyped                               ;
+; WIDTH_A                            ; 8                    ; Signed Integer                        ;
+; WIDTHAD_A                          ; 9                    ; Signed Integer                        ;
+; NUMWORDS_A                         ; 512                  ; Signed Integer                        ;
+; OUTDATA_REG_A                      ; UNREGISTERED         ; Untyped                               ;
+; ADDRESS_ACLR_A                     ; NONE                 ; Untyped                               ;
+; OUTDATA_ACLR_A                     ; NONE                 ; Untyped                               ;
+; WRCONTROL_ACLR_A                   ; NONE                 ; Untyped                               ;
+; INDATA_ACLR_A                      ; NONE                 ; Untyped                               ;
+; BYTEENA_ACLR_A                     ; NONE                 ; Untyped                               ;
+; WIDTH_B                            ; 1                    ; Untyped                               ;
+; WIDTHAD_B                          ; 1                    ; Untyped                               ;
+; NUMWORDS_B                         ; 1                    ; Untyped                               ;
+; INDATA_REG_B                       ; CLOCK1               ; Untyped                               ;
+; WRCONTROL_WRADDRESS_REG_B          ; CLOCK1               ; Untyped                               ;
+; RDCONTROL_REG_B                    ; CLOCK1               ; Untyped                               ;
+; ADDRESS_REG_B                      ; CLOCK1               ; Untyped                               ;
+; OUTDATA_REG_B                      ; UNREGISTERED         ; Untyped                               ;
+; BYTEENA_REG_B                      ; CLOCK1               ; Untyped                               ;
+; INDATA_ACLR_B                      ; NONE                 ; Untyped                               ;
+; WRCONTROL_ACLR_B                   ; NONE                 ; Untyped                               ;
+; ADDRESS_ACLR_B                     ; NONE                 ; Untyped                               ;
+; OUTDATA_ACLR_B                     ; NONE                 ; Untyped                               ;
+; RDCONTROL_ACLR_B                   ; NONE                 ; Untyped                               ;
+; BYTEENA_ACLR_B                     ; NONE                 ; Untyped                               ;
+; WIDTH_BYTEENA_A                    ; 1                    ; Signed Integer                        ;
+; WIDTH_BYTEENA_B                    ; 1                    ; Untyped                               ;
+; RAM_BLOCK_TYPE                     ; AUTO                 ; Untyped                               ;
+; BYTE_SIZE                          ; 8                    ; Untyped                               ;
+; READ_DURING_WRITE_MODE_MIXED_PORTS ; DONT_CARE            ; Untyped                               ;
+; READ_DURING_WRITE_MODE_PORT_A      ; NEW_DATA_NO_NBE_READ ; Untyped                               ;
+; READ_DURING_WRITE_MODE_PORT_B      ; NEW_DATA_NO_NBE_READ ; Untyped                               ;
+; INIT_FILE                          ; tcgrom.mif           ; Untyped                               ;
+; INIT_FILE_LAYOUT                   ; PORT_A               ; Untyped                               ;
+; MAXIMUM_DEPTH                      ; 0                    ; Untyped                               ;
+; CLOCK_ENABLE_INPUT_A               ; BYPASS               ; Untyped                               ;
+; CLOCK_ENABLE_INPUT_B               ; NORMAL               ; Untyped                               ;
+; CLOCK_ENABLE_OUTPUT_A              ; BYPASS               ; Untyped                               ;
+; CLOCK_ENABLE_OUTPUT_B              ; NORMAL               ; Untyped                               ;
+; CLOCK_ENABLE_CORE_A                ; USE_INPUT_CLKEN      ; Untyped                               ;
+; CLOCK_ENABLE_CORE_B                ; USE_INPUT_CLKEN      ; Untyped                               ;
+; ENABLE_ECC                         ; FALSE                ; Untyped                               ;
+; ECC_PIPELINE_STAGE_ENABLED         ; FALSE                ; Untyped                               ;
+; WIDTH_ECCSTATUS                    ; 3                    ; Untyped                               ;
+; DEVICE_FAMILY                      ; Cyclone V            ; Untyped                               ;
+; CBXI_PARAMETER                     ; altsyncram_d5g1      ; Untyped                               ;
++------------------------------------+----------------------+---------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
 
 +-----------------------------------------------------------------------------------------------------+
@@ -477,42 +677,140 @@ Encoding Type:  One-Hot
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
 
-+----------------------------------------------------------------------------------------------------+
-; altsyncram Parameter Settings by Entity Instance                                                   ;
-+-------------------------------------------+--------------------------------------------------------+
-; Name                                      ; Value                                                  ;
-+-------------------------------------------+--------------------------------------------------------+
-; Number of entity instances                ; 1                                                      ;
-; Entity Instance                           ; char_rom:TextComponent|altsyncram:altsyncram_component ;
-;     -- OPERATION_MODE                     ; ROM                                                    ;
-;     -- WIDTH_A                            ; 8                                                      ;
-;     -- NUMWORDS_A                         ; 512                                                    ;
-;     -- OUTDATA_REG_A                      ; UNREGISTERED                                           ;
-;     -- WIDTH_B                            ; 1                                                      ;
-;     -- NUMWORDS_B                         ; 1                                                      ;
-;     -- ADDRESS_REG_B                      ; CLOCK1                                                 ;
-;     -- OUTDATA_REG_B                      ; UNREGISTERED                                           ;
-;     -- RAM_BLOCK_TYPE                     ; AUTO                                                   ;
-;     -- READ_DURING_WRITE_MODE_MIXED_PORTS ; DONT_CARE                                              ;
-+-------------------------------------------+--------------------------------------------------------+
++------------------------------------------------+
+; Port Connectivity Checks: "pipe:pipe_2"        ;
++--------------+-------+----------+--------------+
+; Port         ; Type  ; Severity ; Details      ;
++--------------+-------+----------+--------------+
+; width[5..4]  ; Input ; Info     ; Stuck at VCC ;
+; width[9..6]  ; Input ; Info     ; Stuck at GND ;
+; width[3..2]  ; Input ; Info     ; Stuck at GND ;
+; width[1]     ; Input ; Info     ; Stuck at VCC ;
+; width[0]     ; Input ; Info     ; Stuck at GND ;
+; speed[31..3] ; Input ; Info     ; Stuck at GND ;
+; speed[2]     ; Input ; Info     ; Stuck at VCC ;
+; speed[1]     ; Input ; Info     ; Stuck at GND ;
+; speed[0]     ; Input ; Info     ; Stuck at VCC ;
+; height[3..2] ; Input ; Info     ; Stuck at VCC ;
+; height[7..6] ; Input ; Info     ; Stuck at GND ;
+; height[1..0] ; Input ; Info     ; Stuck at GND ;
+; height[9]    ; Input ; Info     ; Stuck at GND ;
+; height[8]    ; Input ; Info     ; Stuck at VCC ;
+; height[5]    ; Input ; Info     ; Stuck at VCC ;
+; height[4]    ; Input ; Info     ; Stuck at GND ;
++--------------+-------+----------+--------------+
 
 
-+---------------------------------------------------+
-; Port Connectivity Checks: "BCD_to_SevenSeg:ssh1"  ;
-+-----------------+-------+----------+--------------+
-; Port            ; Type  ; Severity ; Details      ;
-+-----------------+-------+----------+--------------+
-; bcd_digit[3..2] ; Input ; Info     ; Stuck at GND ;
-+-----------------+-------+----------+--------------+
++------------------------------------------------+
+; Port Connectivity Checks: "pipe:pipe_1"        ;
++--------------+-------+----------+--------------+
+; Port         ; Type  ; Severity ; Details      ;
++--------------+-------+----------+--------------+
+; width[5..4]  ; Input ; Info     ; Stuck at VCC ;
+; width[9..6]  ; Input ; Info     ; Stuck at GND ;
+; width[3..2]  ; Input ; Info     ; Stuck at GND ;
+; width[1]     ; Input ; Info     ; Stuck at VCC ;
+; width[0]     ; Input ; Info     ; Stuck at GND ;
+; speed[31..3] ; Input ; Info     ; Stuck at GND ;
+; speed[2]     ; Input ; Info     ; Stuck at VCC ;
+; speed[1]     ; Input ; Info     ; Stuck at GND ;
+; speed[0]     ; Input ; Info     ; Stuck at VCC ;
+; height[7..6] ; Input ; Info     ; Stuck at VCC ;
+; height[9..8] ; Input ; Info     ; Stuck at GND ;
+; height[5..4] ; Input ; Info     ; Stuck at GND ;
+; height[2..0] ; Input ; Info     ; Stuck at GND ;
+; height[3]    ; Input ; Info     ; Stuck at VCC ;
++--------------+-------+----------+--------------+
 
 
-+---------------------------------------------------+
-; Port Connectivity Checks: "BCD_to_SevenSeg:ssh0"  ;
-+-----------------+-------+----------+--------------+
-; Port            ; Type  ; Severity ; Details      ;
-+-----------------+-------+----------+--------------+
-; bcd_digit[3..2] ; Input ; Info     ; Stuck at GND ;
-+-----------------+-------+----------+--------------+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "BCD_to_SevenSeg:ssh1"                                                                                                                                              ;
++-------------------+---------+------------------+----------------------------------------------------------------------------------------------------------------------------------------------+
+; Port              ; Type    ; Severity         ; Details                                                                                                                                      ;
++-------------------+---------+------------------+----------------------------------------------------------------------------------------------------------------------------------------------+
+; BCD_digit         ; Unknown ; Critical Warning ; Named port was not declared by the instantiated entity                                                                                       ;
+; SevenSeg_out      ; Unknown ; Critical Warning ; Named port was not declared by the instantiated entity                                                                                       ;
+; character_address ; Input   ; Warning          ; Declared by entity but not connected by instance. If a default value exists, it will be used.  Otherwise, the port will be connected to GND. ;
+; font_row          ; Input   ; Warning          ; Declared by entity but not connected by instance. If a default value exists, it will be used.  Otherwise, the port will be connected to GND. ;
+; font_col          ; Input   ; Warning          ; Declared by entity but not connected by instance. If a default value exists, it will be used.  Otherwise, the port will be connected to GND. ;
+; clock             ; Input   ; Warning          ; Declared by entity but not connected by instance. If a default value exists, it will be used.  Otherwise, the port will be connected to GND. ;
+; rom_mux_output    ; Output  ; Warning          ; Declared by entity but not connected by instance. Logic that only feeds a dangling port will be removed.                                     ;
++-------------------+---------+------------------+----------------------------------------------------------------------------------------------------------------------------------------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "BCD_to_SevenSeg:sst1"                                                                                                                                              ;
++-------------------+---------+------------------+----------------------------------------------------------------------------------------------------------------------------------------------+
+; Port              ; Type    ; Severity         ; Details                                                                                                                                      ;
++-------------------+---------+------------------+----------------------------------------------------------------------------------------------------------------------------------------------+
+; BCD_digit         ; Unknown ; Critical Warning ; Named port was not declared by the instantiated entity                                                                                       ;
+; SevenSeg_out      ; Unknown ; Critical Warning ; Named port was not declared by the instantiated entity                                                                                       ;
+; character_address ; Input   ; Warning          ; Declared by entity but not connected by instance. If a default value exists, it will be used.  Otherwise, the port will be connected to GND. ;
+; font_row          ; Input   ; Warning          ; Declared by entity but not connected by instance. If a default value exists, it will be used.  Otherwise, the port will be connected to GND. ;
+; font_col          ; Input   ; Warning          ; Declared by entity but not connected by instance. If a default value exists, it will be used.  Otherwise, the port will be connected to GND. ;
+; clock             ; Input   ; Warning          ; Declared by entity but not connected by instance. If a default value exists, it will be used.  Otherwise, the port will be connected to GND. ;
+; rom_mux_output    ; Output  ; Warning          ; Declared by entity but not connected by instance. Logic that only feeds a dangling port will be removed.                                     ;
++-------------------+---------+------------------+----------------------------------------------------------------------------------------------------------------------------------------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "BCD_to_SevenSeg:sso1"                                                                                                                                              ;
++-------------------+---------+------------------+----------------------------------------------------------------------------------------------------------------------------------------------+
+; Port              ; Type    ; Severity         ; Details                                                                                                                                      ;
++-------------------+---------+------------------+----------------------------------------------------------------------------------------------------------------------------------------------+
+; BCD_digit         ; Unknown ; Critical Warning ; Named port was not declared by the instantiated entity                                                                                       ;
+; SevenSeg_out      ; Unknown ; Critical Warning ; Named port was not declared by the instantiated entity                                                                                       ;
+; character_address ; Input   ; Warning          ; Declared by entity but not connected by instance. If a default value exists, it will be used.  Otherwise, the port will be connected to GND. ;
+; font_row          ; Input   ; Warning          ; Declared by entity but not connected by instance. If a default value exists, it will be used.  Otherwise, the port will be connected to GND. ;
+; font_col          ; Input   ; Warning          ; Declared by entity but not connected by instance. If a default value exists, it will be used.  Otherwise, the port will be connected to GND. ;
+; clock             ; Input   ; Warning          ; Declared by entity but not connected by instance. If a default value exists, it will be used.  Otherwise, the port will be connected to GND. ;
+; rom_mux_output    ; Output  ; Warning          ; Declared by entity but not connected by instance. Logic that only feeds a dangling port will be removed.                                     ;
++-------------------+---------+------------------+----------------------------------------------------------------------------------------------------------------------------------------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "BCD_to_SevenSeg:ssh0"                                                                                                                                              ;
++-------------------+---------+------------------+----------------------------------------------------------------------------------------------------------------------------------------------+
+; Port              ; Type    ; Severity         ; Details                                                                                                                                      ;
++-------------------+---------+------------------+----------------------------------------------------------------------------------------------------------------------------------------------+
+; BCD_digit         ; Unknown ; Critical Warning ; Named port was not declared by the instantiated entity                                                                                       ;
+; SevenSeg_out      ; Unknown ; Critical Warning ; Named port was not declared by the instantiated entity                                                                                       ;
+; character_address ; Input   ; Warning          ; Declared by entity but not connected by instance. If a default value exists, it will be used.  Otherwise, the port will be connected to GND. ;
+; font_row          ; Input   ; Warning          ; Declared by entity but not connected by instance. If a default value exists, it will be used.  Otherwise, the port will be connected to GND. ;
+; font_col          ; Input   ; Warning          ; Declared by entity but not connected by instance. If a default value exists, it will be used.  Otherwise, the port will be connected to GND. ;
+; clock             ; Input   ; Warning          ; Declared by entity but not connected by instance. If a default value exists, it will be used.  Otherwise, the port will be connected to GND. ;
+; rom_mux_output    ; Output  ; Warning          ; Declared by entity but not connected by instance. Logic that only feeds a dangling port will be removed.                                     ;
++-------------------+---------+------------------+----------------------------------------------------------------------------------------------------------------------------------------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "BCD_to_SevenSeg:sst0"                                                                                                                                              ;
++-------------------+---------+------------------+----------------------------------------------------------------------------------------------------------------------------------------------+
+; Port              ; Type    ; Severity         ; Details                                                                                                                                      ;
++-------------------+---------+------------------+----------------------------------------------------------------------------------------------------------------------------------------------+
+; BCD_digit         ; Unknown ; Critical Warning ; Named port was not declared by the instantiated entity                                                                                       ;
+; SevenSeg_out      ; Unknown ; Critical Warning ; Named port was not declared by the instantiated entity                                                                                       ;
+; character_address ; Input   ; Warning          ; Declared by entity but not connected by instance. If a default value exists, it will be used.  Otherwise, the port will be connected to GND. ;
+; font_row          ; Input   ; Warning          ; Declared by entity but not connected by instance. If a default value exists, it will be used.  Otherwise, the port will be connected to GND. ;
+; font_col          ; Input   ; Warning          ; Declared by entity but not connected by instance. If a default value exists, it will be used.  Otherwise, the port will be connected to GND. ;
+; clock             ; Input   ; Warning          ; Declared by entity but not connected by instance. If a default value exists, it will be used.  Otherwise, the port will be connected to GND. ;
+; rom_mux_output    ; Output  ; Warning          ; Declared by entity but not connected by instance. Logic that only feeds a dangling port will be removed.                                     ;
++-------------------+---------+------------------+----------------------------------------------------------------------------------------------------------------------------------------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "BCD_to_SevenSeg:sso0"                                                                                                                                              ;
++-------------------+---------+------------------+----------------------------------------------------------------------------------------------------------------------------------------------+
+; Port              ; Type    ; Severity         ; Details                                                                                                                                      ;
++-------------------+---------+------------------+----------------------------------------------------------------------------------------------------------------------------------------------+
+; BCD_digit         ; Unknown ; Critical Warning ; Named port was not declared by the instantiated entity                                                                                       ;
+; SevenSeg_out      ; Unknown ; Critical Warning ; Named port was not declared by the instantiated entity                                                                                       ;
+; character_address ; Input   ; Warning          ; Declared by entity but not connected by instance. If a default value exists, it will be used.  Otherwise, the port will be connected to GND. ;
+; font_row          ; Input   ; Warning          ; Declared by entity but not connected by instance. If a default value exists, it will be used.  Otherwise, the port will be connected to GND. ;
+; font_col          ; Input   ; Warning          ; Declared by entity but not connected by instance. If a default value exists, it will be used.  Otherwise, the port will be connected to GND. ;
+; clock             ; Input   ; Warning          ; Declared by entity but not connected by instance. If a default value exists, it will be used.  Otherwise, the port will be connected to GND. ;
+; rom_mux_output    ; Output  ; Warning          ; Declared by entity but not connected by instance. Logic that only feeds a dangling port will be removed.                                     ;
++-------------------+---------+------------------+----------------------------------------------------------------------------------------------------------------------------------------------+
 
 
 +-----------------------------------------+
@@ -524,66 +822,22 @@ Note: In order to hide this table in the UI and the text report file, please set
 +-------+-------+----------+--------------+
 
 
-+-----------------------------------------------------+
-; Post-Synthesis Netlist Statistics for Top Partition ;
-+-----------------------+-----------------------------+
-; Type                  ; Count                       ;
-+-----------------------+-----------------------------+
-; arriav_ff             ; 209                         ;
-;     CLR               ; 1                           ;
-;     ENA               ; 90                          ;
-;     ENA CLR           ; 15                          ;
-;     ENA SCLR          ; 28                          ;
-;     ENA SLD           ; 20                          ;
-;     SCLR              ; 10                          ;
-;     plain             ; 45                          ;
-; arriav_io_obuf        ; 2                           ;
-; arriav_lcell_comb     ; 439                         ;
-;     arith             ; 86                          ;
-;         0 data inputs ; 1                           ;
-;         1 data inputs ; 57                          ;
-;         2 data inputs ; 27                          ;
-;         3 data inputs ; 1                           ;
-;     extend            ; 6                           ;
-;         7 data inputs ; 6                           ;
-;     normal            ; 337                         ;
-;         0 data inputs ; 2                           ;
-;         1 data inputs ; 13                          ;
-;         2 data inputs ; 30                          ;
-;         3 data inputs ; 41                          ;
-;         4 data inputs ; 93                          ;
-;         5 data inputs ; 64                          ;
-;         6 data inputs ; 94                          ;
-;     shared            ; 10                          ;
-;         1 data inputs ; 1                           ;
-;         2 data inputs ; 9                           ;
-; boundary_port         ; 58                          ;
-; stratixv_ram_block    ; 8                           ;
-;                       ;                             ;
-; Max LUT depth         ; 8.00                        ;
-; Average LUT depth     ; 3.04                        ;
-+-----------------------+-----------------------------+
-
-
-+-------------------------------+
-; Elapsed Time Per Partition    ;
-+----------------+--------------+
-; Partition Name ; Elapsed Time ;
-+----------------+--------------+
-; Top            ; 00:00:01     ;
-+----------------+--------------+
-
-
 +-------------------------------+
 ; Analysis & Synthesis Messages ;
 +-------------------------------+
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
-    Info: Processing started: Mon May 26 11:17:16 2025
+    Info: Processing started: Mon May 26 12:11:12 2025
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off Flappy_Bird -c Flappy_Bird
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 6 of the 6 processors detected
+Info (12021): Found 2 design units, including 1 entities, in source file miniprojectresources/textbox.vhd
+    Info (12022): Found design unit 1: textBox-behaviour File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/textBox.vhd Line: 17
+    Info (12023): Found entity 1: textBox File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/textBox.vhd Line: 6
+Info (12021): Found 2 design units, including 1 entities, in source file miniprojectresources/pipe.vhd
+    Info (12022): Found design unit 1: pipe-behavior File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/pipe.vhd Line: 16
+    Info (12023): Found entity 1: pipe File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/pipe.vhd Line: 5
 Info (12021): Found 2 design units, including 1 entities, in source file miniprojectresources/scorebox.vhd
     Info (12022): Found design unit 1: scoreBox-behaviour File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/scoreBox.vhd Line: 17
     Info (12023): Found entity 1: scoreBox File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/scoreBox.vhd Line: 6
@@ -605,8 +859,8 @@ Info (12021): Found 2 design units, including 1 entities, in source file minipro
     Info (12022): Found design unit 1: Clock_25MHz-arc File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/clock_divider_25MHz.vhd Line: 11
     Info (12023): Found entity 1: Clock_25MHz File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/clock_divider_25MHz.vhd Line: 5
 Info (12021): Found 2 design units, including 1 entities, in source file miniprojectresources/flappy_bird.vhd
-    Info (12022): Found design unit 1: Flappy_bird-Behavioral File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 35
-    Info (12023): Found entity 1: Flappy_bird File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 7
+    Info (12022): Found design unit 1: Flappy_bird-Behavioral File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 33
+    Info (12023): Found entity 1: Flappy_bird File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 5
 Info (12021): Found 2 design units, including 1 entities, in source file miniprojectresources/mouse.vhd
     Info (12022): Found design unit 1: MOUSE-behavior File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/mouse.vhd Line: 18
     Info (12023): Found entity 1: MOUSE File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/mouse.vhd Line: 9
@@ -614,24 +868,22 @@ Info (12021): Found 2 design units, including 1 entities, in source file minipro
     Info (12022): Found design unit 1: VGA_SYNC-a File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/vga_sync.vhd Line: 15
     Info (12023): Found entity 1: VGA_SYNC File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/vga_sync.vhd Line: 7
 Info (12127): Elaborating entity "Flappy_bird" for the top level hierarchy
-Warning (10540): VHDL Signal Declaration warning at Flappy_bird.vhd(42): used explicit default value for signal "ps2_reset" because signal was never assigned a value File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 42
-Warning (10036): Verilog HDL or VHDL warning at Flappy_bird.vhd(94): object "game_active" assigned a value but never read File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 94
-Info (12128): Elaborating entity "Clock_25MHz" for hierarchy "Clock_25MHz:ClockDivider" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 302
-Info (12128): Elaborating entity "MOUSE" for hierarchy "MOUSE:ps2" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 309
+Warning (10540): VHDL Signal Declaration warning at Flappy_bird.vhd(40): used explicit default value for signal "ps2_reset" because signal was never assigned a value File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 40
+Warning (10540): VHDL Signal Declaration warning at Flappy_bird.vhd(47): used explicit default value for signal "pipe_width" because signal was never assigned a value File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 47
+Warning (10540): VHDL Signal Declaration warning at Flappy_bird.vhd(52): used explicit default value for signal "speed" because signal was never assigned a value File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 52
+Warning (10036): Verilog HDL or VHDL warning at Flappy_bird.vhd(102): object "game_active" assigned a value but never read File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 102
+Info (12128): Elaborating entity "Clock_25MHz" for hierarchy "Clock_25MHz:ClockDivider" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 328
+Info (12128): Elaborating entity "MOUSE" for hierarchy "MOUSE:ps2" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 335
 Warning (10036): Verilog HDL or VHDL warning at mouse.vhd(25): object "CHARIN" assigned a value but never read File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/mouse.vhd Line: 25
 Warning (10492): VHDL Process Statement warning at mouse.vhd(151): signal "CHAROUT" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/mouse.vhd Line: 151
 Warning (10492): VHDL Process Statement warning at mouse.vhd(155): signal "CHAROUT" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/mouse.vhd Line: 155
 Warning (10492): VHDL Process Statement warning at mouse.vhd(156): signal "CHAROUT" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/mouse.vhd Line: 156
 Warning (10492): VHDL Process Statement warning at mouse.vhd(157): signal "CHAROUT" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/mouse.vhd Line: 157
-Info (12128): Elaborating entity "cursor_drawer" for hierarchy "cursor_drawer:cursor" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 321
-Info (12128): Elaborating entity "BCD_to_SevenSeg" for hierarchy "BCD_to_SevenSeg:sso0" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 333
-Info (12128): Elaborating entity "bouncy_bird" for hierarchy "bouncy_bird:BallComponent" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 371
-Warning (10540): VHDL Signal Declaration warning at bouncy_bird.vhd(26): used explicit default value for signal "size" because signal was never assigned a value File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/bouncy_bird.vhd Line: 26
-Warning (10540): VHDL Signal Declaration warning at bouncy_bird.vhd(28): used explicit default value for signal "ball_x_pos" because signal was never assigned a value File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/bouncy_bird.vhd Line: 28
-Info (12128): Elaborating entity "char_rom" for hierarchy "char_rom:TextComponent" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 414
-Info (12128): Elaborating entity "altsyncram" for hierarchy "char_rom:TextComponent|altsyncram:altsyncram_component" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/char_rom.vhd Line: 51
-Info (12130): Elaborated megafunction instantiation "char_rom:TextComponent|altsyncram:altsyncram_component" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/char_rom.vhd Line: 51
-Info (12133): Instantiated megafunction "char_rom:TextComponent|altsyncram:altsyncram_component" with the following parameter: File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/char_rom.vhd Line: 51
+Info (12128): Elaborating entity "cursor_drawer" for hierarchy "cursor_drawer:cursor" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 347
+Info (12128): Elaborating entity "BCD_to_SevenSeg" for hierarchy "BCD_to_SevenSeg:sso0" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 359
+Info (12128): Elaborating entity "altsyncram" for hierarchy "BCD_to_SevenSeg:sso0|altsyncram:altsyncram_component" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/char_rom.vhd Line: 51
+Info (12130): Elaborated megafunction instantiation "BCD_to_SevenSeg:sso0|altsyncram:altsyncram_component" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/char_rom.vhd Line: 51
+Info (12133): Instantiated megafunction "BCD_to_SevenSeg:sso0|altsyncram:altsyncram_component" with the following parameter: File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/char_rom.vhd Line: 51
     Info (12134): Parameter "address_aclr_a" = "NONE"
     Info (12134): Parameter "clock_enable_input_a" = "BYPASS"
     Info (12134): Parameter "clock_enable_output_a" = "BYPASS"
@@ -648,75 +900,54 @@ Info (12133): Instantiated megafunction "char_rom:TextComponent|altsyncram:altsy
     Info (12134): Parameter "width_byteena_a" = "1"
 Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_d5g1.tdf
     Info (12023): Found entity 1: altsyncram_d5g1 File: F:/COMPSYS305-TechSupport/MiniProject/db/altsyncram_d5g1.tdf Line: 27
-Info (12128): Elaborating entity "altsyncram_d5g1" for hierarchy "char_rom:TextComponent|altsyncram:altsyncram_component|altsyncram_d5g1:auto_generated" File: f:/quartus-lite-18.1.0.625-windows/quartus/libraries/megafunctions/altsyncram.tdf Line: 791
-Info (12128): Elaborating entity "scoreBox" for hierarchy "scoreBox:ScoreDriver" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 424
-Warning (10492): VHDL Process Statement warning at scoreBox.vhd(47): signal "state" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/scoreBox.vhd Line: 47
-Warning (10631): VHDL Process Statement warning at scoreBox.vhd(41): inferring latch(es) for signal or variable "found", which holds its previous value in one or more paths through the process File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/scoreBox.vhd Line: 41
-Info (10041): Inferred latch for "found" at scoreBox.vhd(59) File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/scoreBox.vhd Line: 59
-Warning (12125): Using design file textbox.vhd, which is not specified as a design file for the current project, but contains definitions for 2 design units and 1 entities in project
-    Info (12022): Found design unit 1: textBox-behaviour File: F:/COMPSYS305-TechSupport/MiniProject/textbox.vhd Line: 17
-    Info (12023): Found entity 1: textBox File: F:/COMPSYS305-TechSupport/MiniProject/textbox.vhd Line: 6
-Info (12128): Elaborating entity "textBox" for hierarchy "textBox:TextDriver" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 436
-Warning (10492): VHDL Process Statement warning at textbox.vhd(78): signal "state" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: F:/COMPSYS305-TechSupport/MiniProject/textbox.vhd Line: 78
-Warning (10492): VHDL Process Statement warning at textbox.vhd(94): signal "state" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: F:/COMPSYS305-TechSupport/MiniProject/textbox.vhd Line: 94
-Warning (10631): VHDL Process Statement warning at textbox.vhd(67): inferring latch(es) for signal or variable "found", which holds its previous value in one or more paths through the process File: F:/COMPSYS305-TechSupport/MiniProject/textbox.vhd Line: 67
-Info (10041): Inferred latch for "found" at textbox.vhd(94) File: F:/COMPSYS305-TechSupport/MiniProject/textbox.vhd Line: 94
-Info (12128): Elaborating entity "VGA_SYNC" for hierarchy "VGA_SYNC:VGASync" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 452
-Warning (12069): Ignored assignment(s) for "blue[2]" because "blue" is not a bus or array File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 23
-Warning (12069): Ignored assignment(s) for "green[1]" because "green" is not a bus or array File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 22
-Warning (12069): Ignored assignment(s) for "green[2]" because "green" is not a bus or array File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 22
-Warning (12069): Ignored assignment(s) for "red[1]" because "red" is not a bus or array File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 21
-Warning (12069): Ignored assignment(s) for "red[2]" because "red" is not a bus or array File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 21
-Warning (12069): Ignored assignment(s) for "red[3]" because "red" is not a bus or array File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 21
-Info (13000): Registers with preset signals will power-up high File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/mouse.vhd Line: 146
-Info (13003): DEV_CLRn pin will set, and not reset, register with preset signal due to NOT Gate Push-Back
-Warning (13024): Output pins are stuck at VCC or GND
-    Warning (13410): Pin "HEX2[1]" is stuck at GND File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 27
-    Warning (13410): Pin "HEX5[1]" is stuck at GND File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 30
-    Warning (13410): Pin "HEX5[2]" is stuck at GND File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 30
-    Warning (13410): Pin "HEX5[6]" is stuck at VCC File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 30
-Info (286030): Timing-Driven Synthesis is running
-Info (17036): Removed 1 MSB VCC or GND address nodes from RAM block "char_rom:TextComponent|altsyncram:altsyncram_component|altsyncram_d5g1:auto_generated|ALTSYNCRAM" File: F:/COMPSYS305-TechSupport/MiniProject/db/altsyncram_d5g1.tdf Line: 31
-Warning (20013): Ignored 24 assignments for entity "DE0_CV_Default" -- entity does not exist in design
-    Warning (20014): Assignment for entity set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -entity DE0_CV_Default -section_id Top was ignored
-    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -entity DE0_CV_Default -section_id Top was ignored
-    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -entity DE0_CV_Default -section_id Top was ignored
-    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_PRESERVE_HIGH_SPEED_TILES ON -entity DE0_CV_Default -section_id Top was ignored
-    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IGNORE_SOURCE_FILE_CHANGES OFF -entity DE0_CV_Default -section_id Top was ignored
-    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_ALWAYS_USE_QXP_NETLIST OFF -entity DE0_CV_Default -section_id Top was ignored
-    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_COLOR 16764057 -entity DE0_CV_Default -section_id Top was ignored
-    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IMPORT_ASSIGNMENTS ON -entity DE0_CV_Default -section_id Top was ignored
-    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IMPORT_EXISTING_ASSIGNMENTS REPLACE_CONFLICTING -entity DE0_CV_Default -section_id Top was ignored
-    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IMPORT_EXISTING_LOGICLOCK_REGIONS UPDATE_CONFLICTING -entity DE0_CV_Default -section_id Top was ignored
-    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IMPORT_PIN_ASSIGNMENTS ON -entity DE0_CV_Default -section_id Top was ignored
-    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IMPORT_PROMOTE_ASSIGNMENTS ON -entity DE0_CV_Default -section_id Top was ignored
-    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_TYPE STANDARD_PARTITION -entity DE0_CV_Default -section_id Top was ignored
-    Warning (20014): Assignment for entity set_global_assignment -name ALLOW_MULTIPLE_PERSONAS OFF -entity DE0_CV_Default -section_id Top was ignored
-    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_ASD_REGION_ID 1 -entity DE0_CV_Default -section_id Top was ignored
-    Warning (20014): Assignment for entity set_global_assignment -name CROSS_BOUNDARY_OPTIMIZATIONS OFF -entity DE0_CV_Default -section_id Top was ignored
-    Warning (20014): Assignment for entity set_global_assignment -name PROPAGATE_CONSTANTS_ON_INPUTS ON -entity DE0_CV_Default -section_id Top was ignored
-    Warning (20014): Assignment for entity set_global_assignment -name PROPAGATE_INVERSIONS_ON_INPUTS ON -entity DE0_CV_Default -section_id Top was ignored
-    Warning (20014): Assignment for entity set_global_assignment -name REMOVE_LOGIC_ON_UNCONNECTED_OUTPUTS ON -entity DE0_CV_Default -section_id Top was ignored
-    Warning (20014): Assignment for entity set_global_assignment -name MERGE_EQUIVALENT_INPUTS ON -entity DE0_CV_Default -section_id Top was ignored
-    Warning (20014): Assignment for entity set_global_assignment -name MERGE_EQUIVALENT_BIDIRS ON -entity DE0_CV_Default -section_id Top was ignored
-    Warning (20014): Assignment for entity set_global_assignment -name ABSORB_PATHS_FROM_OUTPUTS_TO_INPUTS ON -entity DE0_CV_Default -section_id Top was ignored
-    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_EXTRACT_HARD_BLOCK_NODES ON -entity DE0_CV_Default -section_id Top was ignored
-    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_ENABLE_STRICT_PRESERVATION OFF -entity DE0_CV_Default -section_id Top was ignored
-Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
-    Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Warning (21074): Design contains 2 input pin(s) that do not drive logic
-    Warning (15610): No output dependent on input pin "button_3" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 16
-    Warning (15610): No output dependent on input pin "button_4" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 17
-Info (21057): Implemented 572 device resources after synthesis - the final resource count might be different
-    Info (21058): Implemented 8 input pins
-    Info (21059): Implemented 48 output pins
-    Info (21060): Implemented 2 bidirectional pins
-    Info (21061): Implemented 506 logic cells
-    Info (21064): Implemented 8 RAM segments
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 57 warnings
-    Info: Peak virtual memory: 4874 megabytes
-    Info: Processing ended: Mon May 26 11:17:28 2025
-    Info: Elapsed time: 00:00:12
-    Info: Total CPU time (on all processors): 00:00:24
+Info (12128): Elaborating entity "altsyncram_d5g1" for hierarchy "BCD_to_SevenSeg:sso0|altsyncram:altsyncram_component|altsyncram_d5g1:auto_generated" File: f:/quartus-lite-18.1.0.625-windows/quartus/libraries/megafunctions/altsyncram.tdf Line: 791
+Info (12128): Elaborating entity "bouncy_bird" for hierarchy "bouncy_bird:BallComponent" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 397
+Warning (10540): VHDL Signal Declaration warning at bouncy_bird.vhd(26): used explicit default value for signal "size" because signal was never assigned a value File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/bouncy_bird.vhd Line: 26
+Warning (10540): VHDL Signal Declaration warning at bouncy_bird.vhd(28): used explicit default value for signal "ball_x_pos" because signal was never assigned a value File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/bouncy_bird.vhd Line: 28
+Info (12128): Elaborating entity "pipe" for hierarchy "pipe:pipe_1" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 419
+Warning (10540): VHDL Signal Declaration warning at pipe.vhd(17): used explicit default value for signal "vertical_gap" because signal was never assigned a value File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/pipe.vhd Line: 17
+Warning (10540): VHDL Signal Declaration warning at pipe.vhd(20): used explicit default value for signal "top_pipe_y_pos" because signal was never assigned a value File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/pipe.vhd Line: 20
+Warning (10540): VHDL Signal Declaration warning at pipe.vhd(21): used explicit default value for signal "bottom_pipe_y_pos" because signal was never assigned a value File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/pipe.vhd Line: 21
+Info (12128): Elaborating entity "char_rom" for hierarchy "char_rom:TextComponent" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 520
+Info (12128): Elaborating entity "scoreBox" for hierarchy "scoreBox:ScoreDriver" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 530
+Warning (10492): VHDL Process Statement warning at scoreBox.vhd(69): signal "state" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/scoreBox.vhd Line: 69
+Warning (10492): VHDL Process Statement warning at scoreBox.vhd(85): signal "state" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/scoreBox.vhd Line: 85
+Warning (10631): VHDL Process Statement warning at scoreBox.vhd(60): inferring latch(es) for signal or variable "found", which holds its previous value in one or more paths through the process File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/scoreBox.vhd Line: 60
+Info (10041): Inferred latch for "found" at scoreBox.vhd(85) File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/scoreBox.vhd Line: 85
+Info (12128): Elaborating entity "textBox" for hierarchy "textBox:TextDriver" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 542
+Warning (10492): VHDL Process Statement warning at textBox.vhd(78): signal "state" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/textBox.vhd Line: 78
+Warning (10492): VHDL Process Statement warning at textBox.vhd(94): signal "state" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/textBox.vhd Line: 94
+Warning (10631): VHDL Process Statement warning at textBox.vhd(67): inferring latch(es) for signal or variable "found", which holds its previous value in one or more paths through the process File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/textBox.vhd Line: 67
+Info (10041): Inferred latch for "found" at textBox.vhd(94) File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/textBox.vhd Line: 94
+Info (12128): Elaborating entity "VGA_SYNC" for hierarchy "VGA_SYNC:VGASync" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 558
+Error (12002): Port "blue" does not exist in macrofunction "VGASync" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 558
+Error (12002): Port "blue_out" does not exist in macrofunction "VGASync" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 558
+Error (12002): Port "clock_25Mhz" does not exist in macrofunction "VGASync" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 558
+Error (12002): Port "green" does not exist in macrofunction "VGASync" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 558
+Error (12002): Port "green_out" does not exist in macrofunction "VGASync" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 558
+Error (12002): Port "horiz_sync_out" does not exist in macrofunction "VGASync" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 558
+Error (12002): Port "pixel_column" does not exist in macrofunction "VGASync" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 558
+Error (12002): Port "pixel_row" does not exist in macrofunction "VGASync" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 558
+Error (12002): Port "red" does not exist in macrofunction "VGASync" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 558
+Error (12002): Port "red_out" does not exist in macrofunction "VGASync" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 558
+Error (12002): Port "vert_sync_out" does not exist in macrofunction "VGASync" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 558
+Error (12002): Port "BCD_digit" does not exist in macrofunction "ssh1" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 390
+Error (12002): Port "SevenSeg_out" does not exist in macrofunction "ssh1" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 390
+Error (12002): Port "BCD_digit" does not exist in macrofunction "sst1" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 384
+Error (12002): Port "SevenSeg_out" does not exist in macrofunction "sst1" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 384
+Error (12002): Port "BCD_digit" does not exist in macrofunction "sso1" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 378
+Error (12002): Port "SevenSeg_out" does not exist in macrofunction "sso1" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 378
+Error (12002): Port "BCD_digit" does not exist in macrofunction "ssh0" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 371
+Error (12002): Port "SevenSeg_out" does not exist in macrofunction "ssh0" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 371
+Error (12002): Port "BCD_digit" does not exist in macrofunction "sst0" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 365
+Error (12002): Port "SevenSeg_out" does not exist in macrofunction "sst0" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 365
+Error (12002): Port "BCD_digit" does not exist in macrofunction "sso0" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 359
+Error (12002): Port "SevenSeg_out" does not exist in macrofunction "sso0" File: F:/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 359
+Warning (12241): 6 hierarchies have connectivity warnings - see the Connectivity Checks report folder
+Error: Quartus Prime Analysis & Synthesis was unsuccessful. 23 errors, 24 warnings
+    Error: Peak virtual memory: 4856 megabytes
+    Error: Processing ended: Mon May 26 12:11:22 2025
+    Error: Elapsed time: 00:00:10
+    Error: Total CPU time (on all processors): 00:00:20
 
 
