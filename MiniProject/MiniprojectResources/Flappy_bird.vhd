@@ -96,6 +96,7 @@ architecture Behavioral of Flappy_bird is
   signal pipe1_scored, pipe2_scored : std_logic := '0';
   constant BIRD_X_POS : integer := 160; -- The bird's fixed x position
   signal last_score : integer := 0;
+  signal score_to_display : integer := 0;
 
   -- BCD Score signals 
   signal score_ones   : std_logic_vector(3 downto 0);
@@ -372,10 +373,13 @@ begin
     end if;
 end process;
 
+-- Make sure the score is displayed correctly
+score_to_display <= last_score when current_state = game_over else score;
+
 -- Score BCD to HEX implementation 
-score_ones    <= std_logic_vector(to_unsigned(score mod 10, 4));
-score_tens    <= std_logic_vector(to_unsigned((score/10) mod 10, 4));
-score_hundreds<= std_logic_vector(to_unsigned((score/100) mod 10, 4));
+score_ones    <= std_logic_vector(to_unsigned(score_to_display mod 10, 4));
+score_tens    <= std_logic_vector(to_unsigned((score_to_display/10) mod 10, 4));
+score_hundreds<= std_logic_vector(to_unsigned((score_to_display/100) mod 10, 4));
 
 sso_score: BCD_to_SevenSeg
 port map(
