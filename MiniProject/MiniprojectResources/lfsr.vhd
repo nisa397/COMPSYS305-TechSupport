@@ -15,11 +15,11 @@ begin
 process(Clock)
 begin
 	if (rising_edge(Clock)) then
+		lfsr_reg<= lfsr_reg sll 1;
 		-- Apply XOR function, tap bits 7,3,2,1
 		lfsr_reg(4) <= lfsr_reg(7) XOR lfsr_reg(3);
 		lfsr_reg(3) <= seed(7) XOR lfsr_reg(2);
 		lfsr_reg(2) <= seed(1) XOR lfsr_reg(7);
-		lfsr_reg<= lfsr_reg sll 1;
 		
 	end if;
 	

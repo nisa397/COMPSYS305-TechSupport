@@ -1,34 +1,36 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
 
-entity lfsr_8bit is
-    Port (
-	seed: in std_logic_vector
-        clk     : in  std_logic;
-        reset_n : in  std_logic;  -- active low reset
-        q       : out std_logic_vector(7 downto 0)
-    );
-end entity;
+entity LFSR is
+   port( seed: in unsigned(7 downto 0);
+		Clock: in std_logic;
+		rand_num: out unsigned(7 downto 0));       	
+end LFSR;
 
-architecture Behavioral of lfsr_8bit is
-    signal lfsr_reg : std_logic_vector(7 downto 0) := (others => '0');
+architecture behavior OF LFSR IS
+signal lfsr_reg : unsigned(7 downto 0) := to_unsigned(0,8);  -- internal shift register
 begin
 
-    process(clk, reset_n)
-        variable feedback : std_logic;
-    begin
-        if reset_n = '0' then
-        lfsr_reg <= "00000001";  -- non-zero seed
-        elsif rising_edge(clk) then
-            -- XOR taps: bits 7, 3, 2, 1
-            feedback := lfsr_reg(7) xor lfsr_reg(3) xor lfsr_reg(2) xor lfsr_reg(1);
+process(Clock)
+begin
+	if (rising_edge(Clock)) then
+		lfsr_reg<= lfsr_reg sll 1;
+		-- Apply XOR function, tap bits 7,3,2,1
+		lfsr_reg(4) <= lfsr_reg(7) XOR lfsr_reg(3);
+		lfsr_reg(3) <= lfsr_reg(7) XOR lfsr_reg(2);
+		lfsr_reg(2) <= lfsr_reg(1) XOR lfsr_reg(7);
+		
+	end if;
+	
+end process;
 
-            -- Shift left and insert feedback at LSB
-            lfsr_reg <= lfsr_reg(6 downto 0) & feedback;
-        end if;
-    end process;
+process(seed)
+begin
+	lfsr_reg <= seed;
+end process;
 
-    q <= lfsr_reg;
+rand_num <= lfsr_reg;
 
-end Behavioral;
 
+END behavior;

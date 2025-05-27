@@ -10,11 +10,11 @@ z2
 cModel Technology
 Z0 dC:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/modelSimTesting
 Elfsr
-Z1 w1747920739
+Z1 w1748220129
 Z2 DPx4 ieee 11 numeric_std 0 22 aU^R8eGcicLcUFIaBQSL>3
 Z3 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
 Z4 DPx4 ieee 14 std_logic_1164 0 22 cVAk:aDinOX8^VGI1ekP<3
-!i122 22
+!i122 16
 R0
 Z5 8C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/modelSimTesting/lfsr.vhd
 Z6 FC:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/modelSimTesting/lfsr.vhd
@@ -24,24 +24,24 @@ Vco[JRmR;VJ_JjPP0WM2;41
 !s100 z1<n_6VR;e_ziUi?W1zm40
 Z7 OV;C;2020.1;71
 32
-Z8 !s110 1747920754
+Z8 !s110 1748220132
 !i10b 1
-Z9 !s108 1747920754.000000
+Z9 !s108 1748220132.000000
 Z10 !s90 -reportprogress|300|-work|work|C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/modelSimTesting/lfsr.vhd|
 Z11 !s107 C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/modelSimTesting/lfsr.vhd|
 !i113 1
 Z12 o-work work
 Z13 tExplicit 1 CvgOpt 0
-Abehaviour
+Abehavior
 R2
 R3
 R4
-Z14 DEx4 work 4 lfsr 0 22 co[JRmR;VJ_JjPP0WM2;41
-!i122 22
+DEx4 work 4 lfsr 0 22 co[JRmR;VJ_JjPP0WM2;41
+!i122 16
 l13
-L11 27
-VP9PIBTKV0PR07i^c5^96D2
-!s100 3WG7=]2;2]]g326Y1C7XE2
+L11 26
+V9E3iNY7[`JDVWRonZljV90
+!s100 o`M@_]?9D>Nc5;c??ZANB1
 R7
 32
 R8
@@ -52,193 +52,46 @@ R11
 !i113 1
 R12
 R13
-Abehavior
+Etb_lfsr
+Z14 w1748219981
 R2
 R3
 R4
-Z15 DEx4 work 4 lfsr 0 22 8QWc1cW6KmBMW;ok?R?Yi1
-!i122 11
-l17
-L13 22
-V5G2FjBPzz6jDcVE=@GgDc3
-!s100 ccbKD>4>;<6_Fh?K2XLZ@1
-R7
-32
-!s110 1747919711
-!i10b 1
-!s108 1747919711.000000
-R10
-R11
-!i113 1
-R12
-R13
-w1747920290
-Abehavioral
-R2
-R3
-R4
-DEx4 work 4 lfsr 0 22 Tm]4K5Z[D7[:Yb0==BA_i1
-!i122 6
-l16
-L13 23
-VTMRUc@gb>_1G>3Ya5;4D[3
-!s100 TTi=2dmE:0XaHYJUmXW5n0
-R7
-32
-!s110 1747919445
-!i10b 1
-!s108 1747919444.000000
-R10
-R11
-!i113 1
-R12
-R13
-w1747919440
-Elfsr_8bit
-Z16 w1747921213
-R3
-R4
-!i122 26
+!i122 17
 R0
-R5
-R6
+Z15 8C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/modelSimTesting/lfsrTest.vhd
+Z16 FC:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/modelSimTesting/lfsrTest.vhd
 l0
-L4 1
-V_ZMC`5jL^ka;JI<>f`=Xj2
-!s100 I^gQFPnGd:f^eSBPJFFZz1
+L5 1
+V=Z:bjkjQf`^c1I6DeSl0c1
+!s100 ^]4T^IBVc[_=:JI4k63kl1
 R7
 32
-Z17 !s110 1747921352
+Z17 !s110 1748220148
 !i10b 1
-Z18 !s108 1747921352.000000
-R10
-R11
+Z18 !s108 1748220148.000000
+Z19 !s90 -reportprogress|300|-work|work|C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/modelSimTesting/lfsrTest.vhd|
+Z20 !s107 C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/modelSimTesting/lfsrTest.vhd|
 !i113 1
 R12
 R13
-Abehavioral
+Aarc
+R2
 R3
 R4
-Z19 DEx4 work 9 lfsr_8bit 0 22 _ZMC`5jL^ka;JI<>f`=Xj2
-!i122 26
-l14
-Z20 L12 21
-Z21 V@`_WFoN>Tf]U3jVJ1]XYk3
-Z22 !s100 0[69[jk6PbY:GQLjCSQm13
+Z21 DEx4 work 7 tb_lfsr 0 22 =Z:bjkjQf`^c1I6DeSl0c1
+!i122 17
+l19
+Z22 L8 28
+VV1?c``OkA[SBdgD`UlUgd3
+!s100 <3M:_:L`GVJiEfk6X<4IV0
 R7
 32
 R17
 !i10b 1
 R18
-R10
-R11
-!i113 1
-R12
-R13
-Etb_lfsr
-Z23 w1747920341
-R2
-R3
-R4
-!i122 19
-R0
-Z24 8C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/modelSimTesting/lfsrTestBench.vhd
-Z25 FC:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/modelSimTesting/lfsrTestBench.vhd
-l0
-L5 1
-VURSgel6EAcI;]XPeA<zE>2
-!s100 M5Q=>l2kJE>Wdi<@6l>3R3
-R7
-32
-Z26 !s110 1747920428
-!i10b 1
-Z27 !s108 1747920428.000000
-Z28 !s90 -reportprogress|300|-work|work|C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/modelSimTesting/lfsrTestBench.vhd|
-Z29 !s107 C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/modelSimTesting/lfsrTestBench.vhd|
-!i113 1
-R12
-R13
-Asim
-R14
-R2
-R3
-R4
-DEx4 work 7 tb_lfsr 0 22 URSgel6EAcI;]XPeA<zE>2
-!i122 19
-l16
-L8 45
-VZAJB3MPUUP>85jTkzz2_H2
-!s100 ZH]_gQSTzWSa1aYe[S1F>2
-R7
-32
-R26
-!i10b 1
-R27
-R28
-R29
-!i113 1
-R12
-R13
-Atest
-R15
-R2
-R3
-R4
-DEx4 work 7 tb_lfsr 0 22 R6<f6CY?H8Km3O62iaIko1
-!i122 14
-l25
-L9 46
-VKEH?f0SaH`fiO`]1QcY<X3
-!s100 >@E>4ZBjBYMB5hO8T@ZGo3
-R7
-32
-!s110 1747920180
-!i10b 1
-!s108 1747920179.000000
-R28
-R29
-!i113 1
-R12
-R13
-w1747920004
-Etb_lfsr_8bit
-Z30 w1747921202
-R3
-R4
-!i122 24
-R0
-R24
-R25
-l0
-L4 1
-V;TZ:67o[4PlVG1oGn@U8Z2
-!s100 fD:8al:QDHeeO[2YTz8em1
-R7
-32
-Z31 !s110 1747921220
-!i10b 1
-Z32 !s108 1747921220.000000
-R28
-R29
-!i113 1
-R12
-R13
-Abehavioral
-R3
-R4
-DEx4 work 12 tb_lfsr_8bit 0 22 ;TZ:67o[4PlVG1oGn@U8Z2
-!i122 24
-l25
-L8 54
-V9^Ud12]W6Rf3DTzaW]GY50
-!s100 ?N]mzi<iF7mRZ>61XzQNk0
-R7
-32
-R31
-!i10b 1
-R32
-R28
-R29
+R19
+R20
 !i113 1
 R12
 R13
