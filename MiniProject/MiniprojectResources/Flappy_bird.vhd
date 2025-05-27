@@ -34,6 +34,7 @@ architecture Behavioral of Flappy_bird is
   
   -- Internal 25 MHz clock signal
   SIGNAL clk_25MHz : std_logic := '0';
+  signal reset : std_logic := '0'; 
   
   
   -- Mouse signals
@@ -126,6 +127,7 @@ architecture Behavioral of Flappy_bird is
   component bouncy_bird IS
 		port (
         ps2_left, pb2, clk, vert_sync, game_start : in  std_logic;
+		  reset: in std_logic;
         pixel_row, pixel_column  : in  std_logic_vector(9 downto 0);
         game_state : in std_logic_vector(2 downto 0); 
         red, green, blue, ends        : out std_logic 
@@ -232,7 +234,7 @@ begin
         elsif (current_state = training and next_state = play) then
             button_1_latched <= '0';
         end if;
-        if collision = '1' then
+        if collision = '1' or dead = '1' then
           collision_latched <= '1';
         elsif (current_state = game_over and next_state /= game_over) then
           collision_latched <= '0'; -- Clear it once we enter game_over
@@ -254,33 +256,42 @@ begin
                 elsif ps2_left_latch = '1' then
                     next_state <= play;
 						  ps2_left_latch <= '0';
+
                 end if;
 
             when training =>
                 if button_1_latched = '1' then
                     next_state <= play;
 						  button_1_latched <= '0';
+
 					elsif ps2_right_latch = '1' then
               prev_state <= training; -- Store the previous state before pausing
 							next_state <= pause;
 							ps2_right_latch <= '0';
+							speed <= 0;
                 end if;
 
             when play =>
+				reset <= '0';
             if ps2_right_latch = '1' then
               prev_state <= play; -- Store the previous state before pausing
               next_state <= pause;
               ps2_right_latch <= '0';
+				  speed <= 0;
             elsif collision_latched = '1' then
               next_state <= game_over;
+				  speed <= 0;
 				elsif dead = '1' then
 					next_state <= game_over;
+					speed <= 0;
+
             end if;
 
             when pause =>
                 if ps2_left_latch = '1' then
                     next_state <= prev_state; -- Return to the previous state
 						  ps2_left_latch <= '0';
+						  speed <= 5;
                 elsif button_2_latched = '1' then
                     next_state <= menu;
 						  button_2_latched <= '0';
@@ -290,6 +301,8 @@ begin
                 if ps2_left_latch = '1' then
                     next_state <= play;
 						  ps2_left_latch <= '0';
+						  reset <= '1'; 
+						  speed <= 5;
                elsif button_2_latched = '1' then
                     next_state <= menu;
 						  button_2_latched <= '0';
@@ -307,6 +320,7 @@ begin
         current_state <= next_state;
     end if;
 end process;
+
 
 	  -- Assign the current_state something that is able to passed onto other components 
   -- Made since state and multicharacter text was developed seperately. 
@@ -396,7 +410,8 @@ end process;
     -- Instantiate the ball component
   BallComponent: bouncy_bird
   port map(
-	 ps2_left 				 => ps2_left,
+	 reset			 => reset,
+	 ps2_left 		 => ps2_left,
 	 pb2 				 => button_2,
 	 vert_sync 		 => v_sync_signal,
 	 game_start     => game_start,
@@ -416,6 +431,9 @@ end process;
 	font_col_in <= font_col_64 when within_bounds_64 = '1' else font_col_32;
 	character_address_in <= character_address_64 when within_bounds_64 = '1' else character_address_32;
 	within_bounds <= within_bounds_64 or within_bounds_32;
+  
+  -- Pipe components and pipe logic
+  
   pipe_1: pipe
   port map(
 	vert_sync 		=> v_sync_signal,
@@ -443,31 +461,38 @@ end process;
   
   -- Moving pipe logic
   
- 
 moving_pipe: process(v_sync_signal)
     constant MIN_GAP : unsigned(9 downto 0) := to_unsigned(300, 10);
 begin
     if rising_edge(v_sync_signal) then
-        -- Move pipe1
-        if (pipe1_x_pos = to_unsigned(0, 10)) then
-            pipe1_x_pos <= to_unsigned(640, 10) + pipe_width;
-        else
-            pipe1_x_pos <= pipe1_x_pos - to_unsigned(speed, 10);
-        end if;
+        -- Reset pipes when game is over
+        if (reset = '1') then
+            pipe1_x_pos <= to_unsigned(720, 10);
+				pipe2_x_pos <= to_unsigned(720, 10) + MIN_GAP;
 
-        -- Move pipe2 with gap enforcement
-        if (pipe2_x_pos = to_unsigned(0, 10)) then
-            -- Wrap pipe2 to right edge, but ensure spacing from pipe1
-            if (pipe1_x_pos > (to_unsigned(640,10) + pipe_width - MIN_GAP)) then
-                pipe2_x_pos <= pipe1_x_pos + MIN_GAP;  -- place pipe2 at least MIN_GAP ahead
-            else
-                pipe2_x_pos <= to_unsigned(640, 10) + pipe_width;
-            end if;
         else
-            pipe2_x_pos <= pipe2_x_pos - to_unsigned(speed, 10);
+            -- Move pipe1
+            if pipe1_x_pos = to_unsigned(0, 10) then
+                pipe1_x_pos <= to_unsigned(640, 10) + pipe_width;
+            else
+                pipe1_x_pos <= pipe1_x_pos - to_unsigned(speed, 10);
+            end if;
+
+            -- Move pipe2 with enforced gap
+            if pipe2_x_pos = to_unsigned(0, 10) then
+                if pipe1_x_pos > (to_unsigned(640, 10) + pipe_width - MIN_GAP) then
+                    pipe2_x_pos <= pipe1_x_pos + MIN_GAP;
+                else
+                    pipe2_x_pos <= to_unsigned(640, 10) + pipe_width;
+                end if;
+            else
+                pipe2_x_pos <= pipe2_x_pos - to_unsigned(speed, 10);
+            end if;
         end if;
     end if;
 end process;
+
+	
 
 	
   
@@ -509,7 +534,7 @@ blue_pixel <= '1' when (ball_on = '1') or
                         (cursor_on = '1') else 
               dip_sw3;
   -- Dead bird
-  dead <= '1' when (ball_on = '1') and (s_pipe1_on = '1' or s_pipe2_on = '1') else '0';
+  dead <= '1' when ((ball_on = '1') and (s_pipe1_on = '1' or s_pipe2_on = '1'))  else '0';
   LEDR0 <= dead;
   
 
