@@ -311,6 +311,15 @@ begin
             when others =>
                 next_state <= menu;
         end case;
+
+    -- Making sure pipes reset when the game starts
+    if ((current_state /= play) and (next_state = play)) or
+    ((current_state /= training) and (next_state = training)) then
+    reset <= '1';
+    else
+    reset <= '0';
+    end if;
+
 		  if (current_state /= play) and (next_state = play) then
 			game_start <= '1';
 		  else
