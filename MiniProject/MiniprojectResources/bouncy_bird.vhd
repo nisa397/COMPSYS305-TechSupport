@@ -8,7 +8,8 @@ entity bouncy_bird is
         ps2_left, pb2, clk, vert_sync, game_start : in  std_logic;
         pixel_row, pixel_column  : in  std_logic_vector(9 downto 0);
         game_state : in std_logic_vector(2 downto 0); 
-        red, green, blue, ends        : out std_logic 
+        ball_y_pos_out : out std_logic_vector(9 downto 0);
+        red, green, blue, ends        : out std_logic
     );
 end bouncy_bird;
 

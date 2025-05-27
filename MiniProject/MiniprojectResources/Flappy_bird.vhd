@@ -22,10 +22,10 @@ entity Flappy_bird is
 		LEDR0			: OUT std_logic;
 	  HEX0 : out STD_LOGIC_VECTOR(6 downto 0); --sso
 	  HEX1 : out STD_LOGIC_Vector(6 downto 0); --sst
-	  HEX2 : out STD_LOGIC_Vector(6 downto 0);
-	  HEX3 : out STD_LOGIC_VECTOR(6 downto 0); --sso
-	  HEX4 : out STD_LOGIC_Vector(6 downto 0); --sst
-	  HEX5 : out STD_LOGIC_Vector(6 downto 0) 
+	  HEX2 : out STD_LOGIC_Vector(6 downto 0)
+	  --HEX3 : out STD_LOGIC_VECTOR(6 downto 0); --sso
+	  --HEX4 : out STD_LOGIC_Vector(6 downto 0); --sst
+	  --HEX5 : out STD_LOGIC_Vector(6 downto 0) 
     );
 end entity Flappy_bird;
 
@@ -90,6 +90,16 @@ architecture Behavioral of Flappy_bird is
   signal button_4_latched : std_logic := '0';
   signal collision_latched : std_logic := '0';
 
+  -- score signals
+  signal bird_y : std_logic_vector(9 downto 0);
+  signal score : integer := 0;
+  signal pipe1_scored, pipe2_scored : std_logic := '0';
+  constant BIRD_X_POS : integer := 160; -- The bird's fixed x position
+
+  -- BCD Score signals 
+  signal score_ones   : std_logic_vector(3 downto 0);
+  signal score_tens   : std_logic_vector(3 downto 0);
+  signal score_hundreds : std_logic_vector(3 downto 0);
 
 
 
@@ -124,11 +134,12 @@ architecture Behavioral of Flappy_bird is
 	end component;
 
   component bouncy_bird IS
-		port (
+	port (
         ps2_left, pb2, clk, vert_sync, game_start : in  std_logic;
         pixel_row, pixel_column  : in  std_logic_vector(9 downto 0);
         game_state : in std_logic_vector(2 downto 0); 
-        red, green, blue, ends        : out std_logic 
+        ball_y_pos_out : out std_logic_vector(9 downto 0);
+        red, green, blue, ends        : out std_logic
     );
   end component;
   
@@ -273,8 +284,10 @@ begin
               ps2_right_latch <= '0';
             elsif collision_latched = '1' then
               next_state <= game_over;
+              --score <= 0;
 				elsif dead = '1' then
 					next_state <= game_over;
+          --score <= 0;
             end if;
 
             when pause =>
@@ -307,6 +320,74 @@ begin
         current_state <= next_state;
     end if;
 end process;
+
+-- Score processes 
+score_logic: process(clk_25MHz)
+    variable bird_y_int : integer;
+    variable pipe_x, gap_top, gap_bottom : integer;
+begin
+    if rising_edge(clk_25MHz) then
+        -- PIPE 1
+        if (current_state /= play) and (current_state /= pause) then
+              score <= 0;
+              pipe1_scored <= '0';
+              pipe2_scored <= '0';
+        elsif (current_state = play) then -- Ensure that we only increment in play state
+          bird_y_int := to_integer(unsigned(bird_y));
+          pipe_x := to_integer(pipe1_x_pos);
+          gap_top := to_integer(s_height);
+          gap_bottom := gap_top + 150; -- or use your vertical_gap signal
+
+          if (BIRD_X_POS > pipe_x + to_integer(pipe_width)) and
+            --(bird_y_int > gap_top) and (bird_y_int < gap_bottom) and
+            (pipe1_scored = '0') then
+              score <= score + 1;
+              pipe1_scored <= '1';
+          end if;
+          if (BIRD_X_POS <= pipe_x + to_integer(pipe_width)) then
+              pipe1_scored <= '0';
+          end if;
+
+          -- PIPE 2
+          pipe_x := to_integer(pipe2_x_pos);
+          gap_top := to_integer(s_height2);
+          gap_bottom := gap_top + 150;
+
+          if (BIRD_X_POS > pipe_x + to_integer(pipe_width)) and
+            --(bird_y_int > gap_top) and (bird_y_int < gap_bottom) and
+            (pipe2_scored = '0') then
+              score <= score + 1;
+              pipe2_scored <= '1';
+          end if;
+          if (BIRD_X_POS <= pipe_x + to_integer(pipe_width)) then
+              pipe2_scored <= '0';
+          end if;
+        end if; 
+    end if;
+end process;
+
+-- Score BCD to HEX implementation 
+score_ones    <= std_logic_vector(to_unsigned(score mod 10, 4));
+score_tens    <= std_logic_vector(to_unsigned((score/10) mod 10, 4));
+score_hundreds<= std_logic_vector(to_unsigned((score/100) mod 10, 4));
+
+sso_score: BCD_to_SevenSeg
+port map(
+    BCD_digit => score_ones,
+    SevenSeg_out => HEX0
+);
+
+sst_score: BCD_to_SevenSeg
+port map(
+    BCD_digit => score_tens,
+    SevenSeg_out => HEX1
+);
+
+ssh_score: BCD_to_SevenSeg
+port map(
+    BCD_digit => score_hundreds,
+    SevenSeg_out => HEX2
+);
 
 	  -- Assign the current_state something that is able to passed onto other components 
   -- Made since state and multicharacter text was developed seperately. 
@@ -355,44 +436,6 @@ end process;
 	);
 	
 	
-	--Col
-	sso0: BCD_to_SevenSeg
-	port map(
-	BCD_digit => ps2_cursor_col(3 downto 0),
-	SevenSeg_out => HEX0
-	);
-	
-	sst0: BCD_to_SevenSeg
-	port map(
-	BCD_digit => ps2_cursor_col(7 downto 4),
-	SevenSeg_out => HEX1
-	);
-	
-	ssh0: BCD_to_SevenSeg
-	port map (
-    BCD_digit => "00" & ps2_cursor_col(9 downto 8),
-    SevenSeg_out => HEX2
-	);
-	
-	--Row
-	sso1: BCD_to_SevenSeg
-	port map(
-	BCD_digit => ps2_cursor_row(3 downto 0),
-	SevenSeg_out => HEX3
-	);
-	
-	sst1: BCD_to_SevenSeg
-	port map(
-	BCD_digit => ps2_cursor_row(7 downto 4),
-	SevenSeg_out => HEX4
-	);
-	
-	ssh1: BCD_to_SevenSeg
-	port map (
-    BCD_digit => "00" & ps2_cursor_row(9 downto 8),
-    SevenSeg_out => HEX5
-	);
-	
     -- Instantiate the ball component
   BallComponent: bouncy_bird
   port map(
@@ -404,6 +447,7 @@ end process;
     pixel_row      => pixel_row,
     pixel_column   => pixel_column,
     game_state => current_state_vec,
+    ball_y_pos_out => bird_y,
     red            => red_ball,
     green          => green_ball,
     blue           => blue_ball,
