@@ -95,6 +95,7 @@ architecture Behavioral of Flappy_bird is
   signal score : integer := 0;
   signal pipe1_scored, pipe2_scored : std_logic := '0';
   constant BIRD_X_POS : integer := 160; -- The bird's fixed x position
+  signal last_score : integer := 0;
 
   -- BCD Score signals 
   signal score_ones   : std_logic_vector(3 downto 0);
@@ -327,6 +328,11 @@ score_logic: process(clk_25MHz)
     variable pipe_x, gap_top, gap_bottom : integer;
 begin
     if rising_edge(clk_25MHz) then
+
+        -- Latch the score when entering game_over
+        if (current_state = play) and (next_state = game_over) then
+            last_score <= score;
+        end if;
         -- PIPE 1
         if (current_state /= play) and (current_state /= pause) then
               score <= 0;
