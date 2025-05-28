@@ -34,14 +34,10 @@ begin
                 -- Convert to integer for range checking
                 lfsr_val := to_integer(next_lfsr);
 
-                -- Clamp output
-                if lfsr_val < 50 then
-                    rnd_out <= to_unsigned(50, 10);
-                elsif lfsr_val > 420 then
-                    rnd_out <= to_unsigned(420, 10);
-                else
-                    rnd_out <= to_unsigned(0, 1) & next_lfsr;
-                end if;
+               -- Map value to 50–280 range
+                lfsr_val := to_integer(next_lfsr);
+                rnd_out <= to_unsigned((lfsr_val mod 231) + 50, 10);
+                valid <= '1';
 
                 valid <= '1';  -- Always valid
             end if;
