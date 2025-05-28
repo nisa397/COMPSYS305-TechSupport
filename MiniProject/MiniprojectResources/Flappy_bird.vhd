@@ -80,7 +80,8 @@ architecture Behavioral of Flappy_bird is
   SIGNAL red_pixel, green_pixel, blue_pixel : std_logic;
   SIGNAL ball_on : std_logic;
   SIGNAL ball_x_pos, ball_y_pos : std_logic_vector(9 DOWNTO 0);
-  
+  SIGNAL bird_x, bird_y : std_logic_vector(9 DOWNTO 0);
+
   signal v_sync_signal : std_logic;
 
   -- Latch signals for button presses
@@ -132,7 +133,8 @@ architecture Behavioral of Flappy_bird is
 		  reset: in std_logic;
         pixel_row, pixel_column  : in  std_logic_vector(9 downto 0);
         game_state : in std_logic_vector(2 downto 0); 
-        red, green, blue, ends        : out std_logic 
+        red, green, blue, ends        : out std_logic ;
+        bird_x, bird_y                : out std_logic_vector(9 downto 0)
     );
   end component;
   
@@ -443,7 +445,9 @@ end process;
     red            => red_ball,
     green          => green_ball,
     blue           => blue_ball,
-    ends       => collision
+    ends       => collision,
+    bird_x       => bird_x,
+    bird_y       => bird_y
   );
   
   
@@ -508,7 +512,31 @@ begin
     end if;
 end process;
 
-	
+dead_process:process(clk_25MHz)
+    constant bird_x_const : unsigned(9 downto 0) := to_unsigned(160, 10); -- your bird's x position
+    constant bird_width   : unsigned(9 downto 0) := to_unsigned(16, 10); -- your bird's width
+    constant pipe_gap     : unsigned(9 downto 0) := to_unsigned(150, 10); -- same as vertical_gap in pipe.vhd
+begin
+    if rising_edge(clk_25MHz) then
+        -- Pipe 1 collision
+        if (pipe1_x_pos < bird_x_const + bird_width) and (pipe1_x_pos + pipe_width > bird_x_const) then
+            if (bird_y <= s_height) or (bird_y + bird_width >= s_height + pipe_gap) then
+                dead <= '1';
+            else
+                dead <= '0';
+            end if;
+        -- Pipe 2 collision
+        elsif (pipe2_x_pos < bird_x_const + bird_width) and (pipe2_x_pos + pipe_width > bird_x_const) then
+            if (bird_y <= s_height2) or (bird_y + bird_width >= s_height2 + pipe_gap) then
+                dead <= '1';
+            else
+                dead <= '0';
+            end if;
+        else
+            dead <= '0';
+        end if;
+    end if;
+end process;
 
 	
   
@@ -550,7 +578,7 @@ blue_pixel <= '1' when (ball_on = '1') or
                         (cursor_on = '1') else 
               dip_sw3;
   -- Dead bird
-  dead <= '1' when ((ball_on = '1') and (s_pipe1_on = '1' or s_pipe2_on = '1'))  else '0';
+  --dead <= '1' when ((ball_on = '1') and (s_pipe1_on = '1' or s_pipe2_on = '1'))  else '0';
   
   
 

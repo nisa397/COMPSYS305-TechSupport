@@ -10,6 +10,8 @@ entity bouncy_bird is
         pixel_row, pixel_column  : in  std_logic_vector(9 downto 0);
         game_state : in std_logic_vector(2 downto 0); 
         red, green, blue, ends        : out std_logic 
+        bird_x : out unsigned(9 downto 0);  -- Add this
+        bird_y : out unsigned(9 downto 0)   -- And this
     );
 end bouncy_bird;
 
@@ -92,7 +94,7 @@ begin
     end if;
 end process;
 
-
-
+bird_x <= ball_x_pos(9 downto 0); -- Truncate if needed
+bird_y <= ball_y_pos(9 downto 0); -- Truncate if needed
 
 end behavior;
