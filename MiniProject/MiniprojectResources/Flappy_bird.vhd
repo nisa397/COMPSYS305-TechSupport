@@ -103,7 +103,8 @@ architecture Behavioral of Flappy_bird is
   signal score_tens   : std_logic_vector(3 downto 0);
   signal score_hundreds : std_logic_vector(3 downto 0);
 
-
+  -- Lives signals 
+  signal lives : std_logic_vector(2 downto 0); -- 2 bits, 00, 01, 10, 11. 
 
   -- Datatypes for game states
   type game_state_type is (menu, training, play, pause, game_over);
