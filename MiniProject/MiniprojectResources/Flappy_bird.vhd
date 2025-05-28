@@ -35,7 +35,8 @@ architecture Behavioral of Flappy_bird is
   -- Internal 25 MHz clock signal
   SIGNAL clk_25MHz : std_logic := '0';
   signal reset : std_logic := '0'; 
-  
+  signal reset_sync_1, reset_sync_2 : std_logic := '0';
+
   
   -- Mouse signals
   signal ps2_reset : std_logic := '0';
@@ -202,6 +203,15 @@ architecture Behavioral of Flappy_bird is
   begin
 	
 	game_active <= '1' when (current_state = play or current_state = training) else '0';
+
+  -- Reset synchronization process
+  process(v_sync_signal)
+begin
+    if rising_edge(v_sync_signal) then
+        reset_sync_1 <= reset;
+        reset_sync_2 <= reset_sync_1;
+    end if;
+end process;
 
 
     -- State machine to handle game states
@@ -473,7 +483,7 @@ end process;
 moving_pipe: process(v_sync_signal)
     constant MIN_GAP : unsigned(9 downto 0) := to_unsigned(300, 10);
 begin
-    if rising_edge(v_sync_signal) then
+    if rising_edge(reset_sync_2 = '1') then
         -- Reset pipes when game is over
         if (reset = '1') then
             pipe1_x_pos <= to_unsigned(720, 10);
