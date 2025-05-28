@@ -267,14 +267,15 @@ begin
 
         case current_state is
             when menu =>
-                if ps2_right_latch = '1' then
-                    next_state <= training;
-						  ps2_right_latch <= '0';
-                elsif ps2_left_latch = '1' then
-                    next_state <= play;
-						  ps2_left_latch <= '0';
-
-                end if;
+            if ps2_right_latch = '1' then
+            next_state <= training;
+            ps2_right_latch <= '0';
+            dead_latched <= '0';  -- Reset dead latch here too
+          elsif ps2_left_latch = '1' then
+            next_state <= play;
+            ps2_left_latch <= '0';
+            dead_latched <= '0';  -- Reset dead latch here too
+          end if;
 
             when training =>
                 if button_1_latched = '1' then
@@ -318,11 +319,12 @@ begin
                 if ps2_left_latch = '1' then
                     next_state <= play;
 						  ps2_left_latch <= '0';
-						  
 						  speed <= 5;
+              dead_latched <= '0'; -- Reset dead latch
                elsif button_2_latched = '1' then
                     next_state <= menu;
 						  button_2_latched <= '0';
+              dead_latched <= '0'; -- Reset dead latch
                 end if;
 
             when others =>
