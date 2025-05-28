@@ -104,7 +104,7 @@ architecture Behavioral of Flappy_bird is
   signal score_hundreds : std_logic_vector(3 downto 0);
 
   -- Lives signals 
-  signal lives : std_logic_vector(2 downto 0); -- 2 bits, 00, 01, 10, 11. 
+  signal lives : std_logic_vector(1 downto 0) := "11"; -- 2 bits, 00, 01, 10, 11. 
 
   -- Datatypes for game states
   type game_state_type is (menu, training, play, pause, game_over);
@@ -203,6 +203,7 @@ architecture Behavioral of Flappy_bird is
 				port(
 		clock : in std_logic; 
 		pixel_row, pixel_column : in std_logic_vector(9 downto 0); 
+      lives : in std_logic_vector(1 downto 0); 
 		state : in std_logic_vector(2 downto 0); 
 		font_row, font_column : out std_logic_vector(2 downto 0); 
 		character_addr : out std_logic_vector(5 downto 0);
@@ -599,6 +600,7 @@ blue_pixel <= '1' when (ball_on = '1') or
 	clock => clk_25MHz,
 	pixel_row => pixel_row,
 	pixel_column => pixel_column,
+	lives => lives,
 	font_row => font_row_32, -- Input 
 	state => current_state_vec,
 	font_column => font_col_32, 
