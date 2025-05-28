@@ -357,8 +357,8 @@ end process;
   s_height <= to_unsigned(200,10);
   s_height2 <= to_unsigned(300,10);
 
-  
-  
+  LEDR0 <= '1' when (current_state = "100") else '0'; -- For debugging purposes, can be removed later
+
     -- Instantiate the clock divider to generate 25 MHz clock
     ClockDivider: Clock_25MHz
     port map(
@@ -551,7 +551,7 @@ blue_pixel <= '1' when (ball_on = '1') or
               dip_sw3;
   -- Dead bird
   dead <= '1' when ((ball_on = '1') and (s_pipe1_on = '1' or s_pipe2_on = '1'))  else '0';
-  LEDR0 <= dead;
+  
   
 
 
