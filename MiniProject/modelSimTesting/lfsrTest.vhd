@@ -7,22 +7,29 @@ end entity tb_lfsr;
 
 architecture arc of tb_lfsr is
 
-	component lfsr
-		port( seed: in unsigned(7 downto 0);
-		Clock: in std_logic;
-		rand_num: out unsigned(7 downto 0));  
+	component LFSR_Random
+		Port (
+        clk      : in  STD_LOGIC;
+        rst      : in  STD_LOGIC;
+        enable   : in  STD_LOGIC;
+        rnd_out  : out unsigned(9 downto 0);
+        valid    : out STD_LOGIC
+    );  
 	end component;
 	
 	signal Clk_tb: std_logic := '0';
 	signal seed_tb: unsigned (7 downto 0) := to_unsigned(114, 8);
-	signal rand_tb: unsigned (7 downto 0);
+	signal rand_tb: unsigned (9 downto 0);
+	signal tb_valid: STD_LOGIC;
 begin
 	
-	LFSR_TB:lfsr 
+	LFSR_TB:LFSR_Random 
 	port map(
-	seed => seed_tb,
-	Clock => Clk_tb,
-	rand_num => rand_tb
+	rst => '0',
+	Clk => Clk_tb,
+	rnd_out => rand_tb,
+	enable => '1',
+	valid => tb_valid
 	);
 
 	process
