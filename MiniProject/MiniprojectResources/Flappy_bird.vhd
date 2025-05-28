@@ -357,7 +357,7 @@ end process;
   s_height <= to_unsigned(200,10);
   s_height2 <= to_unsigned(300,10);
 
-  LEDR0 <= '1' when (current_state = "100") else '0'; -- For debugging purposes, can be removed later
+  LEDR0 <= '1' when (dead_latched = '1') else '0'; -- For debugging purposes, can be removed later
 
     -- Instantiate the clock divider to generate 25 MHz clock
     ClockDivider: Clock_25MHz
