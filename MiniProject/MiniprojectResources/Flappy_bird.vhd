@@ -34,7 +34,8 @@ architecture Behavioral of Flappy_bird is
   
   -- Internal 25 MHz clock signal
   SIGNAL clk_25MHz : std_logic := '0';
-  signal reset : std_logic := '0'; 
+  signal pipe_reset : std_logic := '0'; 
+  signal bird_reset : std_logic := '0';
 
   
   -- Mouse signals
@@ -202,9 +203,15 @@ architecture Behavioral of Flappy_bird is
   begin
 	
 	game_active <= '1' when (current_state = play or current_state = training) else '0';
-  reset <= '1' when (current_state = game_over and next_state = play) or
+  pipe_reset <= '1' when (current_state = game_over and next_state = play) or
                  (current_state = game_over and next_state = training) else
          '0';
+
+  bird_reset <= '1' when (current_state = menu and next_state = play) or
+                        (current_state = game_over and next_state = play) or
+                        (current_state = menu and next_state = training) or
+                        (current_state = game_over and next_state = training) else
+              '0';
 
 
 
@@ -238,7 +245,7 @@ begin
         elsif (current_state = training and next_state = play) then
             button_1_latched <= '0';
         end if;
-        if collision = '1' or dead = '1' then
+        if collision = '1' then
           collision_latched <= '1';
         elsif (current_state = game_over and next_state /= game_over) then
           collision_latched <= '0'; -- Clear it once we enter game_over
@@ -415,7 +422,7 @@ end process;
     -- Instantiate the ball component
   BallComponent: bouncy_bird
   port map(
-	 reset			 => reset,
+	 reset			 => bird_reset,
 	 ps2_left 		 => ps2_left,
 	 pb2 				 => button_2,
 	 vert_sync 		 => v_sync_signal,
@@ -466,10 +473,10 @@ end process;
   
   -- Moving pipe logic
   
-moving_pipe: process(v_sync_signal, reset)
+moving_pipe: process(v_sync_signal, pipe_reset)
     constant MIN_GAP : unsigned(9 downto 0) := to_unsigned(300, 10);
 begin
-    if reset = '1' then
+    if pipe_reset = '1' then
         pipe1_x_pos <= to_unsigned(720, 10);
         pipe2_x_pos <= to_unsigned(720, 10) + MIN_GAP;
     elsif rising_edge(v_sync_signal) then
