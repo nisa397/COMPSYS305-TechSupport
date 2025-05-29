@@ -31,8 +31,8 @@ architecture Behavioral of Flappy_bird is
 
   --Speed constants
   constant speed_EASY: integer := 3;
-  constant speed_MID: integer := 6;
-  constant speed_HARD: integer := 9;
+  constant speed_MID: integer := 5;
+  constant speed_HARD: integer := 7;
   
   -- Internal 25 MHz clock signal
   SIGNAL clk_25MHz : std_logic := '0';
@@ -296,6 +296,11 @@ begin
         elsif (current_state = menu) then
             button_2_latched <= '0';
         end if;
+        if button_3 = '0' then
+            button_3_latched <= '1';
+        elsif (current_state = training) then
+            button_3_latched <= '0';
+        end if;
         if (dead = '1') and (current_state = play)  then
           dead_latched <= '1';
         elsif (dead='1') and (current_state = training) then 
@@ -309,9 +314,9 @@ begin
 
         case current_state is
             when menu =>
-            if ps2_right_latch = '1' then
+            if button_3_latched = '1' then
               next_state <= training;
-              ps2_right_latch <= '0';
+              button_3_latched <= '0';
               dead_latched <= '0';  -- Reset dead latch here too
             elsif ps2_left_latch = '1' then
               next_state <= play;
@@ -644,7 +649,7 @@ begin
         pipe2_x_pos <= to_unsigned(720, 10) + MIN_GAP;
     elsif rising_edge(v_sync_signal) then
         -- normal movement...
-        if pipe1_x_pos = to_unsigned(0, 10) then
+        if pipe1_x_pos < to_unsigned(speed, 10) then
             pipe1_x_pos <= to_unsigned(640, 10) + pipe_width;
             s_height <= rand_height; 
         else
@@ -652,8 +657,7 @@ begin
         end if;
 
         -- Move pipe2 with gap enforcement
-        if (pipe2_x_pos = to_unsigned(0, 10)) then
-				
+        if (pipe2_x_pos < to_unsigned(speed, 10)) then
 				s_height2 <= rand_height;
             -- Wrap pipe2 to right edge, but ensure spacing from pipe1
             if (pipe1_x_pos > (to_unsigned(640,10) + pipe_width - MIN_GAP)) then
