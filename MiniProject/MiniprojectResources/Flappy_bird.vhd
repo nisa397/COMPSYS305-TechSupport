@@ -515,36 +515,47 @@ end process;
 
 dead_process: process(v_sync_signal)
     constant bird_width  : unsigned(9 downto 0) := to_unsigned(16, 10);
-    constant bird_height : unsigned(9 downto 0) := to_unsigned(16, 10); -- use actual height if different
+    constant bird_height : unsigned(9 downto 0) := to_unsigned(16, 10);
     constant pipe_gap    : unsigned(9 downto 0) := to_unsigned(150, 10);
     variable hit : std_logic := '0';
     variable bird_x_u, bird_y_u : unsigned(9 downto 0);
+    variable pipe1_top, pipe1_bottom, pipe2_top, pipe2_bottom : unsigned(9 downto 0);
 begin
     if rising_edge(v_sync_signal) then
         hit := '0';
         bird_x_u := unsigned(bird_x);
         bird_y_u := unsigned(bird_y);
 
-        -- Pipe 1: Top pipe
-        if (pipe1_x_pos < bird_x_u + bird_width) and (pipe1_x_pos + pipe_width > bird_x_u) then
-            -- Top pipe collision
-            if (bird_y_u < s_height) then
-                hit := '1';
-            -- Bottom pipe collision
-            elsif (bird_y_u + bird_height > s_height + pipe_gap) then
-                hit := '1';
-            end if;
+        -- Pipe 1: Top rectangle
+        pipe1_top := to_unsigned(0, 10);
+        pipe1_bottom := s_height;
+        if (pipe1_x_pos < bird_x_u + bird_width) and (pipe1_x_pos + pipe_width > bird_x_u) and
+           (pipe1_top < bird_y_u + bird_height) and (pipe1_bottom > bird_y_u) then
+            hit := '1';
         end if;
 
-        -- Pipe 2: Top pipe
-        if (pipe2_x_pos < bird_x_u + bird_width) and (pipe2_x_pos + pipe_width > bird_x_u) then
-            -- Top pipe collision
-            if (bird_y_u < s_height2) then
-                hit := '1';
-            -- Bottom pipe collision
-            elsif (bird_y_u + bird_height > s_height2 + pipe_gap) then
-                hit := '1';
-            end if;
+        -- Pipe 1: Bottom rectangle
+        pipe1_top := s_height + pipe_gap;
+        pipe1_bottom := to_unsigned(480, 10); -- Assuming screen height is 480
+        if (pipe1_x_pos < bird_x_u + bird_width) and (pipe1_x_pos + pipe_width > bird_x_u) and
+           (pipe1_top < bird_y_u + bird_height) and (pipe1_bottom > bird_y_u) then
+            hit := '1';
+        end if;
+
+        -- Pipe 2: Top rectangle
+        pipe2_top := to_unsigned(0, 10);
+        pipe2_bottom := s_height2;
+        if (pipe2_x_pos < bird_x_u + bird_width) and (pipe2_x_pos + pipe_width > bird_x_u) and
+           (pipe2_top < bird_y_u + bird_height) and (pipe2_bottom > bird_y_u) then
+            hit := '1';
+        end if;
+
+        -- Pipe 2: Bottom rectangle
+        pipe2_top := s_height2 + pipe_gap;
+        pipe2_bottom := to_unsigned(480, 10); -- Assuming screen height is 480
+        if (pipe2_x_pos < bird_x_u + bird_width) and (pipe2_x_pos + pipe_width > bird_x_u) and
+           (pipe2_top < bird_y_u + bird_height) and (pipe2_bottom > bird_y_u) then
+            hit := '1';
         end if;
 
         dead <= hit;
