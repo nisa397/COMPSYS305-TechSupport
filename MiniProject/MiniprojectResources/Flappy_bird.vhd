@@ -20,12 +20,12 @@ entity Flappy_bird is
       green       : OUT std_logic;  -- VGA green output
       blue        : OUT std_logic;   -- VGA blue output
 		LEDR0			: OUT std_logic;
-	  HEX0 : out STD_LOGIC_VECTOR(6 downto 0); --sso
+	  HEX0 : out STD_LOGIC_VECTOR(6 downto 0); 
 	  HEX1 : out STD_LOGIC_Vector(6 downto 0); --sst
-	  HEX2 : out STD_LOGIC_Vector(6 downto 0)
+	  HEX2 : out STD_LOGIC_Vector(6 downto 0);
 	  --HEX3 : out STD_LOGIC_VECTOR(6 downto 0); --sso
 	  --HEX4 : out STD_LOGIC_Vector(6 downto 0); --sst
-	  --HEX5 : out STD_LOGIC_Vector(6 downto 0) 
+	  HEX5 : out STD_LOGIC_Vector(6 downto 0) 
     );
 end entity Flappy_bird;
 
@@ -106,6 +106,9 @@ architecture Behavioral of Flappy_bird is
   -- Lives signals 
   signal lives : std_logic_vector(1 downto 0) := "11"; -- 2 bits, 00, 01, 10, 11. 
 
+  signal pipe1_safe : std_logic := '0';
+  signal pipe2_safe : std_logic := '0';
+  signal bcd_lives : std_logic_vector(3 downto 0); 
   -- Datatypes for game states
   type game_state_type is (menu, training, play, pause, game_over);
   signal current_state : game_state_type := menu;
@@ -286,12 +289,12 @@ begin
               prev_state <= play; -- Store the previous state before pausing
               next_state <= pause;
               ps2_right_latch <= '0';
-            elsif collision_latched = '1' then
-              next_state <= game_over;
-              --score <= 0;
-				elsif dead = '1' then
-					next_state <= game_over;
-          --score <= 0;
+            elsif dead = '1' then
+                if lives = "00" then
+                    next_state <= game_over;
+                else
+                    lives <= std_logic_vector(unsigned(lives) - 1);
+                end if;
             end if;
 
             when pause =>
@@ -315,11 +318,12 @@ begin
             when others =>
                 next_state <= menu;
         end case;
-		  if (current_state /= play) and (next_state = play) then
-			game_start <= '1';
-		  else
-			game_start <= '0';
-		  end if;
+      if ((current_state = menu or current_state = training or current_state = game_over) and (next_state = play)) then
+          game_start <= '1';
+          lives <= "11";
+      else
+          game_start <= '0';
+      end if;
 
         current_state <= next_state;
     end if;
@@ -382,6 +386,7 @@ score_to_display <= last_score when current_state = game_over else score;
 score_ones    <= std_logic_vector(to_unsigned(score_to_display mod 10, 4));
 score_tens    <= std_logic_vector(to_unsigned((score_to_display/10) mod 10, 4));
 score_hundreds<= std_logic_vector(to_unsigned((score_to_display/100) mod 10, 4));
+bcd_lives <= "00" & lives; 
 
 sso_score: BCD_to_SevenSeg
 port map(
@@ -400,6 +405,12 @@ port map(
     BCD_digit => score_hundreds,
     SevenSeg_out => HEX2
 );
+
+sso_lives: BCD_to_SevenSeg
+port map(
+     BCD_digit => bcd_lives,        
+     SevenSeg_out => HEX5      
+); 
 
 	  -- Assign the current_state something that is able to passed onto other components 
   -- Made since state and multicharacter text was developed seperately. 
@@ -510,7 +521,7 @@ begin
         else
             pipe1_x_pos <= pipe1_x_pos - to_unsigned(speed, 10);
         end if;
-
+         
         -- Move pipe2 with gap enforcement
         if (pipe2_x_pos = to_unsigned(0, 10)) then
             -- Wrap pipe2 to right edge, but ensure spacing from pipe1
@@ -524,13 +535,6 @@ begin
         end if;
     end if;
 end process;
-
-	
-  
-  
-  
-  
-  
 
   -- Logic to determine if the current pixel is part of the bird
   ball_on <= '1' when ((current_state /= MENU) and(red_ball = '1' or green_ball = '1' or blue_ball = '1')) else '0';
@@ -565,12 +569,10 @@ blue_pixel <= '1' when (ball_on = '1') or
                         (cursor_on = '1') else 
               dip_sw3;
   -- Dead bird
-  dead <= '1' when (ball_on = '1') and (s_pipe1_on = '1' or s_pipe2_on = '1') else '0';
+  dead <= '1' when (ball_on = '1') and 
+    ((s_pipe1_on = '1' and pipe1_safe = '0') or (s_pipe2_on = '1' and pipe2_safe = '0')) 
+    else '0';
   LEDR0 <= dead;
-  
-
-
-
   
   -- Instantiate the text component 
   TextComponent: char_rom 
@@ -607,7 +609,35 @@ blue_pixel <= '1' when (ball_on = '1') or
 	character_addr => character_address_32,
 	within_bounds => within_bounds_32
   ); 
-  
+
+process(clk_25MHz)
+begin
+    if rising_edge(clk_25MHz) then
+        -- Set safe flag on collision/life loss
+        if (current_state = play) and (dead = '1') and (lives /= "00") then
+            if (ball_on = '1') and (s_pipe1_on = '1') then
+                pipe1_safe <= '1';
+            end if;
+            if (ball_on = '1') and (s_pipe2_on = '1') then
+                pipe2_safe <= '1';
+            end if;
+        end if;
+
+        -- Clear safe flag when pipe passes the bird
+        if (to_integer(pipe1_x_pos) + to_integer(pipe_width + 16) < BIRD_X_POS) then -- Ensures the bird can pass by safely
+            pipe1_safe <= '0';
+        end if;
+        if (to_integer(pipe2_x_pos) + to_integer(pipe_width + 16) < BIRD_X_POS) then
+            pipe2_safe <= '0';
+        end if;
+
+        -- Optionally, reset safe flags on game reset
+        if (current_state /= play) and (current_state /= pause) then
+            pipe1_safe <= '0';
+            pipe2_safe <= '0';
+        end if;
+    end if;
+end process;
   
   -- LEDR0 <= ps2_left;
   

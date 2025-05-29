@@ -130,7 +130,7 @@ begin
         end if;
         
         -- when state is play 
-        if (state="010") then
+        if (state="010" or state="011") then
             -- Depending on the number of hearts, print a different number of hearts
             if (lives = "11") then
                 if (pixel_row >= l_row and pixel_row < l_row + 32 and pixel_column >= l_col and pixel_column < l_col + 32) then
@@ -138,16 +138,19 @@ begin
                     font_col_s <= pixel_column - l_col;
                     within_bounds_s <= '1';
                     found := true;
+						  char_addr_s <= "111010"; 
                 elsif (pixel_row >= l_row and pixel_row < l_row + 32 and pixel_column >= l_col + 32 and pixel_column < l_col + 64) then
                     font_row_s <= pixel_row - l_row;
                     font_col_s <= pixel_column - (l_col + 32);
                     within_bounds_s <= '1';
                     found := true;
+						  char_addr_s <= "111010"; 
                 elsif (pixel_row >= l_row and pixel_row < l_row + 32 and pixel_column >= l_col + 64 and pixel_column < l_col + 96) then
                     font_row_s <= pixel_row - l_row;
                     font_col_s <= pixel_column - (l_col + 64);
                     within_bounds_s <= '1';
                     found := true;
+						  char_addr_s <= "111010"; 
                 end if;
             -- 2 hearts
             elsif (lives = "10") then
@@ -156,11 +159,13 @@ begin
                     font_col_s <= pixel_column - l_col;
                     within_bounds_s <= '1';
                     found := true;
+						  char_addr_s <= "111010"; 
                 elsif (pixel_row >= l_row and pixel_row < l_row + 32 and pixel_column >= l_col + 32 and pixel_column < l_col + 64) then
                     font_row_s <= pixel_row - l_row;
                     font_col_s <= pixel_column - (l_col + 32);
                     within_bounds_s <= '1';
                     found := true;
+						  char_addr_s <= "111010"; 
                 end if;
             -- 1 heart
             elsif (lives = "01") then
@@ -169,9 +174,10 @@ begin
                     font_col_s <= pixel_column - l_col;
                     within_bounds_s <= '1';
                     found := true;
+						  char_addr_s <= "111010"; 
                 end if;
             end if;
-            char_addr_s <= "111010"; 
+            
         end if; 
 
 
