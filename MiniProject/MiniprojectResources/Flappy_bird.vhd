@@ -228,6 +228,7 @@ architecture Behavioral of Flappy_bird is
       lives : in std_logic_vector(1 downto 0); 
 		state : in std_logic_vector(2 downto 0); 
 		score_o : in std_logic_vector(3 downto 0); 
+    score_t : in std_logic_vector(3 downto 0); 
 		font_row, font_column : out std_logic_vector(2 downto 0); 
 		character_addr : out std_logic_vector(5 downto 0);
       within_bounds : out std_logic
@@ -758,6 +759,7 @@ blue_pixel <= '1' when (ball_on = '1') or
 	lives => lives,
 	font_row => font_row_32, -- Input 
   score_o => score_ones,
+  score_t => score_tens,
 	state => current_state_vec,
 	font_column => font_col_32, 
 	character_addr => character_address_32,

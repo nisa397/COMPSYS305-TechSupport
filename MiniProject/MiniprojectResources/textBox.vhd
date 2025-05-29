@@ -9,6 +9,7 @@ entity textBox is
 		pixel_row, pixel_column : in std_logic_vector(9 downto 0); 
         lives : in std_logic_vector(1 downto 0); 
         score_o : in std_logic_vector(3 downto 0); 
+        score_t : in std_logic_vector(3 downto 0); 
 		font_row, font_column : out std_logic_vector(2 downto 0); 
         state : in std_logic_vector(2 downto 0); 
 		character_addr : out std_logic_vector(5 downto 0);
@@ -24,6 +25,7 @@ architecture behaviour of textBox is
 	 type char_addr_array_long is array(0 to TRAINING_LENGTH-1)  of std_logic_vector(5 downto 0); 
 	 type char_addr_array_p is array(0 to PLAY_LENGTH-1) of std_logic_vector(5 downto 0); 
     type char_addr_array_n is array(0 to 9) of std_logic_vector(5 downto 0); 
+    type char_addr_array_score is array(0 to PAUSE_LENGTH) of std_logic_vector(5 downto 0); 
     constant PAUSE_address : char_addr_array := (
         "010000", -- P
         "000001", -- A
@@ -63,6 +65,15 @@ architecture behaviour of textBox is
         "111001"
      ); 
 
+     constant SCORE_Address : char_addr_array_score := (
+        "010011", -- S 
+        "000011", -- C 
+        "001111", -- O 
+        "010010", -- R 
+        "000101", -- E
+        "101110" -- : 
+     ); 
+
     constant po_row : std_logic_vector(9 downto 0) :=  conv_std_logic_vector(180,10); 
     constant po_col : std_logic_vector(9 downto 0) :=  conv_std_logic_vector(240,10); 
 
@@ -76,8 +87,10 @@ architecture behaviour of textBox is
     constant l_col : std_logic_vector(9 downto 0) := conv_std_logic_vector(20,10);
     
     constant s_row : std_logic_vector(9 downto 0) := conv_std_logic_vector(20,10); 
-    constant s_col : std_logic_vector(9 downto 0) := conv_std_logic_vector(20,10); 
+    constant s_col : std_logic_vector(9 downto 0) := conv_std_logic_vector(240,10); 
 
+    constant st_row : std_logic_vector(9 downto 0) := conv_std_logic_vector(20,10); 
+    constant st_col : std_logic_vector(9 downto 0) := conv_std_logic_vector(20,10); 
 
 	 
     signal font_row_s, font_col_s : std_logic_vector(9 downto 0) := (others => '0');
@@ -209,6 +222,30 @@ begin
                     found := true; 
                     char_addr_s <= number_address(conv_integer(unsigned(score_o)));
             end if; 
+
+            -- Tens place 
+            if (pixel_row >= s_row and pixel_row < s_row + 32 and pixel_column >= s_col and pixel_column < s_col + 32) then 
+                    font_row_s <= pixel_row - s_row;
+                    font_col_s <= pixel_column - s_col; 
+                    within_bounds_s <= '1'; 
+                    found := true; 
+                    char_addr_s <= number_address(conv_integer(unsigned(score_t)));
+            end if; 
+
+            -- SCORE
+            for i in 0 to PAUSE_LENGTH loop
+            -- Changes the bounding box according to the letter in the sequence
+                col_offset := conv_std_logic_vector(unsigned(st_col) + conv_unsigned(32*i, 10), 10);
+                if (pixel_row >= st_row and pixel_row < st_row + 32 and
+                    pixel_column >= col_offset and pixel_column < col_offset + 32) then
+
+                    font_row_s <= pixel_row - st_row;
+                    font_col_s <= pixel_column - col_offset;
+                    char_addr_s <= SCORE_address(i);
+                    within_bounds_s <= '1';
+                    found := true;
+                end if;
+            end loop; 
         end if; 
 
 
