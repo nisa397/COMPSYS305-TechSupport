@@ -53,6 +53,8 @@ architecture Behavioral of Flappy_bird is
   signal pipe1_x_pos: unsigned(9 downto 0) := to_unsigned(640,10);
   signal pipe2_x_pos: unsigned(9 downto 0);
   signal dead: std_logic := '0';
+  signal pipe_vertical_gap: unsigned (9 downto 0):= to_unisgned(150,10);
+
   
   --LFSR
   signal rand_height: unsigned(9 downto 0);
@@ -135,6 +137,7 @@ architecture Behavioral of Flappy_bird is
 		vert_sync: in std_logic;
 		width : in unsigned(9 downto 0);
 		pipe_x_pos	: in unsigned (9 DOWNTO 0);
+		vertical_gap: unsigned (9 downto 0); 
 		speed: in integer;
       height  : in  unsigned(9 downto 0);
 		pixel_row, pixel_column : in std_logic_vector(9 downto 0);
@@ -498,11 +501,14 @@ port map(
 	font_col_in <= font_col_64 when within_bounds_64 = '1' else font_col_32;
 	character_address_in <= character_address_64 when within_bounds_64 = '1' else character_address_32;
 	within_bounds <= within_bounds_64 or within_bounds_32;
+	
+	
   pipe_1: pipe
   port map(
 	vert_sync 		=> v_sync_signal,
 	width				=> pipe_width,
 	pipe_x_pos		=> pipe1_x_pos,
+	vertical_gap   => pipe_vertical_gap,
 	speed				=> speed,
 	height			=> s_height,
 	pixel_row      => pixel_row,
@@ -515,6 +521,7 @@ port map(
 	vert_sync 		=> v_sync_signal,
 	width				=> pipe_width,
 	pipe_x_pos		=> pipe2_x_pos,
+	vertical_gap   => pipe_vertical_gap,
 	speed				=> speed,
 	height			=> s_height2,
 	pixel_row      => pixel_row,
