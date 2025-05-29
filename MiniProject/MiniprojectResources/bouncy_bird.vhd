@@ -6,10 +6,13 @@ use ieee.numeric_std.all;
 entity bouncy_bird is
     port (
         ps2_left, pb2, clk, vert_sync, game_start : in  std_logic;
+		  reset: in std_logic;
         pixel_row, pixel_column  : in  std_logic_vector(9 downto 0);
         game_state : in std_logic_vector(2 downto 0); 
         ball_y_pos_out : out std_logic_vector(9 downto 0);
-        red, green, blue, ends        : out std_logic
+        red, green, blue, ends        : out std_logic;
+        bird_x : out unsigned(9 downto 0);  -- Add this
+        bird_y : out unsigned(9 downto 0)   -- And this
     );
 end bouncy_bird;
 
@@ -41,7 +44,7 @@ begin
 
     -- Convert pixel inputs
     px <= to_unsigned(240, 10) when (game_state= "000") else unsigned(pixel_column);
-    py <= to_unsigned(160, 10) when (game_state = "000") else  unsigned(pixel_row);
+    py <= to_unsigned(160, 10) when (game_state = "000" ) else  unsigned(pixel_row);
 
     -- Ball drawing condition
     ball_on <= '1' when (
@@ -61,8 +64,8 @@ Move_Ball: process(vert_sync)
     variable next_y_pos : integer;
 begin
     if rising_edge(vert_sync) then
-        -- Reset bird state on new game start
-        if game_start = '1' then
+        -- Reset bird state on new game start or death
+        if game_start = '1' or reset = '1' then
             ball_y_pos    <= to_unsigned(240, 10); -- middle Y
             ball_y_motion <= (others => '0');
             ends          <= '0';
@@ -75,8 +78,8 @@ begin
             end if;
 
             next_y_pos := to_integer(ball_y_pos) + to_integer(ball_y_motion);
-
-            if next_y_pos > MAX_Y then
+				
+				if next_y_pos > MAX_Y then
                 ball_y_pos    <= to_unsigned(MAX_Y, ball_y_pos'length);
                 ball_y_motion <= (others => '0');
                 ends <= '1';
@@ -92,7 +95,7 @@ begin
     end if;
 end process;
 
-
-
+bird_x <= ball_x_pos(9 downto 0); -- Truncate if needed
+bird_y <= ball_y_pos(9 downto 0); -- Truncate if needed
 
 end behavior;
