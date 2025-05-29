@@ -277,6 +277,7 @@ begin
             next_state <= play;
             ps2_left_latch <= '0';
             dead_latched <= '0';  -- Reset dead latch here too
+            speed <= 5; -- Reset speed when entering play
           end if;
 
             when training =>
