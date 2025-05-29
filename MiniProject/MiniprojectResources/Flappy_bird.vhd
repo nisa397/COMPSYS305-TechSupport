@@ -359,7 +359,7 @@ end process;
   s_height <= to_unsigned(200,10);
   s_height2 <= to_unsigned(300,10);
 
-  LEDR0 <= '1' when (dead_latched = '1') else '0'; -- For debugging purposes, can be removed later
+  LEDR0 <= '1' when (dead = '1') else '0'; -- For debugging purposes, can be removed later
 
     -- Instantiate the clock divider to generate 25 MHz clock
     ClockDivider: Clock_25MHz
@@ -512,30 +512,33 @@ begin
     end if;
 end process;
 
-dead_process:process(clk_25MHz)
-    constant bird_x_const : unsigned(9 downto 0) := to_unsigned(160, 10); -- your bird's x position
-    constant bird_width   : unsigned(9 downto 0) := to_unsigned(16, 10); -- your bird's width
+dead_process:process(v_sync_signal)
+    constant bird_x_const : unsigned(9 downto 0) := to_unsigned(160, 10); -- bird's x position
+    constant bird_width   : unsigned(9 downto 0) := to_unsigned(16, 10); -- bird's width
     constant pipe_gap     : unsigned(9 downto 0) := to_unsigned(150, 10); -- same as vertical_gap in pipe.vhd
+	 variable hit : std_logic;
 begin
-    if rising_edge(clk_25MHz) then
+    if rising_edge(v_sync_signal) then
         -- Pipe 1 collision
         if (pipe1_x_pos < bird_x_const + bird_width) and (pipe1_x_pos + pipe_width > bird_x_const) then
-            if (bird_y <= s_height) or (bird_y + bird_width >= s_height + pipe_gap) then
-                dead <= '1';
+            if (unsigned(bird_y) <= s_height) or (unsigned(bird_y) + bird_width >= s_height + pipe_gap) then
+                hit := '1';
             else
-                dead <= '0';
+                hit := '0';
             end if;
         -- Pipe 2 collision
         elsif (pipe2_x_pos < bird_x_const + bird_width) and (pipe2_x_pos + pipe_width > bird_x_const) then
-            if (bird_y <= s_height2) or (bird_y + bird_width >= s_height2 + pipe_gap) then
-                dead <= '1';
+            if (unsigned(bird_y) <= s_height2) or (unsigned(bird_y) + bird_width >= s_height2 + pipe_gap) then
+                hit := '1';
             else
-                dead <= '0';
+                hit := '0';
             end if;
         else
-            dead <= '0';
+            hit := '0';
         end if;
+		   dead <= hit;
     end if;
+	
 end process;
 
 	

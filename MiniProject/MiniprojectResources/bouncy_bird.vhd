@@ -9,7 +9,7 @@ entity bouncy_bird is
 		  reset: in std_logic;
         pixel_row, pixel_column  : in  std_logic_vector(9 downto 0);
         game_state : in std_logic_vector(2 downto 0); 
-        red, green, blue, ends        : out std_logic 
+        red, green, blue, ends        : out std_logic;
         bird_x : out unsigned(9 downto 0);  -- Add this
         bird_y : out unsigned(9 downto 0)   -- And this
     );
