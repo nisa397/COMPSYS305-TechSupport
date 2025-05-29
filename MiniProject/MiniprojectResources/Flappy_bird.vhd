@@ -21,14 +21,11 @@ entity Flappy_bird is
       blue        : OUT std_logic;   -- VGA blue output
 		LEDR0			: OUT std_logic;
 	  HEX0 : out STD_LOGIC_VECTOR(6 downto 0); 
-	  HEX1 : out STD_LOGIC_Vector(6 downto 0); --sst
+	  HEX1 : out STD_LOGIC_Vector(6 downto 0); 
 	  HEX2 : out STD_LOGIC_Vector(6 downto 0);
-	  --HEX3 : out STD_LOGIC_VECTOR(6 downto 0); --sso
-	  --HEX4 : out STD_LOGIC_Vector(6 downto 0); --sst
 	  HEX5 : out STD_LOGIC_Vector(6 downto 0) 
     );
 end entity Flappy_bird;
-
 
 architecture Behavioral of Flappy_bird is
 
@@ -79,10 +76,6 @@ architecture Behavioral of Flappy_bird is
   signal within_bounds, within_bounds_64, within_bounds_32 : std_logic; 
   signal text_on : std_logic; 
   
-  
-  
-  --64x74
-
   -- RGB pixel output from ball component
   SIGNAL red_ball, green_ball, blue_ball : std_logic;
 
@@ -111,9 +104,9 @@ architecture Behavioral of Flappy_bird is
   signal score_to_display : integer := 0;
 
   -- BCD Score signals 
-  signal score_ones   : std_logic_vector(3 downto 0);
-  signal score_tens   : std_logic_vector(3 downto 0);
-  signal score_hundreds : std_logic_vector(3 downto 0);
+  signal score_ones   : std_logic_vector(3 downto 0) := "0000";
+  signal score_tens   : std_logic_vector(3 downto 0) := "0000";
+  signal score_hundreds : std_logic_vector(3 downto 0) := "0000";
 
   -- Lives signals 
   signal lives : std_logic_vector(1 downto 0) := "11"; -- 2 bits, 00, 01, 10, 11. 
@@ -234,6 +227,7 @@ architecture Behavioral of Flappy_bird is
 		pixel_row, pixel_column : in std_logic_vector(9 downto 0); 
       lives : in std_logic_vector(1 downto 0); 
 		state : in std_logic_vector(2 downto 0); 
+		score_o : in std_logic_vector(3 downto 0); 
 		font_row, font_column : out std_logic_vector(2 downto 0); 
 		character_addr : out std_logic_vector(5 downto 0);
       within_bounds : out std_logic
@@ -587,11 +581,6 @@ end process;
 	rnd_out => rand_height,
 	valid => rand_valid
 	);
-	
-	
-	
-	
-	
     -- Instantiate the ball component
   BallComponent: bouncy_bird
   port map(
@@ -611,7 +600,6 @@ end process;
     bird_x       => bird_x,
     bird_y       => bird_y
   );
-  
   
   -- Mux logic for text/score box
 	font_row_in <= font_row_64 when within_bounds_64 = '1' else font_row_32;
@@ -706,7 +694,6 @@ begin
 	
 end process;
 
-
   -- Logic to determine if the current pixel is part of the bird
   ball_on <= '1' when ((current_state /= MENU) and(red_ball = '1' or green_ball = '1' or blue_ball = '1')) else '0';
   
@@ -739,11 +726,6 @@ blue_pixel <= '1' when (ball_on = '1') or
                         (text_on = '1') or 
                         (cursor_on = '1') else 
               dip_sw3;
-  -- Dead bird
-  -- dead <= '1' when (ball_on = '1') and 
-  --   ((s_pipe1_on = '1' and pipe1_safe = '0') or (s_pipe2_on = '1' and pipe2_safe = '0')) 
-  --   else '0';
-  -- LEDR0 <= dead;
   
   -- Instantiate the text component 
   TextComponent: char_rom 
@@ -775,14 +757,13 @@ blue_pixel <= '1' when (ball_on = '1') or
 	pixel_column => pixel_column,
 	lives => lives,
 	font_row => font_row_32, -- Input 
+  score_o => score_ones,
 	state => current_state_vec,
 	font_column => font_col_32, 
 	character_addr => character_address_32,
 	within_bounds => within_bounds_32
   ); 
 
-  -- LEDR0 <= ps2_left;
-  
   -- Instantiate the VGA sync component
   VGASync: vga_sync
     port map(
@@ -800,12 +781,4 @@ blue_pixel <= '1' when (ball_on = '1') or
     );
 	 
 	 v_sync <= v_sync_signal;
-
-
-  
-
 end Behavioral;
-
-  
-
-

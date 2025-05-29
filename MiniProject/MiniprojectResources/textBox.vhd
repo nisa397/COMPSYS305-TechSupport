@@ -8,10 +8,11 @@ entity textBox is
 		clock : in std_logic; 
 		pixel_row, pixel_column : in std_logic_vector(9 downto 0); 
         lives : in std_logic_vector(1 downto 0); 
+        score_o : in std_logic_vector(3 downto 0); 
 		font_row, font_column : out std_logic_vector(2 downto 0); 
         state : in std_logic_vector(2 downto 0); 
 		character_addr : out std_logic_vector(5 downto 0);
-      within_bounds : out std_logic
+        within_bounds : out std_logic
 	); 
 end entity textBox; 
 
@@ -22,6 +23,7 @@ architecture behaviour of textBox is
     type char_addr_array is array(0 to PAUSE_LENGTH-1) of std_logic_vector(5 downto 0);
 	 type char_addr_array_long is array(0 to TRAINING_LENGTH-1)  of std_logic_vector(5 downto 0); 
 	 type char_addr_array_p is array(0 to PLAY_LENGTH-1) of std_logic_vector(5 downto 0); 
+    type char_addr_array_n is array(0 to 9) of std_logic_vector(5 downto 0); 
     constant PAUSE_address : char_addr_array := (
         "010000", -- P
         "000001", -- A
@@ -48,6 +50,19 @@ architecture behaviour of textBox is
 		"011001" -- Y 
 	 );
 
+     constant number_address : char_addr_array_n := (
+        "110000", 
+        "110001", 
+        "110010", 
+        "110011", 
+        "110100", 
+        "110101", 
+        "110110", 
+        "110111", 
+        "111000", 
+        "111001"
+     ); 
+
     constant po_row : std_logic_vector(9 downto 0) :=  conv_std_logic_vector(180,10); 
     constant po_col : std_logic_vector(9 downto 0) :=  conv_std_logic_vector(240,10); 
 
@@ -58,7 +73,11 @@ architecture behaviour of textBox is
     constant play_col : std_logic_vector(9 downto 0) :=  conv_std_logic_vector(128,10); 
 
     constant l_row : std_logic_vector(9 downto 0) := conv_std_logic_vector(20,10); 
-    constant l_col : std_logic_vector(9 downto 0) := conv_std_logic_vector(20,10); 
+    constant l_col : std_logic_vector(9 downto 0) := conv_std_logic_vector(20,10);
+    
+    constant s_row : std_logic_vector(9 downto 0) := conv_std_logic_vector(20,10); 
+    constant s_col : std_logic_vector(9 downto 0) := conv_std_logic_vector(20,10); 
+
 
 	 
     signal font_row_s, font_col_s : std_logic_vector(9 downto 0) := (others => '0');
@@ -68,7 +87,7 @@ architecture behaviour of textBox is
 
 begin 
 	
-	process(pixel_row, pixel_column) -- Start the process whenever we get the raw values 
+	process(pixel_row, pixel_column, score_o, state, lives) -- Start the process whenever we get the raw values 
         variable found : boolean := false; -- Handles the bounding box signal to be sent out 
         variable col_offset : std_logic_vector(9 downto 0);
         
@@ -179,6 +198,19 @@ begin
             end if;
             
         end if; 
+
+        -- When the state is in play 
+        if state=("010") then 
+            -- Ones place 
+            if (pixel_row >= s_row and pixel_row < s_row + 32 and pixel_column >= s_col + 32 and pixel_column < s_col + 64) then 
+                    font_row_s <= pixel_row - s_row;
+                    font_col_s <= pixel_column - (s_col + 32);
+                    within_bounds_s <= '1'; 
+                    found := true; 
+                    char_addr_s <= number_address(conv_integer(unsigned(score_o)));
+            end if; 
+        end if; 
+
 
 
         if not found then
