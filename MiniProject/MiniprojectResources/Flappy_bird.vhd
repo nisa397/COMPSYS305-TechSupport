@@ -54,6 +54,10 @@ architecture Behavioral of Flappy_bird is
   signal pipe2_x_pos: unsigned(9 downto 0);
   signal dead: std_logic := '0';
   
+  --LFSR
+  signal rand_height: unsigned(9 downto 0);
+  signal rand_valid: std_logic;
+  
   --Cursor signals
   signal cursor_on: std_logic;
   
@@ -116,6 +120,7 @@ architecture Behavioral of Flappy_bird is
   signal game_start : std_logic := '0';
 
   signal current_state_vec : std_logic_vector(2 downto 0); 
+   
 
   component vga_sync is
     PORT(	clock_25Mhz : IN std_logic;
@@ -134,6 +139,16 @@ architecture Behavioral of Flappy_bird is
       height  : in  unsigned(9 downto 0);
 		pixel_row, pixel_column : in std_logic_vector(9 downto 0);
       pipe_on        : out std_logic);
+	end component;
+	
+	component LFSR_Random is
+		Port (
+        clk      : in  STD_LOGIC;
+        rst      : in  STD_LOGIC;
+        enable   : in  STD_LOGIC;
+        rnd_out  : out unsigned(9 downto 0);
+        valid    : out STD_LOGIC
+    );
 	end component;
 
   component bouncy_bird IS
@@ -165,6 +180,7 @@ architecture Behavioral of Flappy_bird is
 		port (BCD_digit : in std_logic_vector(3 downto 0);
            SevenSeg_out : out std_logic_vector(6 downto 0));
 	end component;
+	
 	
 	component cursor_drawer is
     port (
@@ -411,8 +427,7 @@ port map(
         "100" when game_over,
         "000" when others;
   
-  s_height <= to_unsigned(200,10);
-  s_height2 <= to_unsigned(300,10);
+
 
   
   
@@ -445,6 +460,18 @@ port map(
 	cursor_column => ps2_cursor_col,
 	cursor_on => cursor_on
 	);
+	
+	random: LFSR_Random
+	port map(
+	clk => clk_25MHz,
+	rst => '0',
+	enable => '1',
+	rnd_out => rand_height,
+	valid => rand_valid
+	);
+	
+	
+	
 	
 	
     -- Instantiate the ball component
@@ -502,9 +529,12 @@ port map(
 moving_pipe: process(v_sync_signal)
     constant MIN_GAP : unsigned(9 downto 0) := to_unsigned(300, 10);
 begin
+
+	
     if rising_edge(v_sync_signal) then
         -- Move pipe1
         if (pipe1_x_pos = to_unsigned(0, 10)) then
+				s_height <= rand_height;
             pipe1_x_pos <= to_unsigned(640, 10) + pipe_width;
         else
             pipe1_x_pos <= pipe1_x_pos - to_unsigned(speed, 10);
@@ -512,6 +542,8 @@ begin
 
         -- Move pipe2 with gap enforcement
         if (pipe2_x_pos = to_unsigned(0, 10)) then
+				
+				s_height2 <= rand_height;
             -- Wrap pipe2 to right edge, but ensure spacing from pipe1
             if (pipe1_x_pos > (to_unsigned(640,10) + pipe_width - MIN_GAP)) then
                 pipe2_x_pos <= pipe1_x_pos + MIN_GAP;  -- place pipe2 at least MIN_GAP ahead

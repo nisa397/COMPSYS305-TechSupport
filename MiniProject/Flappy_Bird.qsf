@@ -121,6 +121,7 @@ set_location_assignment PIN_T13 -to dip_sw3
 set_location_assignment PIN_M7 -to button_3
 set_location_assignment PIN_M6 -to button_4
 set_global_assignment -name VHDL_FILE MiniprojectResources/textBox.vhd
+set_global_assignment -name VHDL_FILE MiniprojectResources/lfsr.vhd
 set_global_assignment -name VHDL_FILE MiniprojectResources/pipe.vhd
 set_global_assignment -name VHDL_FILE MiniprojectResources/scoreBox.vhd
 set_global_assignment -name VHDL_FILE MiniprojectResources/BCDtoHEX.vhd

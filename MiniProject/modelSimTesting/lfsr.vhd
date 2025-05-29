@@ -1,34 +1,50 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
 
-entity lfsr_8bit is
+entity LFSR_Random is
     Port (
-	seed: in std_logic_vector
-        clk     : in  std_logic;
-        reset_n : in  std_logic;  -- active low reset
-        q       : out std_logic_vector(7 downto 0)
+        clk      : in  STD_LOGIC;
+        rst      : in  STD_LOGIC;
+        enable   : in  STD_LOGIC;
+        rnd_out  : out unsigned(9 downto 0);
+        valid    : out STD_LOGIC
     );
-end entity;
+end LFSR_Random;
 
-architecture Behavioral of lfsr_8bit is
-    signal lfsr_reg : std_logic_vector(7 downto 0) := (others => '0');
+architecture Behavioral of LFSR_Random is
+    signal lfsr : unsigned(8 downto 0) := "101100111"; -- 9-bit seed
 begin
-
-    process(clk, reset_n)
-        variable feedback : std_logic;
+    process(clk, rst)
+        variable next_feedback: std_logic;
+        variable next_lfsr : unsigned(8 downto 0);
+        variable lfsr_val : integer;
     begin
-        if reset_n = '0' then
-        lfsr_reg <= "00000001";  -- non-zero seed
-        elsif rising_edge(clk) then
-            -- XOR taps: bits 7, 3, 2, 1
-            feedback := lfsr_reg(7) xor lfsr_reg(3) xor lfsr_reg(2) xor lfsr_reg(1);
+        if rising_edge(clk) then
+            next_lfsr := lfsr;
+            if enable = '1' then
+                -- Feedback taps for polynomial x^9 + x^5 + 1
+                next_feedback := lfsr(8) XOR lfsr(3);
+                next_lfsr := shift_left(next_lfsr, 1);
+                next_lfsr(0) := next_feedback;
 
-            -- Shift left and insert feedback at LSB
-            lfsr_reg <= lfsr_reg(6 downto 0) & feedback;
+                lfsr <= next_lfsr;
+
+                -- Convert to integer for range checking
+                lfsr_val := to_integer(next_lfsr);
+
+                -- Clamp output
+                if lfsr_val < 50 then
+                    rnd_out <= to_unsigned(50, 10);
+                elsif lfsr_val > 420 then
+                    rnd_out <= to_unsigned(420, 10);
+                else
+                    rnd_out <= to_unsigned(0, 1) & next_lfsr;
+                end if;
+
+                valid <= '1';  -- Always valid
+            end if;
         end if;
     end process;
-
-    q <= lfsr_reg;
-
 end Behavioral;
 
