@@ -7,6 +7,7 @@ entity pipe is
 		vert_sync: in std_logic;
 		width : in unsigned(9 downto 0);
 		pipe_x_pos	: in unsigned (9 DOWNTO 0);
+		vertical_gap: unsigned (9 downto 0); 
 		speed: in integer;
       height  : in  unsigned(9 downto 0);
 		pixel_row, pixel_column : in std_logic_vector(9 downto 0);
@@ -14,7 +15,6 @@ entity pipe is
 end pipe;
 
 architecture behavior of pipe is
-signal vertical_gap: unsigned (9 downto 0):= to_unsigned(150,10);
 signal px, py       : unsigned(9 downto 0);
 signal top_pipe_height: unsigned (9 DOWNTO 0);
 SIGNAL top_pipe_y_pos :unsigned (9 DOWNTO 0):= to_unsigned(0,10);
