@@ -129,7 +129,7 @@ begin
             end loop;
         end if;
         
-        -- when state is play 
+        -- when state is training 
         if (state="001") then
             -- Depending on the number of hearts, print a different number of hearts
             if (lives = "11") then

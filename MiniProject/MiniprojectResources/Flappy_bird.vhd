@@ -112,6 +112,7 @@ architecture Behavioral of Flappy_bird is
   signal pipe1_safe : std_logic := '0';
   signal pipe2_safe : std_logic := '0';
   signal bcd_lives : std_logic_vector(3 downto 0); 
+  signal lives_reset : std_logic := '0'; 
   -- Datatypes for game states
   type game_state_type is (menu, training, play, pause, game_over);
   signal current_state : game_state_type := menu;
@@ -234,6 +235,10 @@ architecture Behavioral of Flappy_bird is
                         (current_state = game_over and next_state = training) else
               '0';
 
+    lives_reset <= '1' when 
+    ((current_state = menu and next_state = training) or
+     (current_state = game_over and next_state = training))
+    else '0'; 
 
 
     -- State machine to handle game states
@@ -276,10 +281,12 @@ begin
         elsif (current_state = menu) then
             button_2_latched <= '0';
         end if;
-        if (dead = '1') and (current_state = play) then
-        dead_latched <= '1';
+        if (dead = '1') and (current_state = play)  then
+          dead_latched <= '1';
+        elsif (dead='1') and (current_state = training) then 
+          dead_latched <= '1';
         elsif (current_state = game_over and next_state /= game_over) then
-        dead_latched <= '0'; -- Clear it once we leave game_over
+          dead_latched <= '0'; -- Clear it once we leave game_over
         end if;
 
         -- State machine
@@ -288,41 +295,49 @@ begin
         case current_state is
             when menu =>
             if ps2_right_latch = '1' then
-            next_state <= training;
-            ps2_right_latch <= '0';
-            dead_latched <= '0';  -- Reset dead latch here too
-          elsif ps2_left_latch = '1' then
-            next_state <= play;
-            ps2_left_latch <= '0';
-            dead_latched <= '0';  -- Reset dead latch here too
-          end if;
+              next_state <= training;
+              ps2_right_latch <= '0';
+              dead_latched <= '0';  -- Reset dead latch here too
+            elsif ps2_left_latch = '1' then
+              next_state <= play;
+              ps2_left_latch <= '0';
+              dead_latched <= '0';  -- Reset dead latch here too
+            end if;
 
             when training =>
-                if button_1_latched = '1' then
-                    next_state <= play;
+              if button_1_latched = '1' then
+                next_state <= play;
 						  button_1_latched <= '0';
 
-					elsif ps2_right_latch = '1' then
-              prev_state <= training; -- Store the previous state before pausing
-							next_state <= pause;
-							ps2_right_latch <= '0';
-							speed <= 0;
-                end if;
+              elsif ps2_right_latch = '1' then
+                prev_state <= training; -- Store the previous state before pausing
+                next_state <= pause;
+                ps2_right_latch <= '0';
+                speed <= 0;
+              elsif collision_latched = '1' then
+                prev_state <= training; 
+                next_state <= game_over;
+                speed <= 0;
+              elsif dead_latched = '1' and lives = "00" then
+                  prev_state <= training; 
+                  next_state <= game_over;
+                  speed <= 0;
+              end if;
 
             when play =>
             if ps2_right_latch = '1' then
               prev_state <= play; -- Store the previous state before pausing
               next_state <= pause;
               ps2_right_latch <= '0';
-				  speed <= 0;
+				      speed <= 0;
             elsif collision_latched = '1' then
+              prev_state <= play; 
               next_state <= game_over;
-				  speed <= 0;
-				elsif dead_latched = '1' then
-					next_state <= game_over;
-					speed <= 0;
-
-
+				      speed <= 0;
+            elsif dead_latched = '1' then
+              prev_state <= play; 
+              next_state <= game_over;
+              speed <= 0;
             end if;
 
             when pause =>
@@ -336,8 +351,8 @@ begin
                 end if;
 
             when game_over =>
-                if ps2_left_latch = '1' then
-                    next_state <= play;
+              if ps2_left_latch = '1' then
+                    next_state <= prev_state;
 						  ps2_left_latch <= '0';
 						  speed <= 5;
               dead_latched <= '0'; -- Reset dead latch
@@ -444,6 +459,50 @@ port map(
      BCD_digit => bcd_lives,        
      SevenSeg_out => HEX5      
 ); 
+
+process(clk_25MHz)
+begin
+    if rising_edge(clk_25MHz) then
+        if (lives_reset = '1') then 
+          lives <= "11"; 
+        else
+          -- Set safe flag on collision/life loss in play mode
+          if (current_state = play) and (dead = '1') and (lives /= "00") then
+              if (ball_on = '1') and (s_pipe1_on = '1') then
+                  pipe1_safe <= '1';
+              end if;
+              if (ball_on = '1') and (s_pipe2_on = '1') then
+                  pipe2_safe <= '1';
+              end if;
+          end if;
+
+          -- TRAINING MODE: Decrement lives only once per pipe hit
+          if (current_state = training) and (dead = '1') and (lives /= "00") then
+              if (pipe1_safe = '0' and (ball_on = '1') and (s_pipe1_on = '1')) then
+                  lives <= std_logic_vector(unsigned(lives) - 1);
+                  pipe1_safe <= '1';
+              elsif (pipe2_safe = '0' and (ball_on = '1') and (s_pipe2_on = '1')) then
+                  lives <= std_logic_vector(unsigned(lives) - 1);
+                  pipe2_safe <= '1';
+              end if;
+          end if;
+
+          -- Clear safe flag when pipe passes the bird
+          if (to_integer(pipe1_x_pos) + to_integer(pipe_width + 16) < BIRD_X_POS) then
+              pipe1_safe <= '0';
+          end if;
+          if (to_integer(pipe2_x_pos) + to_integer(pipe_width + 16) < BIRD_X_POS) then
+              pipe2_safe <= '0';
+          end if;
+
+          -- Optionally, reset safe flags on game reset
+          if (current_state /= play) and (current_state /= pause) and (current_state /= training) then
+              pipe1_safe <= '0';
+              pipe2_safe <= '0';
+          end if;
+      end if;
+    end if; 
+end process;
 
 	  -- Assign the current_state something that is able to passed onto other components 
   -- Made since state and multicharacter text was developed seperately. 
@@ -605,12 +664,6 @@ begin
 	
 end process;
 
-	
-  
-  
-  
-  
-  
 
   -- Logic to determine if the current pixel is part of the bird
   ball_on <= '1' when ((current_state /= MENU) and(red_ball = '1' or green_ball = '1' or blue_ball = '1')) else '0';
@@ -686,35 +739,6 @@ blue_pixel <= '1' when (ball_on = '1') or
 	within_bounds => within_bounds_32
   ); 
 
-process(clk_25MHz)
-begin
-    if rising_edge(clk_25MHz) then
-        -- Set safe flag on collision/life loss
-        if (current_state = play) and (dead = '1') and (lives /= "00") then
-            if (ball_on = '1') and (s_pipe1_on = '1') then
-                pipe1_safe <= '1';
-            end if;
-            if (ball_on = '1') and (s_pipe2_on = '1') then
-                pipe2_safe <= '1';
-            end if;
-        end if;
-
-        -- Clear safe flag when pipe passes the bird
-        if (to_integer(pipe1_x_pos) + to_integer(pipe_width + 16) < BIRD_X_POS) then -- Ensures the bird can pass by safely
-            pipe1_safe <= '0';
-        end if;
-        if (to_integer(pipe2_x_pos) + to_integer(pipe_width + 16) < BIRD_X_POS) then
-            pipe2_safe <= '0';
-        end if;
-
-        -- Optionally, reset safe flags on game reset
-        if (current_state /= play) and (current_state /= pause) then
-            pipe1_safe <= '0';
-            pipe2_safe <= '0';
-        end if;
-    end if;
-end process;
-  
   -- LEDR0 <= ps2_left;
   
   -- Instantiate the VGA sync component
