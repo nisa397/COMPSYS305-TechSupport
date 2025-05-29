@@ -424,6 +424,7 @@ begin
               score <= 0;
               pipe1_scored <= '0';
               pipe2_scored <= '0';
+              power_up_scored <= '0';
 		
         elsif (current_state = play) then -- Ensure that we only increment in play state
     if (power_up_plus2_hit = '1' and power_up_scored = '0') then
@@ -431,6 +432,10 @@ begin
          power_up_scored <= '1';
          power_up_plus2_hit <= '0'; -- Reset the hit signal
     end if;
+    -- Only reset when power_up_on is '0' (i.e., power-up is gone)
+            if (power_up_on = '0') then
+                power_up_scored <= '0';
+            end if;
     if (power_up_plus2_hit = '0') then
          power_up_scored <= '0';
     end if;
