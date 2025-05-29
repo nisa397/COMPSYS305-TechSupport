@@ -31,6 +31,11 @@ end entity Flappy_bird;
 
 
 architecture Behavioral of Flappy_bird is
+
+  --Speed constants
+  constant speed_EASY: integer := 3;
+  constant speed_MID: integer := 6;
+  constant speed_HARD: integer := 9;
   
   -- Internal 25 MHz clock signal
   SIGNAL clk_25MHz : std_logic := '0';
@@ -138,7 +143,6 @@ architecture Behavioral of Flappy_bird is
 		vert_sync: in std_logic;
 		width : in unsigned(9 downto 0);
 		pipe_x_pos	: in unsigned (9 DOWNTO 0);
-		speed: in integer;
       height  : in  unsigned(9 downto 0);
 		pixel_row, pixel_column : in std_logic_vector(9 downto 0);
       pipe_on        : out std_logic);
@@ -248,6 +252,7 @@ architecture Behavioral of Flappy_bird is
 
     -- State machine to handle game states
  process(clk_25MHz)
+
 begin
     if rising_edge(clk_25MHz) then
         -- Latch logic
@@ -305,10 +310,10 @@ begin
             next_state <= play;
             ps2_left_latch <= '0';
             dead_latched <= '0';  -- Reset dead latch here too
-            speed <= 5; -- Reset speed when entering play
           end if;
 
             when training =>
+				speed <= speed_EASY;
                 if button_1_latched = '1' then
                     next_state <= play;
 						  button_1_latched <= '0';
@@ -321,6 +326,16 @@ begin
                 end if;
 
             when play =>
+			
+			--Difficulty implementation
+			if score <= 1 then
+				speed <= speed_EASY;
+			elsif score > 3 and score < 6 then
+				speed <= speed_MID;
+			elsif score >= 10 then
+				speed <= speed_HARD;
+			end if;
+			
             if ps2_right_latch = '1' then
               prev_state <= play; -- Store the previous state before pausing
               next_state <= pause;
@@ -340,7 +355,6 @@ begin
                 if ps2_left_latch = '1' then
                     next_state <= prev_state; -- Return to the previous state
 						  ps2_left_latch <= '0';
-						  speed <= 5;
                 elsif button_2_latched = '1' then
                     next_state <= menu;
 						  button_2_latched <= '0';
@@ -350,7 +364,7 @@ begin
                 if ps2_left_latch = '1' then
                     next_state <= play;
 						  ps2_left_latch <= '0';
-						  speed <= 5;
+						  speed <= speed_EASY;
               dead_latched <= '0'; -- Reset dead latch
                elsif button_2_latched = '1' then
                     next_state <= menu;
@@ -541,7 +555,6 @@ port map(
 	vert_sync 		=> v_sync_signal,
 	width				=> pipe_width,
 	pipe_x_pos		=> pipe1_x_pos,
-	speed				=> speed,
 	height			=> s_height,
 	pixel_row      => pixel_row,
    pixel_column   => pixel_column,
@@ -553,7 +566,6 @@ port map(
 	vert_sync 		=> v_sync_signal,
 	width				=> pipe_width,
 	pipe_x_pos		=> pipe2_x_pos,
-	speed				=> speed,
 	height			=> s_height2,
 	pixel_row      => pixel_row,
    pixel_column   => pixel_column,
