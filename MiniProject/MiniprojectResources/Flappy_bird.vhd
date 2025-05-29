@@ -372,6 +372,7 @@ begin
             end if;
 
             when pause =>
+				speed <= 0;
                 if ps2_left_latch = '1' then
                     next_state <= prev_state; -- Return to the previous state
 						  ps2_left_latch <= '0';

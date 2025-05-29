@@ -412,7 +412,7 @@ TMS                          : P5        : input  :                   :         
 RESERVED_INPUT_WITH_WEAK_PULLUP : P6        :        :                   :         : 3A        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : P7        :        :                   :         : 3A        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : P8        :        :                   :         : 3B        :                
-HEX4[6]                      : P9        : output : 2.5 V             :         : 3B        : Y              
+RESERVED_INPUT_WITH_WEAK_PULLUP : P9        :        :                   :         : 3B        :                
 GND                          : P10       : gnd    :                   :         :           :                
 VCC                          : P11       : power  :                   : 1.1V    :           :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : P12       :        :                   :         : 3B        :                
@@ -484,12 +484,12 @@ RESERVED_INPUT_WITH_WEAK_PULLUP : U11       :        :                   :      
 RESERVED_INPUT_WITH_WEAK_PULLUP : U12       :        :                   :         : 3B        :                
 dip_sw1                      : U13       : input  : 2.5 V             :         : 4A        : Y              
 VCCIO4A                      : U14       : power  :                   : 2.5V    : 4A        :                
-HEX4[4]                      : U15       : output : 2.5 V             :         : 4A        : Y              
-HEX4[3]                      : U16       : output : 2.5 V             :         : 4A        : Y              
-HEX3[4]                      : U17       : output : 2.5 V             :         : 4A        : Y              
+RESERVED_INPUT_WITH_WEAK_PULLUP : U15       :        :                   :         : 4A        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : U16       :        :                   :         : 4A        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : U17       :        :                   :         : 4A        :                
 VCCA_FPLL                    : U18       : power  :                   : 2.5V    :           :                
 VCCIO4A                      : U19       : power  :                   : 2.5V    : 4A        :                
-HEX4[0]                      : U20       : output : 2.5 V             :         : 4A        : Y              
+RESERVED_INPUT_WITH_WEAK_PULLUP : U20       :        :                   :         : 4A        :                
 HEX0[0]                      : U21       : output : 2.5 V             :         : 4A        : Y              
 HEX1[6]                      : U22       : output : 2.5 V             :         : 4A        : Y              
 GND                          : V1        : gnd    :                   :         :           :                
@@ -507,11 +507,11 @@ GND                          : V12       : gnd    :                   :         
 dip_sw2                      : V13       : input  : 2.5 V             :         : 4A        : Y              
 HEX2[4]                      : V14       : output : 2.5 V             :         : 4A        : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : V15       :        :                   :         : 4A        :                
-HEX3[3]                      : V16       : output : 2.5 V             :         : 4A        : Y              
+RESERVED_INPUT_WITH_WEAK_PULLUP : V16       :        :                   :         : 4A        :                
 GND                          : V17       : gnd    :                   :         :           :                
-HEX3[5]                      : V18       : output : 2.5 V             :         : 4A        : Y              
-HEX3[6]                      : V19       : output : 2.5 V             :         : 4A        : Y              
-HEX4[2]                      : V20       : output : 2.5 V             :         : 4A        : Y              
+RESERVED_INPUT_WITH_WEAK_PULLUP : V18       :        :                   :         : 4A        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : V19       :        :                   :         : 4A        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : V20       :        :                   :         : 4A        :                
 HEX0[1]                      : V21       : output : 2.5 V             :         : 4A        : Y              
 GND                          : V22       : gnd    :                   :         :           :                
 VREFB2AN0                    : W1        : power  :                   :         : 2A        :                
@@ -529,7 +529,7 @@ VCCPD3B4A                    : W12       : power  :                   : 2.5V    
 VCC_AUX                      : W13       : power  :                   : 2.5V    :           :                
 VCCPD3B4A                    : W14       : power  :                   : 2.5V    : 3B, 4A    :                
 VCCIO4A                      : W15       : power  :                   : 2.5V    : 4A        :                
-HEX3[1]                      : W16       : output : 2.5 V             :         : 4A        : Y              
+RESERVED_INPUT_WITH_WEAK_PULLUP : W16       :        :                   :         : 4A        :                
 VCCPD3B4A                    : W17       : power  :                   : 2.5V    : 3B, 4A    :                
 VCC_AUX                      : W18       : power  :                   : 2.5V    :           :                
 HEX5[6]                      : W19       : output : 2.5 V             :         : 4A        : Y              
@@ -550,11 +550,11 @@ RESERVED_INPUT_WITH_WEAK_PULLUP : Y11       :        :                   :      
 VREFB3BN0                    : Y12       : power  :                   :         : 3B        :                
 VCCIO3B                      : Y13       : power  :                   : 2.5V    : 3B        :                
 HEX2[3]                      : Y14       : output : 2.5 V             :         : 4A        : Y              
-HEX4[5]                      : Y15       : output : 2.5 V             :         : 4A        : Y              
-HEX3[0]                      : Y16       : output : 2.5 V             :         : 4A        : Y              
-HEX3[2]                      : Y17       : output : 2.5 V             :         : 4A        : Y              
+RESERVED_INPUT_WITH_WEAK_PULLUP : Y15       :        :                   :         : 4A        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : Y16       :        :                   :         : 4A        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : Y17       :        :                   :         : 4A        :                
 GND                          : Y18       : gnd    :                   :         :           :                
 HEX2[0]                      : Y19       : output : 2.5 V             :         : 4A        : Y              
-HEX4[1]                      : Y20       : output : 2.5 V             :         : 4A        : Y              
+RESERVED_INPUT_WITH_WEAK_PULLUP : Y20       :        :                   :         : 4A        :                
 HEX0[5]                      : Y21       : output : 2.5 V             :         : 4A        : Y              
 HEX0[4]                      : Y22       : output : 2.5 V             :         : 4A        : Y              
