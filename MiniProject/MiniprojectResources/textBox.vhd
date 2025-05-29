@@ -130,7 +130,7 @@ begin
         end if;
         
         -- when state is play 
-        if (state="010" or state="011") then
+        if (state="001") then
             -- Depending on the number of hearts, print a different number of hearts
             if (lives = "11") then
                 if (pixel_row >= l_row and pixel_row < l_row + 32 and pixel_column >= l_col and pixel_column < l_col + 32) then

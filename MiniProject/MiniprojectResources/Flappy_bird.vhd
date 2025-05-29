@@ -95,7 +95,6 @@ architecture Behavioral of Flappy_bird is
   signal dead_latched : std_logic := '0';
 
   -- score signals
-  signal bird_y : std_logic_vector(9 downto 0);
   signal score : integer := 0;
   signal pipe1_scored, pipe2_scored : std_logic := '0';
   constant BIRD_X_POS : integer := 160; -- The bird's fixed x position
@@ -226,7 +225,7 @@ architecture Behavioral of Flappy_bird is
 	game_active <= '1' when (current_state = play or current_state = training) else '0';
   pipe_reset <= '1' when (current_state = game_over and next_state = play) or
                  (current_state = game_over and next_state = training) or
-                 (current_state = menu ) and (next_state = play or next_state = training) else
+                 ((current_state = menu) and (next_state = play or next_state = training)) else
          '0';
 
   bird_reset <= '1' when (current_state = menu and next_state = play) or
@@ -505,7 +504,6 @@ port map(
     pixel_row      => pixel_row,
     pixel_column   => pixel_column,
     game_state => current_state_vec,
-    ball_y_pos_out => bird_y,
     red            => red_ball,
     green          => green_ball,
     blue           => blue_ball,
