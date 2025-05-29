@@ -513,33 +513,42 @@ begin
     end if;
 end process;
 
-dead_process:process(v_sync_signal)
-    constant bird_x_const : unsigned(9 downto 0) := to_unsigned(160, 10); -- bird's x position
-    constant bird_width   : unsigned(9 downto 0) := to_unsigned(16, 10); -- bird's width
-    constant pipe_gap     : unsigned(9 downto 0) := to_unsigned(150, 10); -- same as vertical_gap in pipe.vhd
-	 variable hit : std_logic;
+dead_process: process(v_sync_signal)
+    constant bird_width  : unsigned(9 downto 0) := to_unsigned(16, 10);
+    constant bird_height : unsigned(9 downto 0) := to_unsigned(16, 10); -- use actual height if different
+    constant pipe_gap    : unsigned(9 downto 0) := to_unsigned(150, 10);
+    variable hit : std_logic := '0';
+    variable bird_x_u, bird_y_u : unsigned(9 downto 0);
 begin
     if rising_edge(v_sync_signal) then
-        -- Pipe 1 collision
-        if (pipe1_x_pos < bird_x_const + bird_width) and (pipe1_x_pos + pipe_width > bird_x_const) then
-            if (unsigned(bird_y) <= s_height) or (unsigned(bird_y) + bird_width >= s_height + pipe_gap) then
+        hit := '0';
+        bird_x_u := unsigned(bird_x);
+        bird_y_u := unsigned(bird_y);
+
+        -- Pipe 1: Top pipe
+        if (pipe1_x_pos < bird_x_u + bird_width) and (pipe1_x_pos + pipe_width > bird_x_u) then
+            -- Top pipe collision
+            if (bird_y_u < s_height) then
                 hit := '1';
-            else
-                hit := '0';
-            end if;
-        -- Pipe 2 collision
-        elsif (pipe2_x_pos < bird_x_const + bird_width) and (pipe2_x_pos + pipe_width > bird_x_const) then
-            if (unsigned(bird_y) <= s_height2) or (unsigned(bird_y) + bird_width >= s_height2 + pipe_gap) then
+            -- Bottom pipe collision
+            elsif (bird_y_u + bird_height > s_height + pipe_gap) then
                 hit := '1';
-            else
-                hit := '0';
             end if;
-        else
-            hit := '0';
         end if;
-		   dead <= hit;
+
+        -- Pipe 2: Top pipe
+        if (pipe2_x_pos < bird_x_u + bird_width) and (pipe2_x_pos + pipe_width > bird_x_u) then
+            -- Top pipe collision
+            if (bird_y_u < s_height2) then
+                hit := '1';
+            -- Bottom pipe collision
+            elsif (bird_y_u + bird_height > s_height2 + pipe_gap) then
+                hit := '1';
+            end if;
+        end if;
+
+        dead <= hit;
     end if;
-	
 end process;
 
 	
