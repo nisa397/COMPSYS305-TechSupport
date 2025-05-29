@@ -7,6 +7,7 @@ entity textBox is
 		port(
 		clock : in std_logic; 
 		pixel_row, pixel_column : in std_logic_vector(9 downto 0); 
+        lives : in std_logic_vector(1 downto 0); 
 		font_row, font_column : out std_logic_vector(2 downto 0); 
         state : in std_logic_vector(2 downto 0); 
 		character_addr : out std_logic_vector(5 downto 0);
@@ -53,8 +54,11 @@ architecture behaviour of textBox is
     constant to_row : std_logic_vector(9 downto 0) := conv_std_logic_vector(250, 10); 
     constant to_col : std_logic_vector(9 downto 0) := conv_std_logic_vector(128, 10); 
 	 
-	 constant play_row : std_logic_vector(9 downto 0) :=  conv_std_logic_vector(292,10); 
+	constant play_row : std_logic_vector(9 downto 0) :=  conv_std_logic_vector(292,10); 
     constant play_col : std_logic_vector(9 downto 0) :=  conv_std_logic_vector(128,10); 
+
+    constant l_row : std_logic_vector(9 downto 0) := conv_std_logic_vector(20,10); 
+    constant l_col : std_logic_vector(9 downto 0) := conv_std_logic_vector(20,10); 
 
 	 
     signal font_row_s, font_col_s : std_logic_vector(9 downto 0) := (others => '0');
@@ -75,6 +79,7 @@ begin
         char_addr_s <= (others => '0');
         within_bounds_s <= '0';
 		
+        -- When state is pause
         if (state = "011") then
             for i in 0 to PAUSE_LENGTH-1 loop
                 -- Changes the bounding box according to the letter in the sequence
@@ -90,7 +95,8 @@ begin
                 end if;
             end loop;
         end if; 
-
+         
+        -- When state is training
         if (state="000") then
                 for i in 0 to TRAINING_LENGTH-1 loop
                 -- Changes the bounding box according to the letter in the sequence
@@ -118,7 +124,60 @@ begin
                     within_bounds_s <= '1';
                     found := true;
                 end if;
+
+
             end loop;
+        end if;
+        
+        -- when state is training 
+        if (state="001") then
+            -- Depending on the number of hearts, print a different number of hearts
+            if (lives = "11") then
+                if (pixel_row >= l_row and pixel_row < l_row + 32 and pixel_column >= l_col and pixel_column < l_col + 32) then
+                    font_row_s <= pixel_row - l_row;
+                    font_col_s <= pixel_column - l_col;
+                    within_bounds_s <= '1';
+                    found := true;
+						  char_addr_s <= "111010"; 
+                elsif (pixel_row >= l_row and pixel_row < l_row + 32 and pixel_column >= l_col + 32 and pixel_column < l_col + 64) then
+                    font_row_s <= pixel_row - l_row;
+                    font_col_s <= pixel_column - (l_col + 32);
+                    within_bounds_s <= '1';
+                    found := true;
+						  char_addr_s <= "111010"; 
+                elsif (pixel_row >= l_row and pixel_row < l_row + 32 and pixel_column >= l_col + 64 and pixel_column < l_col + 96) then
+                    font_row_s <= pixel_row - l_row;
+                    font_col_s <= pixel_column - (l_col + 64);
+                    within_bounds_s <= '1';
+                    found := true;
+						  char_addr_s <= "111010"; 
+                end if;
+            -- 2 hearts
+            elsif (lives = "10") then
+                if (pixel_row >= l_row and pixel_row < l_row + 32 and pixel_column >= l_col and pixel_column < l_col + 32) then
+                    font_row_s <= pixel_row - l_row;
+                    font_col_s <= pixel_column - l_col;
+                    within_bounds_s <= '1';
+                    found := true;
+						  char_addr_s <= "111010"; 
+                elsif (pixel_row >= l_row and pixel_row < l_row + 32 and pixel_column >= l_col + 32 and pixel_column < l_col + 64) then
+                    font_row_s <= pixel_row - l_row;
+                    font_col_s <= pixel_column - (l_col + 32);
+                    within_bounds_s <= '1';
+                    found := true;
+						  char_addr_s <= "111010"; 
+                end if;
+            -- 1 heart
+            elsif (lives = "01") then
+                if (pixel_row >= l_row and pixel_row < l_row + 32 and pixel_column >= l_col and pixel_column < l_col + 32) then
+                    font_row_s <= pixel_row - l_row;
+                    font_col_s <= pixel_column - l_col;
+                    within_bounds_s <= '1';
+                    found := true;
+						  char_addr_s <= "111010"; 
+                end if;
+            end if;
+            
         end if; 
 
 

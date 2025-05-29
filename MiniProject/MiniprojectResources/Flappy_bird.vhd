@@ -20,12 +20,12 @@ entity Flappy_bird is
       green       : OUT std_logic;  -- VGA green output
       blue        : OUT std_logic;   -- VGA blue output
 		LEDR0			: OUT std_logic;
-	  HEX0 : out STD_LOGIC_VECTOR(6 downto 0); --sso
+	  HEX0 : out STD_LOGIC_VECTOR(6 downto 0); 
 	  HEX1 : out STD_LOGIC_Vector(6 downto 0); --sst
-	  HEX2 : out STD_LOGIC_Vector(6 downto 0)
+	  HEX2 : out STD_LOGIC_Vector(6 downto 0);
 	  --HEX3 : out STD_LOGIC_VECTOR(6 downto 0); --sso
 	  --HEX4 : out STD_LOGIC_Vector(6 downto 0); --sst
-	  --HEX5 : out STD_LOGIC_Vector(6 downto 0) 
+	  HEX5 : out STD_LOGIC_Vector(6 downto 0) 
     );
 end entity Flappy_bird;
 
@@ -116,8 +116,12 @@ architecture Behavioral of Flappy_bird is
   signal score_hundreds : std_logic_vector(3 downto 0);
 
   -- Lives signals 
-  signal lives : std_logic_vector(2 downto 0); -- 2 bits, 00, 01, 10, 11. 
+  signal lives : std_logic_vector(1 downto 0) := "11"; -- 2 bits, 00, 01, 10, 11. 
 
+  signal pipe1_safe : std_logic := '0';
+  signal pipe2_safe : std_logic := '0';
+  signal bcd_lives : std_logic_vector(3 downto 0); 
+  signal lives_reset : std_logic := '0'; 
   -- Datatypes for game states
   type game_state_type is (menu, training, play, pause, game_over);
   signal current_state : game_state_type := menu;
@@ -164,6 +168,7 @@ architecture Behavioral of Flappy_bird is
 		  reset: in std_logic;
         pixel_row, pixel_column  : in  std_logic_vector(9 downto 0);
         game_state : in std_logic_vector(2 downto 0); 
+        ball_y_pos_out : out std_logic_vector(9 downto 0);
         red, green, blue, ends        : out std_logic ;
         bird_x, bird_y                : out std_logic_vector(9 downto 0)
     );
@@ -227,6 +232,7 @@ architecture Behavioral of Flappy_bird is
 				port(
 		clock : in std_logic; 
 		pixel_row, pixel_column : in std_logic_vector(9 downto 0); 
+      lives : in std_logic_vector(1 downto 0); 
 		state : in std_logic_vector(2 downto 0); 
 		font_row, font_column : out std_logic_vector(2 downto 0); 
 		character_addr : out std_logic_vector(5 downto 0);
@@ -248,6 +254,10 @@ architecture Behavioral of Flappy_bird is
                         (current_state = game_over and next_state = training) else
               '0';
 
+    lives_reset <= '1' when 
+    ((current_state = menu and next_state = training) or
+     (current_state = game_over and next_state = training))
+    else '0'; 
 
 
     -- State machine to handle game states
@@ -291,10 +301,12 @@ begin
         elsif (current_state = menu) then
             button_2_latched <= '0';
         end if;
-        if (dead = '1') and (current_state = play) then
-        dead_latched <= '1';
+        if (dead = '1') and (current_state = play)  then
+          dead_latched <= '1';
+        elsif (dead='1') and (current_state = training) then 
+          dead_latched <= '1';
         elsif (current_state = game_over and next_state /= game_over) then
-        dead_latched <= '0'; -- Clear it once we leave game_over
+          dead_latched <= '0'; -- Clear it once we leave game_over
         end if;
 
         -- State machine
@@ -303,27 +315,35 @@ begin
         case current_state is
             when menu =>
             if ps2_right_latch = '1' then
-            next_state <= training;
-            ps2_right_latch <= '0';
-            dead_latched <= '0';  -- Reset dead latch here too
-          elsif ps2_left_latch = '1' then
-            next_state <= play;
-            ps2_left_latch <= '0';
-            dead_latched <= '0';  -- Reset dead latch here too
-          end if;
+              next_state <= training;
+              ps2_right_latch <= '0';
+              dead_latched <= '0';  -- Reset dead latch here too
+            elsif ps2_left_latch = '1' then
+              next_state <= play;
+              ps2_left_latch <= '0';
+              dead_latched <= '0';  -- Reset dead latch here too
+            end if;
 
             when training =>
-				speed <= speed_EASY;
+				    speed <= speed_EASY;
                 if button_1_latched = '1' then
                     next_state <= play;
 						  button_1_latched <= '0';
 
-					elsif ps2_right_latch = '1' then
-              prev_state <= training; -- Store the previous state before pausing
-							next_state <= pause;
-							ps2_right_latch <= '0';
-							speed <= 0;
-                end if;
+              elsif ps2_right_latch = '1' then
+                prev_state <= training; -- Store the previous state before pausing
+                next_state <= pause;
+                ps2_right_latch <= '0';
+                speed <= 0;
+              elsif collision_latched = '1' then
+                prev_state <= training; 
+                next_state <= game_over;
+                speed <= 0;
+              elsif dead_latched = '1' and lives = "00" then
+                  prev_state <= training; 
+                  next_state <= game_over;
+                  speed <= 0;
+              end if;
 
             when play =>
 			
@@ -340,15 +360,15 @@ begin
               prev_state <= play; -- Store the previous state before pausing
               next_state <= pause;
               ps2_right_latch <= '0';
-				  speed <= 0;
+				      speed <= 0;
             elsif collision_latched = '1' then
+              prev_state <= play; 
               next_state <= game_over;
-				  speed <= 0;
-				elsif dead_latched = '1' then
-					next_state <= game_over;
-					speed <= 0;
-
-
+				      speed <= 0;
+            elsif dead_latched = '1' then
+              prev_state <= play; 
+              next_state <= game_over;
+              speed <= 0;
             end if;
 
             when pause =>
@@ -361,8 +381,8 @@ begin
                 end if;
 
             when game_over =>
-                if ps2_left_latch = '1' then
-                    next_state <= play;
+              if ps2_left_latch = '1' then
+                    next_state <= prev_state;
 						  ps2_left_latch <= '0';
 						  speed <= speed_EASY;
               dead_latched <= '0'; -- Reset dead latch
@@ -444,6 +464,7 @@ score_to_display <= last_score when current_state = game_over else score;
 score_ones    <= std_logic_vector(to_unsigned(score_to_display mod 10, 4));
 score_tens    <= std_logic_vector(to_unsigned((score_to_display/10) mod 10, 4));
 score_hundreds<= std_logic_vector(to_unsigned((score_to_display/100) mod 10, 4));
+bcd_lives <= "00" & lives; 
 
 sso_score: BCD_to_SevenSeg
 port map(
@@ -462,6 +483,56 @@ port map(
     BCD_digit => score_hundreds,
     SevenSeg_out => HEX2
 );
+
+sso_lives: BCD_to_SevenSeg
+port map(
+     BCD_digit => bcd_lives,        
+     SevenSeg_out => HEX5      
+); 
+
+process(clk_25MHz)
+begin
+    if rising_edge(clk_25MHz) then
+        if (lives_reset = '1') then 
+          lives <= "11"; 
+        else
+          -- Set safe flag on collision/life loss in play mode
+          if (current_state = play) and (dead = '1') and (lives /= "00") then
+              if (ball_on = '1') and (s_pipe1_on = '1') then
+                  pipe1_safe <= '1';
+              end if;
+              if (ball_on = '1') and (s_pipe2_on = '1') then
+                  pipe2_safe <= '1';
+              end if;
+          end if;
+
+          -- TRAINING MODE: Decrement lives only once per pipe hit
+          if (current_state = training) and (dead = '1') and (lives /= "00") then
+              if (pipe1_safe = '0' and (ball_on = '1') and (s_pipe1_on = '1')) then
+                  lives <= std_logic_vector(unsigned(lives) - 1);
+                  pipe1_safe <= '1';
+              elsif (pipe2_safe = '0' and (ball_on = '1') and (s_pipe2_on = '1')) then
+                  lives <= std_logic_vector(unsigned(lives) - 1);
+                  pipe2_safe <= '1';
+              end if;
+          end if;
+
+          -- Clear safe flag when pipe passes the bird
+          if (to_integer(pipe1_x_pos) + to_integer(pipe_width + 16) < BIRD_X_POS) then
+              pipe1_safe <= '0';
+          end if;
+          if (to_integer(pipe2_x_pos) + to_integer(pipe_width + 16) < BIRD_X_POS) then
+              pipe2_safe <= '0';
+          end if;
+
+          -- Optionally, reset safe flags on game reset
+          if (current_state /= play) and (current_state /= pause) and (current_state /= training) then
+              pipe1_safe <= '0';
+              pipe2_safe <= '0';
+          end if;
+      end if;
+    end if; 
+end process;
 
 	  -- Assign the current_state something that is able to passed onto other components 
   -- Made since state and multicharacter text was developed seperately. 
@@ -635,12 +706,6 @@ begin
 	
 end process;
 
-	
-  
-  
-  
-  
-  
 
   -- Logic to determine if the current pixel is part of the bird
   ball_on <= '1' when ((current_state /= MENU) and(red_ball = '1' or green_ball = '1' or blue_ball = '1')) else '0';
@@ -675,12 +740,10 @@ blue_pixel <= '1' when (ball_on = '1') or
                         (cursor_on = '1') else 
               dip_sw3;
   -- Dead bird
-  --dead <= '1' when ((ball_on = '1') and (s_pipe1_on = '1' or s_pipe2_on = '1'))  else '0';
-  
-  
-
-
-
+  -- dead <= '1' when (ball_on = '1') and 
+  --   ((s_pipe1_on = '1' and pipe1_safe = '0') or (s_pipe2_on = '1' and pipe2_safe = '0')) 
+  --   else '0';
+  -- LEDR0 <= dead;
   
   -- Instantiate the text component 
   TextComponent: char_rom 
@@ -710,14 +773,14 @@ blue_pixel <= '1' when (ball_on = '1') or
 	clock => clk_25MHz,
 	pixel_row => pixel_row,
 	pixel_column => pixel_column,
+	lives => lives,
 	font_row => font_row_32, -- Input 
 	state => current_state_vec,
 	font_column => font_col_32, 
 	character_addr => character_address_32,
 	within_bounds => within_bounds_32
   ); 
-  
-  
+
   -- LEDR0 <= ps2_left;
   
   -- Instantiate the VGA sync component
