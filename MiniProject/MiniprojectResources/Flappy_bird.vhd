@@ -60,8 +60,17 @@ architecture Behavioral of Flappy_bird is
   signal pipe1_x_pos: unsigned(9 downto 0) := to_unsigned(640,10);
   signal pipe2_x_pos: unsigned(9 downto 0);
   signal dead: std_logic := '0';
-  signal pipe_vertical_gap: unsigned (9 downto 0):= to_unisgned(150,10);
+  signal pipe_vertical_gap: unsigned(9 downto 0):= to_unsigned(150,10);
 
+  
+  --Power up signals
+  signal power_up_on: std_logic;
+  signal power_up_plus2_hit: std_logic;
+  signal power_up_scored : std_logic := '0';
+  signal prev_hit : std_logic := '0';
+  signal arc_power_up_on: std_logic;
+
+  
   
   --LFSR
   signal rand_height: unsigned(9 downto 0);
@@ -160,6 +169,14 @@ architecture Behavioral of Flappy_bird is
         rnd_out  : out unsigned(9 downto 0);
         valid    : out STD_LOGIC
     );
+	end component;
+	
+	component plus_2_powerup is
+    port (
+	 top_pipe_height, pipe_x_pos: in unsigned(9 downto 0);
+	 pixel_row, pixel_column : in std_logic_vector(9 downto 0);
+	 power_up_on: out std_logic
+		);
 	end component;
 
   component bouncy_bird IS
@@ -407,7 +424,16 @@ begin
               score <= 0;
               pipe1_scored <= '0';
               pipe2_scored <= '0';
+		
         elsif (current_state = play) then -- Ensure that we only increment in play state
+    if (power_up_plus2_hit = '1' and power_up_scored = '0') then
+         score <= score + 2;
+         power_up_scored <= '1';
+         power_up_plus2_hit <= '0'; -- Reset the hit signal
+    end if;
+    if (power_up_plus2_hit = '0') then
+         power_up_scored <= '0';
+    end if;
           bird_y_int := to_integer(unsigned(bird_y));
           pipe_x := to_integer(pipe1_x_pos);
           gap_top := to_integer(s_height);
@@ -437,8 +463,8 @@ begin
           if (BIRD_X_POS <= pipe_x + to_integer(pipe_width)) then
               pipe2_scored <= '0';
           end if;
+			 end if; 
         end if; 
-    end if;
 end process;
 
 -- Make sure the score is displayed correctly
@@ -580,10 +606,21 @@ port map(
 	pipe_on			=> s_pipe2_on
   );
   
+  -- Power up component port maps and logic
+  power_Up_plus2: plus_2_powerup
+  port map(
+  top_pipe_height => s_height,
+  pipe_x_pos => pipe1_x_pos,
+  pixel_row      => pixel_row,
+  pixel_column   => pixel_column,
+  power_up_on 	=>   power_up_on
+  );
   
   -- Moving pipe logic
   
 moving_pipe: process(v_sync_signal, pipe_reset)
+
+
     constant MIN_GAP : unsigned(9 downto 0) := to_unsigned(300, 10);
 begin
     if pipe_reset = '1' then
@@ -643,11 +680,35 @@ begin
 	
 end process;
 
+power_up_plus2_process: process(clk_25MHz)
+    variable hit : std_logic;
+begin
+    if rising_edge(clk_25MHz) then
+        if (ball_on = '1' and power_up_on = '1') then
+            hit := '1';
+        else
+            hit := '0';
+        end if;
+
+        -- Generate 1-cycle pulse on rising edge of hit
+        if (hit = '1' and prev_hit = '0') then
+            power_up_plus2_hit <= '1';
+        else
+            power_up_plus2_hit <= '0';
+        end if;
+
+        -- Update previous state
+        prev_hit <= hit;
+    end if;
+end process;
+
 	
   
   
   
-  
+  --
+  arc_power_up_on <= '1' when (power_up_on = '1' and power_up_plus2_hit = '0') else '0';
+
   
 
   -- Logic to determine if the current pixel is part of the bird
@@ -671,7 +732,8 @@ red_pixel <= '0' when (ball_on = '1') or (text_on = '1') else
 green_pixel <= '0' when (ball_on = '1') or 
                          (text_on = '1') or 
                          (s_pipe1_on = '1') or 
-                         (s_pipe2_on = '1') else
+                         (s_pipe2_on = '1')  or (arc_power_up_on = '1')
+								 else
                '1' when (current_state = TRAINING) or 
                         (current_state = PLAY) or 
                         (current_state = GAME_OVER) else 
@@ -751,6 +813,6 @@ blue_pixel <= '1' when (ball_on = '1') or
 
 end Behavioral;
 
-  
+
 
 
