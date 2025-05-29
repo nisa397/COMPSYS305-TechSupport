@@ -99,7 +99,6 @@ architecture Behavioral of Flappy_bird is
   signal dead_latched : std_logic := '0';
 
   -- score signals
-  signal bird_y : std_logic_vector(9 downto 0);
   signal score : integer := 0;
   signal pipe1_scored, pipe2_scored : std_logic := '0';
   constant BIRD_X_POS : integer := 160; -- The bird's fixed x position
@@ -574,6 +573,7 @@ begin
         -- normal movement...
         if pipe1_x_pos = to_unsigned(0, 10) then
             pipe1_x_pos <= to_unsigned(640, 10) + pipe_width;
+            s_height <= rand_height; 
         else
             pipe1_x_pos <= pipe1_x_pos - to_unsigned(speed, 10);
         end if;
