@@ -34,9 +34,7 @@ architecture Behavioral of Flappy_bird is
   
   -- Internal 25 MHz clock signal
   SIGNAL clk_25MHz : std_logic := '0';
-  signal pipe_reset : std_logic := '0'; 
-  signal bird_reset : std_logic := '0';
-
+  
   
   -- Mouse signals
   signal ps2_reset : std_logic := '0';
@@ -80,8 +78,7 @@ architecture Behavioral of Flappy_bird is
   SIGNAL red_pixel, green_pixel, blue_pixel : std_logic;
   SIGNAL ball_on : std_logic;
   SIGNAL ball_x_pos, ball_y_pos : std_logic_vector(9 DOWNTO 0);
-  SIGNAL bird_x, bird_y : std_logic_vector(9 DOWNTO 0);
-
+  
   signal v_sync_signal : std_logic;
 
   -- Latch signals for button presses
@@ -92,7 +89,6 @@ architecture Behavioral of Flappy_bird is
   signal button_3_latched : std_logic := '0';
   signal button_4_latched : std_logic := '0';
   signal collision_latched : std_logic := '0';
-  signal dead_latched : std_logic := '0';
 
   -- score signals
   signal bird_y : std_logic_vector(9 downto 0);
@@ -146,11 +142,10 @@ architecture Behavioral of Flappy_bird is
   component bouncy_bird IS
 	port (
         ps2_left, pb2, clk, vert_sync, game_start : in  std_logic;
-		  reset: in std_logic;
         pixel_row, pixel_column  : in  std_logic_vector(9 downto 0);
         game_state : in std_logic_vector(2 downto 0); 
-        red, green, blue, ends        : out std_logic ;
-        bird_x, bird_y                : out std_logic_vector(9 downto 0)
+        ball_y_pos_out : out std_logic_vector(9 downto 0);
+        red, green, blue, ends        : out std_logic
     );
   end component;
   
@@ -223,16 +218,6 @@ architecture Behavioral of Flappy_bird is
   begin
 	
 	game_active <= '1' when (current_state = play or current_state = training) else '0';
-  pipe_reset <= '1' when (current_state = game_over and next_state = play) or
-                 (current_state = game_over and next_state = training) else
-         '0';
-
-  bird_reset <= '1' when (current_state = menu and next_state = play) or
-                        (current_state = game_over and next_state = play) or
-                        (current_state = menu and next_state = training) or
-                        (current_state = game_over and next_state = training) else
-              '0';
-
 
 
     -- State machine to handle game states
@@ -275,37 +260,28 @@ begin
         elsif (current_state = menu) then
             button_2_latched <= '0';
         end if;
-        if (dead = '1') and (current_state = play) then
-        dead_latched <= '1';
-        elsif (current_state = game_over and next_state /= game_over) then
-        dead_latched <= '0'; -- Clear it once we leave game_over
-        end if;
 
         -- State machine
         --next_state <= current_state; -- Default
 
         case current_state is
             when menu =>
-            if ps2_right_latch = '1' then
-            next_state <= training;
-            ps2_right_latch <= '0';
-            dead_latched <= '0';  -- Reset dead latch here too
-          elsif ps2_left_latch = '1' then
-            next_state <= play;
-            ps2_left_latch <= '0';
-            dead_latched <= '0';  -- Reset dead latch here too
-          end if;
+                if ps2_right_latch = '1' then
+                    next_state <= training;
+						  ps2_right_latch <= '0';
+                elsif ps2_left_latch = '1' then
+                    next_state <= play;
+						  ps2_left_latch <= '0';
+                end if;
 
             when training =>
                 if button_1_latched = '1' then
                     next_state <= play;
 						  button_1_latched <= '0';
-
 					elsif ps2_right_latch = '1' then
               prev_state <= training; -- Store the previous state before pausing
 							next_state <= pause;
 							ps2_right_latch <= '0';
-							speed <= 0;
                 end if;
 
             when play =>
@@ -313,22 +289,18 @@ begin
               prev_state <= play; -- Store the previous state before pausing
               next_state <= pause;
               ps2_right_latch <= '0';
-				  speed <= 0;
-            elsif collision_latched = '1' then
-              next_state <= game_over;
-				  speed <= 0;
-				elsif dead_latched = '1' then
-					next_state <= game_over;
-					speed <= 0;
-
-
+            elsif dead = '1' then
+                if lives = "00" then
+                    next_state <= game_over;
+                else
+                    lives <= std_logic_vector(unsigned(lives) - 1);
+                end if;
             end if;
 
             when pause =>
                 if ps2_left_latch = '1' then
                     next_state <= prev_state; -- Return to the previous state
 						  ps2_left_latch <= '0';
-						  speed <= 5;
                 elsif button_2_latched = '1' then
                     next_state <= menu;
 						  button_2_latched <= '0';
@@ -338,24 +310,20 @@ begin
                 if ps2_left_latch = '1' then
                     next_state <= play;
 						  ps2_left_latch <= '0';
-						  speed <= 5;
-              dead_latched <= '0'; -- Reset dead latch
                elsif button_2_latched = '1' then
                     next_state <= menu;
 						  button_2_latched <= '0';
-              dead_latched <= '0'; -- Reset dead latch
                 end if;
 
             when others =>
                 next_state <= menu;
         end case;
-
-
-		  if (current_state /= play) and (next_state = play) then
-			game_start <= '1';
-		  else
-			game_start <= '0';
-		  end if;
+      if ((current_state = menu or current_state = training or current_state = game_over) and (next_state = play)) then
+          game_start <= '1';
+          lives <= "11";
+      else
+          game_start <= '0';
+      end if;
 
         current_state <= next_state;
     end if;
@@ -458,8 +426,8 @@ port map(
   s_height <= to_unsigned(200,10);
   s_height2 <= to_unsigned(300,10);
 
-  LEDR0 <= '1' when (dead = '1') else '0'; -- For debugging purposes, can be removed later
-
+  
+  
     -- Instantiate the clock divider to generate 25 MHz clock
     ClockDivider: Clock_25MHz
     port map(
@@ -494,8 +462,7 @@ port map(
     -- Instantiate the ball component
   BallComponent: bouncy_bird
   port map(
-	 reset			 => bird_reset,
-	 ps2_left 		 => ps2_left,
+	 ps2_left 				 => ps2_left,
 	 pb2 				 => button_2,
 	 vert_sync 		 => v_sync_signal,
 	 game_start     => game_start,
@@ -507,9 +474,7 @@ port map(
     red            => red_ball,
     green          => green_ball,
     blue           => blue_ball,
-    ends       => collision,
-    bird_x       => bird_x,
-    bird_y       => bird_y
+    ends       => collision
   );
   
   
@@ -518,9 +483,6 @@ port map(
 	font_col_in <= font_col_64 when within_bounds_64 = '1' else font_col_32;
 	character_address_in <= character_address_64 when within_bounds_64 = '1' else character_address_32;
 	within_bounds <= within_bounds_64 or within_bounds_32;
-  
-  -- Pipe components and pipe logic
-  
   pipe_1: pipe
   port map(
 	vert_sync 		=> v_sync_signal,
@@ -548,23 +510,23 @@ port map(
   
   -- Moving pipe logic
   
-moving_pipe: process(v_sync_signal, pipe_reset)
+ 
+moving_pipe: process(v_sync_signal)
     constant MIN_GAP : unsigned(9 downto 0) := to_unsigned(300, 10);
 begin
-    if pipe_reset = '1' then
-        pipe1_x_pos <= to_unsigned(720, 10);
-        pipe2_x_pos <= to_unsigned(720, 10) + MIN_GAP;
-    elsif rising_edge(v_sync_signal) then
-        -- normal movement...
-        if pipe1_x_pos = to_unsigned(0, 10) then
+    if rising_edge(v_sync_signal) then
+        -- Move pipe1
+        if (pipe1_x_pos = to_unsigned(0, 10)) then
             pipe1_x_pos <= to_unsigned(640, 10) + pipe_width;
         else
             pipe1_x_pos <= pipe1_x_pos - to_unsigned(speed, 10);
         end if;
-
-        if pipe2_x_pos = to_unsigned(0, 10) then
-            if pipe1_x_pos > (to_unsigned(640, 10) + pipe_width - MIN_GAP) then
-                pipe2_x_pos <= pipe1_x_pos + MIN_GAP;
+         
+        -- Move pipe2 with gap enforcement
+        if (pipe2_x_pos = to_unsigned(0, 10)) then
+            -- Wrap pipe2 to right edge, but ensure spacing from pipe1
+            if (pipe1_x_pos > (to_unsigned(640,10) + pipe_width - MIN_GAP)) then
+                pipe2_x_pos <= pipe1_x_pos + MIN_GAP;  -- place pipe2 at least MIN_GAP ahead
             else
                 pipe2_x_pos <= to_unsigned(640, 10) + pipe_width;
             end if;
@@ -573,42 +535,6 @@ begin
         end if;
     end if;
 end process;
-
-dead_process:process(v_sync_signal)
-    constant bird_x_const : unsigned(9 downto 0) := to_unsigned(160, 10); -- bird's x position
-    constant bird_width   : unsigned(9 downto 0) := to_unsigned(16, 10); -- bird's width
-    constant pipe_gap     : unsigned(9 downto 0) := to_unsigned(150, 10); -- same as vertical_gap in pipe.vhd
-	 variable hit : std_logic;
-begin
-    if rising_edge(v_sync_signal) then
-        -- Pipe 1 collision
-        if (pipe1_x_pos < bird_x_const + bird_width) and (pipe1_x_pos + pipe_width > bird_x_const) then
-            if (unsigned(bird_y) <= s_height) or (unsigned(bird_y) + bird_width >= s_height + pipe_gap) then
-                hit := '1';
-            else
-                hit := '0';
-            end if;
-        -- Pipe 2 collision
-        elsif (pipe2_x_pos < bird_x_const + bird_width) and (pipe2_x_pos + pipe_width > bird_x_const) then
-            if (unsigned(bird_y) <= s_height2) or (unsigned(bird_y) + bird_width >= s_height2 + pipe_gap) then
-                hit := '1';
-            else
-                hit := '0';
-            end if;
-        else
-            hit := '0';
-        end if;
-		   dead <= hit;
-    end if;
-	
-end process;
-
-	
-  
-  
-  
-  
-  
 
   -- Logic to determine if the current pixel is part of the bird
   ball_on <= '1' when ((current_state /= MENU) and(red_ball = '1' or green_ball = '1' or blue_ball = '1')) else '0';
@@ -643,8 +569,10 @@ blue_pixel <= '1' when (ball_on = '1') or
                         (cursor_on = '1') else 
               dip_sw3;
   -- Dead bird
-  --dead <= '1' when ((ball_on = '1') and (s_pipe1_on = '1' or s_pipe2_on = '1'))  else '0';
-  
+  dead <= '1' when (ball_on = '1') and 
+    ((s_pipe1_on = '1' and pipe1_safe = '0') or (s_pipe2_on = '1' and pipe2_safe = '0')) 
+    else '0';
+  LEDR0 <= dead;
   
   -- Instantiate the text component 
   TextComponent: char_rom 
