@@ -207,7 +207,8 @@ architecture Behavioral of Flappy_bird is
 	
 	game_active <= '1' when (current_state = play or current_state = training) else '0';
   pipe_reset <= '1' when (current_state = game_over and next_state = play) or
-                 (current_state = game_over and next_state = training) else
+                 (current_state = game_over and next_state = training) or
+                 (current_state = menu ) and (next_state = play or next_state = training) else
          '0';
 
   bird_reset <= '1' when (current_state = menu and next_state = play) or
