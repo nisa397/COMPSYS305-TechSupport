@@ -409,11 +409,11 @@ begin
 end process;
 
 -- Score processes 
-score_logic: process(clk_25MHz)
+score_logic: process(v_sync_signal)
     variable bird_y_int : integer;
     variable pipe_x, gap_top, gap_bottom : integer;
 begin
-    if rising_edge(clk_25MHz) then
+    if rising_edge(v_sync_signal) then
 
         -- Latch the score when entering game_over
         if (current_state = play) and (next_state = game_over) then
