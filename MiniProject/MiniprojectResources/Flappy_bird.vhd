@@ -129,6 +129,10 @@ architecture Behavioral of Flappy_bird is
   -- Lives signals 
   signal lives : std_logic_vector(2 downto 0); -- 2 bits, 00, 01, 10, 11. 
 
+  -- Powerup signal 
+  signal powerup_reset : std_logic := '0'; 
+signal powerup_safe : std_logic := '0'; 
+
   -- Datatypes for game states
   type game_state_type is (menu, training, play, pause, game_over);
   signal current_state : game_state_type := menu;
@@ -317,7 +321,6 @@ begin
         elsif (current_state = game_over and next_state /= game_over) then
         dead_latched <= '0'; -- Clear it once we leave game_over
         end if;
-
         -- State machine
         --next_state <= current_state; -- Default
 
@@ -430,7 +433,7 @@ begin
     if (power_up_plus2_hit = '1' and power_up_scored = '0') then
          score <= score + 2;
          power_up_scored <= '1';
-         power_up_plus2_hit <= '0'; -- Reset the hit signal
+         --power_up_plus2_hit <= '0'; -- Reset the hit signal
     end if;
     -- Only reset when power_up_on is '0' (i.e., power-up is gone)
             if (power_up_on = '0') then
@@ -685,19 +688,24 @@ begin
 	
 end process;
 
+
 power_up_plus2_process: process(clk_25MHz)
     variable hit : std_logic;
 begin
     if rising_edge(clk_25MHz) then
-        if (ball_on = '1' and power_up_on = '1') then
+      if powerup_reset = '1' then
+        powerup_safe <= '0';
+      else     
+        if (ball_on = '1' and power_up_on = '1' and powerup_safe = '0') then
             hit := '1';
         else
             hit := '0';
         end if;
 
         -- Generate 1-cycle pulse on rising edge of hit
-        if (hit = '1' and prev_hit = '0') then
+        if (hit = '1' and prev_hit = '0' and powerup_safe = '0') then
             power_up_plus2_hit <= '1';
+            powerup_safe <= '1'; -- Make powerup temporarily safe
         else
             power_up_plus2_hit <= '0';
         end if;
@@ -705,8 +713,16 @@ begin
         -- Update previous state
         prev_hit <= hit;
     end if;
+  end if; 
 end process;
 
+powerup_reset <= '1' when
+    ((powerup_safe = '1') and ((to_integer(unsigned(bird_x)) - to_integer(pipe1_x_pos)) > 64)) or
+    ((current_state = play or current_state = training) and 
+     (next_state = menu or next_state = game_over)) or
+    (power_up_on = '0')
+else
+    '0';
 	
   
   
