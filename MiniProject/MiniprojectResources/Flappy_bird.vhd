@@ -416,7 +416,7 @@ end process;
 
 -- Score processes 
 score_logic: process(clk_25MHz)
-    signal powerup_x, powerup_y : unsigned(9 downto 0);
+    variable powerup_x, powerup_y : integer;
 
     variable bird_y_int : integer;
     variable pipe_x, gap_top, gap_bottom : integer;
@@ -461,16 +461,16 @@ begin
           gap_top := to_integer(s_height);
           gap_bottom := gap_top + 150; -- or use your vertical_gap signal
 
-            if (to_integer(bird_x_pos) + 8 - 1 >= powerup_x ) and 
-            (to_integer(bird_x_pos) <= powerup_x + 5 - 1 ) and 
+            if (bird_x_pos + 8 - 1 >= powerup_x ) and 
+            (bird_x_pos <= powerup_x + 5 - 1 ) and 
             (bird_y_int + 8 - 1 >= powerup_y) and
             (bird_y_int <= powerup_y+5 -1) then
               score <= score + 2;
-              enable <= '0'; -- Disable power-up once collected
+              powerup_enable <= '0'; -- Disable power-up once collected
             
 
             else
-            enable <= '1'; -- Enable power-up when not collected
+            powerup_enable <= '1'; -- Enable power-up when not collected
             end if;
 
           if (BIRD_X_POS > pipe_x + to_integer(pipe_width)) and
