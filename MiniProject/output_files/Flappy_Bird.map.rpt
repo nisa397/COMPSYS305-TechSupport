@@ -1,5 +1,5 @@
 Analysis & Synthesis report for Flappy_Bird
-Fri May 30 12:37:09 2025
+Fri May 30 12:51:50 2025
 Quartus Prime Version 24.1std.0 Build 1077 03/04/2025 SC Lite Edition
 
 
@@ -65,13 +65,13 @@ on the Quartus Prime software download page.
 +-----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                      ;
 +---------------------------------+-------------------------------------------------+
-; Analysis & Synthesis Status     ; Successful - Fri May 30 12:37:09 2025           ;
+; Analysis & Synthesis Status     ; Successful - Fri May 30 12:51:50 2025           ;
 ; Quartus Prime Version           ; 24.1std.0 Build 1077 03/04/2025 SC Lite Edition ;
 ; Revision Name                   ; Flappy_Bird                                     ;
 ; Top-level Entity Name           ; Flappy_bird                                     ;
 ; Family                          ; Cyclone V                                       ;
 ; Logic utilization (in ALMs)     ; N/A                                             ;
-; Total registers                 ; 341                                             ;
+; Total registers                 ; 342                                             ;
 ; Total pins                      ; 37                                              ;
 ; Total virtual pins              ; 0                                               ;
 ; Total block memory bits         ; 4,096                                           ;
@@ -251,16 +251,16 @@ on the Quartus Prime software download page.
 +---------------------------------------------+------------------------------+
 ; Resource                                    ; Usage                        ;
 +---------------------------------------------+------------------------------+
-; Estimate of Logic utilization (ALMs needed) ; 3304                         ;
+; Estimate of Logic utilization (ALMs needed) ; 3307                         ;
 ;                                             ;                              ;
-; Combinational ALUT usage for logic          ; 6371                         ;
+; Combinational ALUT usage for logic          ; 6374                         ;
 ;     -- 7 input functions                    ; 7                            ;
-;     -- 6 input functions                    ; 215                          ;
-;     -- 5 input functions                    ; 182                          ;
-;     -- 4 input functions                    ; 1917                         ;
-;     -- <=3 input functions                  ; 4050                         ;
+;     -- 6 input functions                    ; 217                          ;
+;     -- 5 input functions                    ; 185                          ;
+;     -- 4 input functions                    ; 1921                         ;
+;     -- <=3 input functions                  ; 4044                         ;
 ;                                             ;                              ;
-; Dedicated logic registers                   ; 341                          ;
+; Dedicated logic registers                   ; 342                          ;
 ;                                             ;                              ;
 ; I/O pins                                    ; 37                           ;
 ; Total MLAB memory bits                      ; 0                            ;
@@ -269,9 +269,9 @@ on the Quartus Prime software download page.
 ; Total DSP Blocks                            ; 0                            ;
 ;                                             ;                              ;
 ; Maximum fan-out node                        ; Clock_25MHz:ClockDivider|p_Q ;
-; Maximum fan-out                             ; 196                          ;
-; Total fan-out                               ; 21974                        ;
-; Average fan-out                             ; 3.23                         ;
+; Maximum fan-out                             ; 197                          ;
+; Total fan-out                               ; 22005                        ;
+; Average fan-out                             ; 3.24                         ;
 +---------------------------------------------+------------------------------+
 
 
@@ -280,7 +280,7 @@ on the Quartus Prime software download page.
 +-------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+---------------------------------------------------------------------------------------------------------------------------------+---------------------+--------------+
 ; Compilation Hierarchy Node                ; Combinational ALUTs ; Dedicated Logic Registers ; Block Memory Bits ; DSP Blocks ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                                                             ; Entity Name         ; Library Name ;
 +-------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+---------------------------------------------------------------------------------------------------------------------------------+---------------------+--------------+
-; |Flappy_bird                              ; 6371 (636)          ; 341 (132)                 ; 4096              ; 0          ; 37   ; 0            ; |Flappy_bird                                                                                                                    ; Flappy_bird         ; work         ;
+; |Flappy_bird                              ; 6374 (639)          ; 342 (133)                 ; 4096              ; 0          ; 37   ; 0            ; |Flappy_bird                                                                                                                    ; Flappy_bird         ; work         ;
 ;    |BCD_to_SevenSeg:ssh_score|            ; 7 (7)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |Flappy_bird|BCD_to_SevenSeg:ssh_score                                                                                          ; BCD_to_SevenSeg     ; work         ;
 ;    |BCD_to_SevenSeg:sso_score|            ; 7 (7)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |Flappy_bird|BCD_to_SevenSeg:sso_score                                                                                          ; BCD_to_SevenSeg     ; work         ;
 ;    |BCD_to_SevenSeg:sst_score|            ; 7 (7)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |Flappy_bird|BCD_to_SevenSeg:sst_score                                                                                          ; BCD_to_SevenSeg     ; work         ;
@@ -423,7 +423,7 @@ Encoding Type:  One-Hot
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 341   ;
+; Total registers                              ; 342   ;
 ; Number of registers using Synchronous Clear  ; 70    ;
 ; Number of registers using Synchronous Load   ; 21    ;
 ; Number of registers using Asynchronous Clear ; 36    ;
@@ -438,10 +438,10 @@ Encoding Type:  One-Hot
 +-----------------------------------------+---------+
 ; Inverted Register                       ; Fan out ;
 +-----------------------------------------+---------+
-; bouncy_bird:BallComponent|ball_y_pos[7] ; 11      ;
-; bouncy_bird:BallComponent|ball_y_pos[6] ; 12      ;
-; bouncy_bird:BallComponent|ball_y_pos[5] ; 16      ;
-; bouncy_bird:BallComponent|ball_y_pos[4] ; 18      ;
+; bouncy_bird:BallComponent|ball_y_pos[7] ; 12      ;
+; bouncy_bird:BallComponent|ball_y_pos[6] ; 13      ;
+; bouncy_bird:BallComponent|ball_y_pos[5] ; 17      ;
+; bouncy_bird:BallComponent|ball_y_pos[4] ; 19      ;
 ; pipe1_x_pos[7]                          ; 10      ;
 ; pipe1_x_pos[9]                          ; 20      ;
 ; pipe1_x_pos[6]                          ; 9       ;
@@ -477,27 +477,27 @@ Encoding Type:  One-Hot
 +--------------------+-----------+---------------+----------------------+------------------------+------------+---------------------------------------------------------+
 ; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                              ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+---------------------------------------------------------+
-; 3:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; Yes        ; |Flappy_bird|pipe2_x_pos[1]                             ;
-; 3:1                ; 10 bits   ; 20 LEs        ; 0 LEs                ; 20 LEs                 ; Yes        ; |Flappy_bird|VGA_SYNC:VGASync|v_count[3]                ;
-; 3:1                ; 20 bits   ; 40 LEs        ; 20 LEs               ; 20 LEs                 ; Yes        ; |Flappy_bird|MOUSE:ps2|new_cursor_row[0]                ;
-; 5:1                ; 31 bits   ; 93 LEs        ; 31 LEs               ; 62 LEs                 ; Yes        ; |Flappy_bird|score[7]                                   ;
-; 5:1                ; 6 bits    ; 18 LEs        ; 12 LEs               ; 6 LEs                  ; Yes        ; |Flappy_bird|bouncy_bird:BallComponent|ball_y_pos[0]    ;
-; 5:1                ; 6 bits    ; 18 LEs        ; 12 LEs               ; 6 LEs                  ; Yes        ; |Flappy_bird|MOUSE:ps2|cursor_row[9]                    ;
+; 3:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; Yes        ; |Flappy_bird|pipe2_x_pos[0]                             ;
+; 3:1                ; 10 bits   ; 20 LEs        ; 0 LEs                ; 20 LEs                 ; Yes        ; |Flappy_bird|VGA_SYNC:VGASync|v_count[8]                ;
+; 3:1                ; 20 bits   ; 40 LEs        ; 20 LEs               ; 20 LEs                 ; Yes        ; |Flappy_bird|MOUSE:ps2|new_cursor_row[7]                ;
+; 5:1                ; 31 bits   ; 93 LEs        ; 31 LEs               ; 62 LEs                 ; Yes        ; |Flappy_bird|score[9]                                   ;
+; 5:1                ; 6 bits    ; 18 LEs        ; 12 LEs               ; 6 LEs                  ; Yes        ; |Flappy_bird|bouncy_bird:BallComponent|ball_y_pos[8]    ;
+; 5:1                ; 6 bits    ; 18 LEs        ; 12 LEs               ; 6 LEs                  ; Yes        ; |Flappy_bird|MOUSE:ps2|cursor_row[8]                    ;
 ; 5:1                ; 4 bits    ; 12 LEs        ; 8 LEs                ; 4 LEs                  ; Yes        ; |Flappy_bird|MOUSE:ps2|cursor_row[7]                    ;
 ; 5:1                ; 8 bits    ; 24 LEs        ; 8 LEs                ; 16 LEs                 ; Yes        ; |Flappy_bird|MOUSE:ps2|cursor_column[9]                 ;
 ; 5:1                ; 2 bits    ; 6 LEs         ; 4 LEs                ; 2 LEs                  ; Yes        ; |Flappy_bird|MOUSE:ps2|cursor_column[8]                 ;
-; 6:1                ; 10 bits   ; 40 LEs        ; 10 LEs               ; 30 LEs                 ; Yes        ; |Flappy_bird|bouncy_bird:BallComponent|ball_y_motion[0] ;
+; 6:1                ; 10 bits   ; 40 LEs        ; 10 LEs               ; 30 LEs                 ; Yes        ; |Flappy_bird|bouncy_bird:BallComponent|ball_y_motion[5] ;
 ; 11:1               ; 2 bits    ; 14 LEs        ; 10 LEs               ; 4 LEs                  ; Yes        ; |Flappy_bird|speed[3]                                   ;
-; 3:1                ; 8 bits    ; 16 LEs        ; 16 LEs               ; 0 LEs                  ; Yes        ; |Flappy_bird|pipe2_x_pos[9]                             ;
+; 3:1                ; 8 bits    ; 16 LEs        ; 16 LEs               ; 0 LEs                  ; Yes        ; |Flappy_bird|pipe2_x_pos[8]                             ;
 ; 5:1                ; 4 bits    ; 12 LEs        ; 8 LEs                ; 4 LEs                  ; Yes        ; |Flappy_bird|bouncy_bird:BallComponent|ball_y_pos[7]    ;
-; 5:1                ; 4 bits    ; 12 LEs        ; 12 LEs               ; 0 LEs                  ; No         ; |Flappy_bird|BCD_to_SevenSeg:sso_score|SevenSeg_out[3]  ;
-; 5:1                ; 4 bits    ; 12 LEs        ; 12 LEs               ; 0 LEs                  ; No         ; |Flappy_bird|BCD_to_SevenSeg:sst_score|SevenSeg_out[5]  ;
-; 5:1                ; 4 bits    ; 12 LEs        ; 12 LEs               ; 0 LEs                  ; No         ; |Flappy_bird|BCD_to_SevenSeg:ssh_score|SevenSeg_out[0]  ;
-; 4:1                ; 3 bits    ; 6 LEs         ; 3 LEs                ; 3 LEs                  ; No         ; |Flappy_bird|Selector40                                 ;
+; 5:1                ; 4 bits    ; 12 LEs        ; 12 LEs               ; 0 LEs                  ; No         ; |Flappy_bird|BCD_to_SevenSeg:sso_score|SevenSeg_out[2]  ;
+; 5:1                ; 4 bits    ; 12 LEs        ; 12 LEs               ; 0 LEs                  ; No         ; |Flappy_bird|BCD_to_SevenSeg:sst_score|SevenSeg_out[0]  ;
+; 5:1                ; 4 bits    ; 12 LEs        ; 12 LEs               ; 0 LEs                  ; No         ; |Flappy_bird|BCD_to_SevenSeg:ssh_score|SevenSeg_out[5]  ;
+; 4:1                ; 3 bits    ; 6 LEs         ; 3 LEs                ; 3 LEs                  ; No         ; |Flappy_bird|Selector43                                 ;
 ; 5:1                ; 2 bits    ; 6 LEs         ; 4 LEs                ; 2 LEs                  ; No         ; |Flappy_bird|Selector41                                 ;
 ; 8:1                ; 2 bits    ; 10 LEs        ; 8 LEs                ; 2 LEs                  ; No         ; |Flappy_bird|font_col_in[1]                             ;
-; 9:1                ; 2 bits    ; 12 LEs        ; 10 LEs               ; 2 LEs                  ; No         ; |Flappy_bird|font_row_in[1]                             ;
-; 14:1               ; 5 bits    ; 45 LEs        ; 35 LEs               ; 10 LEs                 ; No         ; |Flappy_bird|Selector0                                  ;
+; 9:1                ; 2 bits    ; 12 LEs        ; 10 LEs               ; 2 LEs                  ; No         ; |Flappy_bird|font_row_in[0]                             ;
+; 14:1               ; 5 bits    ; 45 LEs        ; 35 LEs               ; 10 LEs                 ; No         ; |Flappy_bird|Selector4                                  ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+---------------------------------------------------------+
 
 
@@ -803,7 +803,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 +-----------------------+-----------------------------+
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
-; arriav_ff             ; 341                         ;
+; arriav_ff             ; 342                         ;
 ;     CLR               ; 21                          ;
 ;     ENA               ; 145                         ;
 ;     ENA CLR           ; 15                          ;
@@ -811,9 +811,9 @@ Note: In order to hide this table in the UI and the text report file, please set
 ;     ENA SCLR SLD      ; 1                           ;
 ;     ENA SLD           ; 20                          ;
 ;     SCLR              ; 10                          ;
-;     plain             ; 70                          ;
+;     plain             ; 71                          ;
 ; arriav_io_obuf        ; 2                           ;
-; arriav_lcell_comb     ; 6371                        ;
+; arriav_lcell_comb     ; 6374                        ;
 ;     arith             ; 2985                        ;
 ;         0 data inputs ; 312                         ;
 ;         1 data inputs ; 550                         ;
@@ -822,14 +822,14 @@ Note: In order to hide this table in the UI and the text report file, please set
 ;         4 data inputs ; 1112                        ;
 ;     extend            ; 7                           ;
 ;         7 data inputs ; 7                           ;
-;     normal            ; 3321                        ;
+;     normal            ; 3324                        ;
 ;         0 data inputs ; 1                           ;
 ;         1 data inputs ; 11                          ;
-;         2 data inputs ; 1857                        ;
-;         3 data inputs ; 250                         ;
-;         4 data inputs ; 805                         ;
-;         5 data inputs ; 182                         ;
-;         6 data inputs ; 215                         ;
+;         2 data inputs ; 1853                        ;
+;         3 data inputs ; 248                         ;
+;         4 data inputs ; 809                         ;
+;         5 data inputs ; 185                         ;
+;         6 data inputs ; 217                         ;
 ;     shared            ; 58                          ;
 ;         0 data inputs ; 5                           ;
 ;         1 data inputs ; 36                          ;
@@ -838,7 +838,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 ; stratixv_ram_block    ; 8                           ;
 ;                       ;                             ;
 ; Max LUT depth         ; 142.10                      ;
-; Average LUT depth     ; 98.31                       ;
+; Average LUT depth     ; 98.26                       ;
 +-----------------------+-----------------------------+
 
 
@@ -847,7 +847,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 +----------------+--------------+
 ; Partition Name ; Elapsed Time ;
 +----------------+--------------+
-; Top            ; 00:00:10     ;
+; Top            ; 00:00:09     ;
 +----------------+--------------+
 
 
@@ -857,7 +857,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 24.1std.0 Build 1077 03/04/2025 SC Lite Edition
-    Info: Processing started: Fri May 30 12:36:51 2025
+    Info: Processing started: Fri May 30 12:51:33 2025
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off Flappy_Bird -c Flappy_Bird
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 12 of the 12 processors detected
@@ -906,31 +906,30 @@ Info (12127): Elaborating entity "Flappy_bird" for the top level hierarchy
 Warning (10540): VHDL Signal Declaration warning at Flappy_bird.vhd(47): used explicit default value for signal "ps2_reset" because signal was never assigned a value File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 47
 Warning (10540): VHDL Signal Declaration warning at Flappy_bird.vhd(54): used explicit default value for signal "pipe_width" because signal was never assigned a value File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 54
 Warning (10540): VHDL Signal Declaration warning at Flappy_bird.vhd(63): used explicit default value for signal "pipe_vertical_gap" because signal was never assigned a value File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 63
-Warning (10036): Verilog HDL or VHDL warning at Flappy_bird.vhd(69): object "power_up_scored" assigned a value but never read File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 69
 Warning (10036): Verilog HDL or VHDL warning at Flappy_bird.vhd(72): object "hit_latch" assigned a value but never read File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 72
 Warning (10036): Verilog HDL or VHDL warning at Flappy_bird.vhd(79): object "rand_valid" assigned a value but never read File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 79
 Warning (10036): Verilog HDL or VHDL warning at Flappy_bird.vhd(135): object "powerup_reset" assigned a value but never read File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 135
 Warning (10540): VHDL Signal Declaration warning at Flappy_bird.vhd(136): used explicit default value for signal "powerup_safe" because signal was never assigned a value File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 136
 Warning (10036): Verilog HDL or VHDL warning at Flappy_bird.vhd(144): object "game_active" assigned a value but never read File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 144
 Warning (10036): Verilog HDL or VHDL warning at Flappy_bird.vhd(422): object "gap_bottom" assigned a value but never read File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 422
-Info (12128): Elaborating entity "BCD_to_SevenSeg" for hierarchy "BCD_to_SevenSeg:sso_score" File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 512
-Info (12128): Elaborating entity "Clock_25MHz" for hierarchy "Clock_25MHz:ClockDivider" File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 546
-Info (12128): Elaborating entity "MOUSE" for hierarchy "MOUSE:ps2" File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 553
+Info (12128): Elaborating entity "BCD_to_SevenSeg" for hierarchy "BCD_to_SevenSeg:sso_score" File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 516
+Info (12128): Elaborating entity "Clock_25MHz" for hierarchy "Clock_25MHz:ClockDivider" File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 550
+Info (12128): Elaborating entity "MOUSE" for hierarchy "MOUSE:ps2" File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 557
 Warning (10036): Verilog HDL or VHDL warning at mouse.vhd(25): object "CHARIN" assigned a value but never read File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/mouse.vhd Line: 25
 Warning (10492): VHDL Process Statement warning at mouse.vhd(151): signal "CHAROUT" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/mouse.vhd Line: 151
 Warning (10492): VHDL Process Statement warning at mouse.vhd(155): signal "CHAROUT" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/mouse.vhd Line: 155
 Warning (10492): VHDL Process Statement warning at mouse.vhd(156): signal "CHAROUT" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/mouse.vhd Line: 156
 Warning (10492): VHDL Process Statement warning at mouse.vhd(157): signal "CHAROUT" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/mouse.vhd Line: 157
-Info (12128): Elaborating entity "cursor_drawer" for hierarchy "cursor_drawer:cursor" File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 565
-Info (12128): Elaborating entity "LFSR_Random" for hierarchy "LFSR_Random:random" File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 575
-Info (12128): Elaborating entity "bouncy_bird" for hierarchy "bouncy_bird:BallComponent" File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 589
+Info (12128): Elaborating entity "cursor_drawer" for hierarchy "cursor_drawer:cursor" File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 569
+Info (12128): Elaborating entity "LFSR_Random" for hierarchy "LFSR_Random:random" File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 579
+Info (12128): Elaborating entity "bouncy_bird" for hierarchy "bouncy_bird:BallComponent" File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 593
 Warning (10540): VHDL Signal Declaration warning at bouncy_bird.vhd(29): used explicit default value for signal "size" because signal was never assigned a value File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/bouncy_bird.vhd Line: 29
 Warning (10540): VHDL Signal Declaration warning at bouncy_bird.vhd(31): used explicit default value for signal "ball_x_pos" because signal was never assigned a value File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/bouncy_bird.vhd Line: 31
-Info (12128): Elaborating entity "pipe" for hierarchy "pipe:pipe_1" File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 617
+Info (12128): Elaborating entity "pipe" for hierarchy "pipe:pipe_1" File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 621
 Warning (10540): VHDL Signal Declaration warning at pipe.vhd(20): used explicit default value for signal "top_pipe_y_pos" because signal was never assigned a value File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/pipe.vhd Line: 20
 Warning (10540): VHDL Signal Declaration warning at pipe.vhd(21): used explicit default value for signal "bottom_pipe_y_pos" because signal was never assigned a value File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/pipe.vhd Line: 21
-Info (12128): Elaborating entity "plus_2_powerup" for hierarchy "plus_2_powerup:power_Up_plus2" File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 644
-Info (12128): Elaborating entity "char_rom" for hierarchy "char_rom:TextComponent" File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 806
+Info (12128): Elaborating entity "plus_2_powerup" for hierarchy "plus_2_powerup:power_Up_plus2" File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 648
+Info (12128): Elaborating entity "char_rom" for hierarchy "char_rom:TextComponent" File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 810
 Info (12128): Elaborating entity "altsyncram" for hierarchy "char_rom:TextComponent|altsyncram:altsyncram_component" File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/char_rom.vhd Line: 51
 Info (12130): Elaborated megafunction instantiation "char_rom:TextComponent|altsyncram:altsyncram_component" File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/char_rom.vhd Line: 51
 Info (12133): Instantiated megafunction "char_rom:TextComponent|altsyncram:altsyncram_component" with the following parameter: File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/char_rom.vhd Line: 51
@@ -951,26 +950,26 @@ Info (12133): Instantiated megafunction "char_rom:TextComponent|altsyncram:altsy
 Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_d5g1.tdf
     Info (12023): Found entity 1: altsyncram_d5g1 File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/db/altsyncram_d5g1.tdf Line: 28
 Info (12128): Elaborating entity "altsyncram_d5g1" for hierarchy "char_rom:TextComponent|altsyncram:altsyncram_component|altsyncram_d5g1:auto_generated" File: c:/intelfpga_lite/24.1std/quartus/libraries/megafunctions/altsyncram.tdf Line: 792
-Info (12128): Elaborating entity "scoreBox" for hierarchy "scoreBox:ScoreDriver" File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 816
+Info (12128): Elaborating entity "scoreBox" for hierarchy "scoreBox:ScoreDriver" File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 820
 Warning (10492): VHDL Process Statement warning at scoreBox.vhd(69): signal "state" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/scoreBox.vhd Line: 69
 Warning (10492): VHDL Process Statement warning at scoreBox.vhd(85): signal "state" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/scoreBox.vhd Line: 85
 Warning (10631): VHDL Process Statement warning at scoreBox.vhd(60): inferring latch(es) for signal or variable "found", which holds its previous value in one or more paths through the process File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/scoreBox.vhd Line: 60
 Info (10041): Inferred latch for "found" at scoreBox.vhd(85) File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/scoreBox.vhd Line: 85
-Info (12128): Elaborating entity "textBox" for hierarchy "textBox:TextDriver" File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 828
+Info (12128): Elaborating entity "textBox" for hierarchy "textBox:TextDriver" File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 832
 Warning (10492): VHDL Process Statement warning at textBox.vhd(78): signal "state" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/textBox.vhd Line: 78
 Warning (10492): VHDL Process Statement warning at textBox.vhd(94): signal "state" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/textBox.vhd Line: 94
 Warning (10631): VHDL Process Statement warning at textBox.vhd(67): inferring latch(es) for signal or variable "found", which holds its previous value in one or more paths through the process File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/textBox.vhd Line: 67
 Info (10041): Inferred latch for "found" at textBox.vhd(94) File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/textBox.vhd Line: 94
-Info (12128): Elaborating entity "VGA_SYNC" for hierarchy "VGA_SYNC:VGASync" File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 844
+Info (12128): Elaborating entity "VGA_SYNC" for hierarchy "VGA_SYNC:VGASync" File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 848
 Info (278001): Inferred 6 megafunctions from design logic
-    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "Mod0" File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 508
-    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "Div0" File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 509
-    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "Mod1" File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 509
-    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "Div1" File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 510
-    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "Mod2" File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 510
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "Mod0" File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 512
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "Div0" File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 513
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "Mod1" File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 513
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "Div1" File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 514
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "Mod2" File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 514
     Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "LFSR_Random:random|Mod0" File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/lfsr.vhd Line: 39
-Info (12130): Elaborated megafunction instantiation "lpm_divide:Mod0" File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 508
-Info (12133): Instantiated megafunction "lpm_divide:Mod0" with the following parameter: File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 508
+Info (12130): Elaborated megafunction instantiation "lpm_divide:Mod0" File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 512
+Info (12133): Instantiated megafunction "lpm_divide:Mod0" with the following parameter: File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 512
     Info (12134): Parameter "LPM_WIDTHN" = "32"
     Info (12134): Parameter "LPM_WIDTHD" = "32"
     Info (12134): Parameter "LPM_NREPRESENTATION" = "SIGNED"
@@ -984,8 +983,8 @@ Info (12021): Found 1 design units, including 1 entities, in source file db/alt_
     Info (12023): Found entity 1: alt_u_div_o2f File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/db/alt_u_div_o2f.tdf Line: 23
 Info (12021): Found 1 design units, including 1 entities, in source file db/lpm_abs_4p9.tdf
     Info (12023): Found entity 1: lpm_abs_4p9 File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/db/lpm_abs_4p9.tdf Line: 23
-Info (12130): Elaborated megafunction instantiation "lpm_divide:Div0" File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 509
-Info (12133): Instantiated megafunction "lpm_divide:Div0" with the following parameter: File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 509
+Info (12130): Elaborated megafunction instantiation "lpm_divide:Div0" File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 513
+Info (12133): Instantiated megafunction "lpm_divide:Div0" with the following parameter: File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 513
     Info (12134): Parameter "LPM_WIDTHN" = "32"
     Info (12134): Parameter "LPM_WIDTHD" = "5"
     Info (12134): Parameter "LPM_NREPRESENTATION" = "SIGNED"
@@ -999,8 +998,8 @@ Info (12021): Found 1 design units, including 1 entities, in source file db/alt_
     Info (12023): Found entity 1: alt_u_div_ove File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/db/alt_u_div_ove.tdf Line: 23
 Info (12021): Found 1 design units, including 1 entities, in source file db/lpm_abs_kn9.tdf
     Info (12023): Found entity 1: lpm_abs_kn9 File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/db/lpm_abs_kn9.tdf Line: 23
-Info (12130): Elaborated megafunction instantiation "lpm_divide:Div1" File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 510
-Info (12133): Instantiated megafunction "lpm_divide:Div1" with the following parameter: File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 510
+Info (12130): Elaborated megafunction instantiation "lpm_divide:Div1" File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 514
+Info (12133): Instantiated megafunction "lpm_divide:Div1" with the following parameter: File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 514
     Info (12134): Parameter "LPM_WIDTHN" = "32"
     Info (12134): Parameter "LPM_WIDTHD" = "8"
     Info (12134): Parameter "LPM_NREPRESENTATION" = "SIGNED"
@@ -1036,8 +1035,8 @@ Info (13000): Registers with preset signals will power-up high File: C:/Users/ma
 Info (13003): DEV_CLRn pin will set, and not reset, register with preset signal due to NOT Gate Push-Back
 Info (286030): Timing-Driven Synthesis is running
 Critical Warning (18061): Ignored Power-Up Level option on the following registers
-    Critical Warning (18010): Register pipe1_x_pos[6] will power up to High File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 661
-    Critical Warning (18010): Register pipe1_x_pos[4] will power up to High File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 661
+    Critical Warning (18010): Register pipe1_x_pos[6] will power up to High File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 665
+    Critical Warning (18010): Register pipe1_x_pos[4] will power up to High File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 665
 Warning (20013): Ignored 24 assignments for entity "DE0_CV_Default" -- entity does not exist in design
     Warning (20014): Assignment for entity set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -entity DE0_CV_Default -section_id Top was ignored
     Warning (20014): Assignment for entity set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -entity DE0_CV_Default -section_id Top was ignored
@@ -1068,16 +1067,16 @@ Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
 Warning (21074): Design contains 2 input pin(s) that do not drive logic
     Warning (15610): No output dependent on input pin "button_3" File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 14
     Warning (15610): No output dependent on input pin "button_4" File: C:/Users/mailm/Desktop/COMPSYS305/COMPSYS305-TechSupport/MiniProject/MiniprojectResources/Flappy_bird.vhd Line: 15
-Info (21057): Implemented 6547 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 6550 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 8 input pins
     Info (21059): Implemented 27 output pins
     Info (21060): Implemented 2 bidirectional pins
-    Info (21061): Implemented 6502 logic cells
+    Info (21061): Implemented 6505 logic cells
     Info (21064): Implemented 8 RAM segments
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 65 warnings
-    Info: Peak virtual memory: 5028 megabytes
-    Info: Processing ended: Fri May 30 12:37:09 2025
-    Info: Elapsed time: 00:00:18
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 64 warnings
+    Info: Peak virtual memory: 5059 megabytes
+    Info: Processing ended: Fri May 30 12:51:50 2025
+    Info: Elapsed time: 00:00:17
     Info: Total CPU time (on all processors): 00:00:26
 
 

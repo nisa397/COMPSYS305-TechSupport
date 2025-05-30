@@ -464,13 +464,17 @@ begin
             if (bird_x_pos + 8 - 1 >= powerup_x ) and 
             (bird_x_pos <= powerup_x + 5 - 1 ) and 
             (bird_y_int + 8 - 1 >= powerup_y) and
-            (bird_y_int <= powerup_y+5 -1) then
-              score <= score + 2;
-              powerup_enable <= '0'; -- Disable power-up once collected
-            
+            (bird_y_int <= powerup_y+5 -1) and (power_up_scored = '0') then
+
+              
+                score <= score + 2;
+                powerup_enable <= '0'; -- Disable power-up once collected
+                power_up_scored <= '1'; 
+              
 
             else
             powerup_enable <= '1'; -- Enable power-up when not collected
+            power_up_scored <= '0';
             end if;
 
           if (BIRD_X_POS > pipe_x + to_integer(pipe_width)) and
