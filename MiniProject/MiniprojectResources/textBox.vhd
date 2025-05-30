@@ -19,13 +19,15 @@ end entity textBox;
 
 architecture behaviour of textBox is
 	constant PAUSE_length : integer := 5; 
-    constant TRAINING_length : integer := 8;
-	 constant PLAY_LENGTH  : integer := 4; 
+    constant TRAINING_length : integer := 12;
+	 constant PLAY_LENGTH  : integer := 7; 
+     constant MAINMENU_length : integer := 8;
     type char_addr_array is array(0 to PAUSE_LENGTH-1) of std_logic_vector(5 downto 0);
 	 type char_addr_array_long is array(0 to TRAINING_LENGTH-1)  of std_logic_vector(5 downto 0); 
 	 type char_addr_array_p is array(0 to PLAY_LENGTH-1) of std_logic_vector(5 downto 0); 
     type char_addr_array_n is array(0 to 9) of std_logic_vector(5 downto 0); 
     type char_addr_array_score is array(0 to PAUSE_LENGTH) of std_logic_vector(5 downto 0); 
+    type char_addr_array_m is array(0 to MAINMENU_length-1) of std_logic_vector(5 downto 0); 
     constant PAUSE_address : char_addr_array := (
         "010000", -- P
         "000001", -- A
@@ -42,15 +44,33 @@ architecture behaviour of textBox is
         "001110", -- N 
         "001001", -- I 
         "001110", -- N 
-        "000111" -- G 
+        "000111", -- G
+        "101101", -- -
+        "010000", -- P 
+        "000010", -- B 
+        "110011" -- 3 
     );
 	 
 	 constant PLAY_address : char_addr_array_p := (
 		"010000", -- P 
 		"001100", -- L 
 		"000001", -- A 
-		"011001" -- Y 
+		"011001", -- Y
+        "101101", -- -
+        "001100", -- L 
+        "000011" -- C 
 	 );
+
+     constant MAINMENU_address : char_addr_array_m := (
+        "001101", -- M 
+        "000101", -- E
+        "001110", -- N 
+        "010101", -- U
+        "101101", -- -
+        "010000", -- P 
+        "000010", -- B 
+        "110010" -- 2
+     );
 
      constant number_address : char_addr_array_n := (
         "110000", 
@@ -92,6 +112,9 @@ architecture behaviour of textBox is
     constant st_row : std_logic_vector(9 downto 0) := conv_std_logic_vector(20,10); 
     constant st_col : std_logic_vector(9 downto 0) := conv_std_logic_vector(20,10); 
 
+    constant m_row : std_logic_vector(9 downto 0) := conv_std_logic_vector(360,10); 
+    constant m_col : std_logic_vector(9 downto 0) := conv_std_logic_vector(192,10); 
+
 	 
     signal font_row_s, font_col_s : std_logic_vector(9 downto 0) := (others => '0');
     signal char_addr_s : std_logic_vector(5 downto 0) := (others => '0');
@@ -126,8 +149,50 @@ begin
                     found := true;
                 end if;
             end loop;
+
+            for i in 0 to MAINMENU_length-1 loop 
+                col_offset := conv_std_logic_vector(unsigned(m_col) + conv_unsigned(32*i, 10), 10);
+                if (pixel_row >= m_row and pixel_row < m_row + 32 and
+                    pixel_column >= col_offset and pixel_column < col_offset + 32) then
+
+                    font_row_s <= pixel_row - m_row;
+                    font_col_s <= pixel_column - col_offset;
+                    char_addr_s <= MAINMENU_address(i);
+                    within_bounds_s <= '1';
+                    found := true;
+                end if;
+            end loop; 
         end if; 
          
+        -- When state is game over 
+        if (state="100") then 
+            	for i in 0 to PLAY_LENGTH-1 loop
+                    -- Changes the bounding box according to the letter in the sequence
+                    col_offset := conv_std_logic_vector(unsigned(m_col) + conv_unsigned(32*i, 10), 10);
+                    if (pixel_row >= play_row and pixel_row < play_row + 32 and
+                        pixel_column >= col_offset and pixel_column < col_offset + 32) then
+
+                        font_row_s <= pixel_row - play_row;
+                        font_col_s <= pixel_column - col_offset;
+                        char_addr_s <= PLAY_address(i);
+                        within_bounds_s <= '1';
+                        found := true;
+                    end if;
+                end loop; 
+
+                for i in 0 to MAINMENU_length-1 loop 
+                    col_offset := conv_std_logic_vector(unsigned(m_col) + conv_unsigned(32*i, 10), 10);
+                    if (pixel_row >= m_row and pixel_row < m_row + 32 and
+                        pixel_column >= col_offset and pixel_column < col_offset + 32) then
+
+                        font_row_s <= pixel_row - m_row;
+                        font_col_s <= pixel_column - col_offset;
+                        char_addr_s <= MAINMENU_address(i);
+                        within_bounds_s <= '1';
+                        found := true;
+                    end if;
+                end loop; 
+        end if; 
         -- When state is training
         if (state="000") then
                 for i in 0 to TRAINING_LENGTH-1 loop
