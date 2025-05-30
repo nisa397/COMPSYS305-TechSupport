@@ -69,6 +69,8 @@ architecture Behavioral of Flappy_bird is
   signal power_up_scored : std_logic := '0';
   signal prev_hit : std_logic := '0';
   signal arc_power_up_on: std_logic;
+  signal hit_latch: std_logic := '0';
+  signal powerup_enable: std_logic := '0';
 
   
   
@@ -178,6 +180,7 @@ signal powerup_safe : std_logic := '0';
 	component plus_2_powerup is
     port (
 	 top_pipe_height, pipe_x_pos: in unsigned(9 downto 0);
+	 enable: in std_logic;
 	 pixel_row, pixel_column : in std_logic_vector(9 downto 0);
 	 power_up_on: out std_logic
 		);
@@ -413,6 +416,8 @@ end process;
 
 -- Score processes 
 score_logic: process(clk_25MHz)
+    signal powerup_x, powerup_y : unsigned(9 downto 0);
+
     variable bird_y_int : integer;
     variable pipe_x, gap_top, gap_bottom : integer;
 begin
@@ -430,22 +435,43 @@ begin
               power_up_scored <= '0';
 		
         elsif (current_state = play) then -- Ensure that we only increment in play state
-    if (power_up_plus2_hit = '1' and power_up_scored = '0') then
-         score <= score + 2;
-         power_up_scored <= '1';
-         --power_up_plus2_hit <= '0'; -- Reset the hit signal
-    end if;
+            -- if (power_up_plus2_hit = '1') then
+            --   score <= score + 2;
+            --   powerup_enable <= '0';
+            --   power_up_scored <= '1';
+            --   --power_up_plus2_hit <= '0'; -- Reset the hit signal
+            -- end if;
     -- Only reset when power_up_on is '0' (i.e., power-up is gone)
-            if (power_up_on = '0') then
-                power_up_scored <= '0';
-            end if;
-    if (power_up_plus2_hit = '0') then
-         power_up_scored <= '0';
-    end if;
+            -- if (power_up_on = '0') then
+            --     power_up_scored <= '0';
+            -- end if;
+            -- if (power_up_plus2_hit = '0') then
+            -- power_up_scored <= '0';
+            -- end if;
+
+            -- Check if the bird is within bounds of the power up
+          
+             -- Calculate powerup position
+              powerup_x := to_integer(pipe1_x_pos) + 75;
+              powerup_y := to_integer(s_height) + 25;
+
+
           bird_y_int := to_integer(unsigned(bird_y));
           pipe_x := to_integer(pipe1_x_pos);
           gap_top := to_integer(s_height);
           gap_bottom := gap_top + 150; -- or use your vertical_gap signal
+
+            if (to_integer(bird_x_pos) + 8 - 1 >= powerup_x ) and 
+            (to_integer(bird_x_pos) <= powerup_x + 5 - 1 ) and 
+            (bird_y_int + 8 - 1 >= powerup_y) and
+            (bird_y_int <= powerup_y+5 -1) then
+              score <= score + 2;
+              enable <= '0'; -- Disable power-up once collected
+            
+
+            else
+            enable <= '1'; -- Enable power-up when not collected
+            end if;
 
           if (BIRD_X_POS > pipe_x + to_integer(pipe_width)) and
             --(bird_y_int > gap_top) and (bird_y_int < gap_bottom) and
@@ -619,6 +645,7 @@ port map(
   port map(
   top_pipe_height => s_height,
   pipe_x_pos => pipe1_x_pos,
+  enable => powerup_enable,
   pixel_row      => pixel_row,
   pixel_column   => pixel_column,
   power_up_on 	=>   power_up_on
@@ -688,33 +715,35 @@ begin
 	
 end process;
 
+power_up_plus2_hit <= '1' when (power_up_on = '1' and ball_on = '1') else '0';
+hit_latch <= '1' when (power_up_plus2_hit = '1') else '0'; 
 
-power_up_plus2_process: process(clk_25MHz)
-    variable hit : std_logic;
-begin
-    if rising_edge(clk_25MHz) then
-      if powerup_reset = '1' then
-        powerup_safe <= '0';
-      else     
-        if (ball_on = '1' and power_up_on = '1' and powerup_safe = '0') then
-            hit := '1';
-        else
-            hit := '0';
-        end if;
+-- power_up_plus2_process: process(clk_25MHz)
+--     variable hit : std_logic;
+-- begin
+--     if rising_edge(clk_25MHz) then
+--       if powerup_reset = '1' then
+--         powerup_safe <= '0';
+--       else     
+--         if (ball_on = '1' and power_up_on = '1' and powerup_safe = '0') then
+--             hit := '1';
+--         else
+--             hit := '0';
+--         end if;
 
-        -- Generate 1-cycle pulse on rising edge of hit
-        if (hit = '1' and prev_hit = '0' and powerup_safe = '0') then
-            power_up_plus2_hit <= '1';
-            powerup_safe <= '1'; -- Make powerup temporarily safe
-        else
-            power_up_plus2_hit <= '0';
-        end if;
+--         -- Generate 1-cycle pulse on rising edge of hit
+--         if (hit = '1' and prev_hit = '0' and powerup_safe = '0') then
+--             power_up_plus2_hit <= '1';
+--             powerup_safe <= '1'; -- Make powerup temporarily safe
+--         else
+--             power_up_plus2_hit <= '0';
+--         end if;
 
-        -- Update previous state
-        prev_hit <= hit;
-    end if;
-  end if; 
-end process;
+--         -- Update previous state
+--         prev_hit <= hit;
+--     end if;
+--   end if; 
+-- end process;
 
 powerup_reset <= '1' when
     ((powerup_safe = '1') and ((to_integer(unsigned(bird_x)) - to_integer(pipe1_x_pos)) > 64)) or
